@@ -1,0 +1,1 @@
+import{_ as a,o as t,c as e,w as s,a as l,r,d as i,e as n,i as d}from"./index.fb84ef13.js";var f=a({data:()=>({title:"新建的页面"})},[["render",function(a,f,o,u,c,p){const m=r(n("page-head"),i),x=d;return t(),e(x,null,{default:s((()=>[l(m,{title:c.title},null,8,["title"])])),_:1})}]]);export{f as default};

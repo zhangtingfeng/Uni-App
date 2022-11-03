@@ -1,0 +1,223 @@
+<template>
+	<view class="uni-container">
+		<uni-section title="分组A:XXX（攻XX,防XX,组XX,传XX,团XX,另XX）" type="line">
+			<uni-group mode="card">
+				<view>
+					<navigator url="/pages/component/form/form">
+						阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX)
+					</navigator>
+				</view>
+				<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+			</uni-group>
+		</uni-section>
+		<uni-section title="分组B:XXX（攻XX,防XX,组XX,传XX,团XX,另XX）" type="line">
+			<uni-group mode="card">
+				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+				<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+			</uni-group>
+		</uni-section>
+
+		<uni-group title="card 模式" mode="card">
+			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+			<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+		</uni-group>
+
+	</view>
+</template>
+<script>
+	// TODO 修复Android v3 加载过慢问题
+	// #ifdef APP-PLUS
+	var domModule = weex.requireModule('dom');
+	domModule.addRule('fontFace', {
+		'fontFamily': "uniicons",
+		'src': "url('/static/uni.ttf')"
+	});
+	// #endif
+	export default {
+		props: {
+			hasLeftWin: {
+				type: Boolean
+			},
+			leftWinActive: {
+				type: String
+			}
+		},
+		data() {
+			return {
+				list: [{
+						id: 'view',
+						name: '视图容器',
+						open: false,
+						pages: [
+							'view',
+							'scroll-view',
+							'swiper'
+							// #ifndef MP-TOUTIAO || MP-LARK
+							,
+							'movable-view',
+							'cover-view'
+							// #endif
+						]
+					}, {
+						id: 'content',
+						name: '基础内容',
+						open: false,
+						pages: ['text', 'rich-text', 'progress']
+					}, {
+						id: 'form',
+						name: '表单组件',
+						open: false,
+						pages: ['button', 'checkbox', 'form', 'input', 'label', 'picker', 'picker-view', 'radio',
+							'slider',
+							'switch', 'textarea',
+							// #ifdef APP-PLUS || MP-WEIXIN || H5
+							'editor',
+							// #endif
+						]
+					}, {
+						id: 'nav',
+						name: '导航',
+						open: false,
+						pages: ['navigator']
+					}, {
+						id: 'media',
+						name: '媒体组件',
+						open: false,
+						pages: [
+							'image',
+							'video'
+						],
+					},
+					// #ifndef MP-TOUTIAO || MP-KUAISHOU
+					{
+						id: 'map',
+						name: '地图',
+						open: false,
+						pages: ['map']
+
+					},
+					// #endif
+					// #ifndef QUICKAPP-WEBVIEW-UNION
+					{
+						id: 'canvas',
+						name: '画布',
+						open: false,
+						pages: ['canvas']
+					},
+					// #endif
+					// #ifdef APP-PLUS || H5
+					{
+						id: 'web-view',
+						name: '网页',
+						open: false,
+						pages: [{
+							name: '网络网页',
+							url: '/pages/component/web-view/web-view'
+						}, {
+							name: '本地网页',
+							url: '/pages/component/web-view-local/web-view-local'
+						}]
+					},
+					// #endif
+					// #ifndef APP-PLUS || H5 || MP-LARK || MP-JD
+					{
+						id: 'web-view',
+						name: '网页',
+						open: false,
+						pages: ['web-view']
+					},
+					// #endif
+					// #ifndef H5 || MP-BAIDU || QUICKAPP-WEBVIEW || MP-LARK || MP-JD
+					{
+						id: 'ad',
+						url: 'ad',
+						name: 'AD组件',
+						open: false
+					},
+					// #endif
+				]
+			}
+		},
+		onShareAppMessage() {
+			return {
+				title: '欢迎体验uni-app',
+				path: '/pages/tabBar/component/component'
+			}
+		},
+		onNavigationBarButtonTap(e) {
+			uni.navigateTo({
+				url: '/pages/about/about'
+			});
+		},
+		// #ifdef H5
+		watch: {
+			$route: {
+				immediate: true,
+				handler(newRoute) {
+					if (newRoute.matched.length) {
+						let path = newRoute.path.split('/')[3]
+						for (const item of this.list) {
+							if (Array.isArray(item.pages)) {
+								for (const page of item.pages) {
+									if (page === path || page.url && page.url === newRoute.path) {
+										item.open = true
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		// #endif
+		methods: {
+			triggerCollapse(e, id) {
+				if (!this.list[e].pages) {
+					this.goDetailPage('', this.list[e].url);
+					return;
+				}
+				for (var i = 0; i < this.list.length; ++i) {
+					if (e === i) {
+						this.list[i].open = !this.list[i].open;
+					} else {
+						this.list[i].open = false;
+					}
+				}
+			},
+			goDetailPage(panel, e) {
+				if (typeof e === 'string') {
+					const url = '/pages/component/' + e + '/' + e
+					if (this.hasLeftWin) {
+						uni.reLaunch({
+							url: url
+						})
+					} else {
+						uni.navigateTo({
+							url: url
+						})
+					}
+				} else {
+					if (this.hasLeftWin) {
+						uni.reLaunch({
+							url: e.url
+						})
+					} else {
+						uni.navigateTo({
+							url: e.url
+						})
+					}
+				}
+			}
+		}
+	}
+</script>
+
+<style>
+	@import '../../../common/uni-nvue.css';
+</style>
