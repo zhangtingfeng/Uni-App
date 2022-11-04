@@ -2,6 +2,7 @@ package org.eggsoft.cn.Controller;
 
 import org.eggsoft.cn.Service.TeamPlayerConfigService;
 
+import org.eggsoft.cn.Service.TeamPlayerService;
 import org.eggsoft.cn.beans.TeamPlayer;
 import org.eggsoft.cn.beans.TeamPlayerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,13 @@ public class apiTeamPlayerConfigController {
     @Autowired
     private TeamPlayerConfigService teamPlayerServiceConfig;
 
+    @Autowired
+    private TeamPlayerService teamPlayerService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/insert")
     public TeamPlayerConfig insert(@RequestBody TeamPlayerConfig teamPlayerConfig) {
+
+
 
         teamPlayerServiceConfig.save(teamPlayerConfig);
         return  teamPlayerConfig;

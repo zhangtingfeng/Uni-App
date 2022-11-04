@@ -20,17 +20,23 @@ public class TeamPlayerConfig implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+
     private Long teamplayerid;
 
     private String configtype;
     private String configname;
 
     private double value;
-    private boolean active=true;
+    @Column(columnDefinition = "Integer default 1")
+    private Integer inactive;
 
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date CreateTime=new Date();
     private Date UpdateTime;
-    private boolean isdeleted=false;
+    @Column(columnDefinition = "Integer default 0")
+    private Integer deleted;
+
+
 }

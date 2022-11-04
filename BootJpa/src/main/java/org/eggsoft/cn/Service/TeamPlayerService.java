@@ -15,6 +15,9 @@ public class TeamPlayerService {
     @Autowired
     private TeamPlayerRepository teamPlayerRepository;
 
+    public TeamPlayer getByID(Long id){
+        return teamPlayerRepository.findById(id).get();
+    }
 
 
 

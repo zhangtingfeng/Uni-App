@@ -21,6 +21,7 @@ public class User implements Serializable{
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dt=new Date();
-    private boolean isdeleted=false;
+    @Column(columnDefinition = "Integer default 0")
+    private Integer deleted;
 
 }
