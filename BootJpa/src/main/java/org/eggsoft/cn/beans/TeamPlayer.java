@@ -18,7 +18,7 @@ import java.util.Date;
 public class TeamPlayer  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String nickname;
 
     private boolean active=true;
