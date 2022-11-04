@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /demo
+
+  #com.mysql.jdbc.Driver过时
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rm-uf655z4n9sg2kmrz93o.mysql.rds.aliyuncs.com:3306/_10chen_mysql
+    username: _10chen_mysql
+    password: _10chen_mysql
+
+
+    # Hikari 数据源专用配置
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+    # JPA 相关配置
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+

@@ -1,0 +1,30 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /demo
+
+  #com.mysql.jdbc.Driver过时
+spring:
+  datasource:
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@//cmtdevdb01:1521/cmtdev01.global.trafigura.com
+    username: CMT_OWNER
+    password: cmt_owner
+
+
+    # Hikari 数据源专用配置
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+    # JPA 相关配置
+  jpa:
+    database: oracle
+    properties:
+      hibernate:
+        ddl-auto: update
+        default_catalog: CMT_OWNER   #多个表空间必须指定
+        default_schema: CMT_OWNER #多个表空间必须指定
+        dialect: org.hibernate.dialect.Oracle12cDialect
+    show-sql: true
+
+
