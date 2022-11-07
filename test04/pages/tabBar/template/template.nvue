@@ -26,8 +26,8 @@
 		</view>
 
 		<view class="uni-btn-v">
-			<button type="primary" @click="add">add</button>
 			<button type="primary" @click="save">save</button>
+			<button type="primary" @click="add">add</button>			
 		</view>
 	</view>
 </template>
