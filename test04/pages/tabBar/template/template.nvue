@@ -1,41 +1,41 @@
 <template>
 	<view>
 		<page-head :title="title"></page-head>
+
+
+
 		<view class="uni-padding-wrap uni-common-mt">
-			<view class="uni-title">进攻</view>
+			<view class="uni-title">{{fixRandom.name}}</view>
 			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
+				<slider step="0.01" @change="sliderChangefix" show-value min="0" max="1" :value="fixRandom.value" />
 			</view>
-			
-			<view class="uni-title">防守</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
+		</view>
+
+
+		<view class="uni-list-cell uni-list-cell-pd" v-for="(CustomeDictionary,index) in CustomeDictionarylist">
+			<view class="uni-padding-wrap uni-common-mt">
+				<view class="uni-title">
+					<input class="uni-input" type="text" v-model="CustomeDictionary.name" placeholder="请修改，例如进攻，防守，不用值设为0" />
+
+				</view>
+				<view>
+					<slider step="0.01" @change="sliderChangecustom($event,index)" show-value min="0" max="1"
+						:value="CustomeDictionary.value" />
+				</view>
 			</view>
-			
-			<view class="uni-title">组织</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
-			</view>
-			
-			<view class="uni-title">传球</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
-			</view>
-			
-			<view class="uni-title">团队</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
-			</view>
-			
-			<view class="uni-title">其他</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
-			</view>
+		</view>
+
+		<view class="uni-btn-v">
+			<button type="primary" @click="add">add</button>
+			<button type="primary" @click="save">save</button>
 		</view>
 	</view>
 </template>
 <script>
 	export default {
+		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+			console.log("load"); //打印出上个页面传递的参数。
+		},
 		props: {
 			hasLeftWin: {
 				type: Boolean
@@ -46,11 +46,19 @@
 		},
 		data() {
 			return {
+				uniapiSuccess: 0,
 				title: '各分项和相应权重值的乘积的综合即队员的综合分',
 				hideList: [
 					'ucharts',
 					'nav-city-dropdown'
 				],
+
+				fixRandom: {
+					"type": "fix",
+					"name": "数据准确率",
+					"value": "0.8"
+				},
+				CustomeDictionarylist: [],
 				list: [
 					// #ifdef APP-PLUS || H5 || MP-ALIPAY
 					{
@@ -161,6 +169,9 @@
 		},
 		// #ifdef H5
 		watch: {
+			uniapiSuccess(newName, oldName) {
+				console.log("uniapiSuccess="+newName);
+			},
 			$route: {
 				immediate: true,
 				handler(newRoute) {
@@ -181,8 +192,106 @@
 		},
 		// #endif
 		methods: {
-			sliderChange(e) {
-				console.log('value 发生变化：' + e.detail.value)
+			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+
+				let letthis = this;
+				let leturl = "/api/dictionary/list/" + letthis.fixRandom.type + "/" + letthis.fixRandom.name;
+				console.log("this leturl" + leturl);
+				uni.request({
+					url: leturl,
+					success: (res) => {
+						if (res.data.length > 0) {
+							letthis.fixRandom = res.data[0];
+							console.log("this start.fixRandom" + JSON.stringify(letthis.fixRandom));
+						}
+					},
+					fail: (err) => {
+						console.error(err);
+					},
+				});
+				
+				leturl = "/api/dictionary/list/Custome";
+				console.log("this leturl" + leturl);
+				uni.request({
+					url: leturl,
+					success: (res) => {
+						//debugger;
+						if (res.data.length > 0) {
+							letthis.CustomeDictionarylist = res.data;
+							//console.log("this start.fixRandom" + JSON.stringify(letthis.fixRandom));
+						}
+					},
+					fail: (err) => {
+						console.error(err);
+					},
+				});
+			},
+			add(e) {
+				this.CustomeDictionarylist.push({
+					"type": "Custome",
+					"name": "",
+					"value": "0"
+				});
+				console.log('add 发生变化：' + e.detail.value)
+			},
+			save(e) {
+
+				let letthis = this;
+				letthis.uniapiSuccess = 0;
+				console.log("this  before.fixRandom" + JSON.stringify(this.fixRandom));
+				uni.request({
+					url: '/api/dictionary/save',
+					method: 'POST',
+					data: letthis.fixRandom,
+					success(res) {
+						//debugger;
+						letthis.fixRandom = res.data;
+						console.log("this after.res.data" + JSON.stringify(res.data));
+						console.log("letthis after.fixRandom" + JSON.stringify(letthis.fixRandom));
+
+						letthis.uniapiSuccess = letthis.uniapiSuccess + 1;
+
+					},
+					fail(err) {
+						console.log('获取openid失败：', err);
+					}
+				})
+				console.log('save 发生变化：' + e.detail.value);
+
+				uni.request({
+					url: '/api/dictionary/saveAll',
+					method: 'POST',
+					data: letthis.CustomeDictionarylist,
+					success(res) {
+						//debugger;
+						letthis.CustomeDictionarylist = res.data;
+						console.log("this after.res.data" + JSON.stringify(res.data));
+						console.log("letthis after.CustomeDictionarylist" + JSON.stringify(letthis
+							.CustomeDictionarylist));
+
+						letthis.uniapiSuccess = letthis.uniapiSuccess + 1;
+
+					},
+					fail(err) {
+						console.log('获取openid失败：', err);
+					}
+				})
+			},
+			sliderChangeTextcustom(e, eindex) {
+				debugger;
+			},
+			sliderChangecustom(e, eindex) {
+				this.CustomeDictionarylist[eindex].value = e.detail.value;
+				//this.CustomeDictionarylist[eindex]=e.detail.value;
+				//debugger;
+				console.log('this.CustomeDictionarylist[' + eindex + '] 发生变化：' + e.detail.value)
+				//debugger;
+				console.log('this.CustomeDictionarylist 发生变化：' + JSON.stringify(this.CustomeDictionarylist));
+			},
+			sliderChangefix(e) {
+				this.fixRandom.value = e.detail.value;
+				console.log('value 发生变化：' + e.detail.value);
+				console.log('this.fixRandom 发生变化：' + JSON.stringify(this.fixRandom));
 			},
 			triggerCollapse(e, id) {
 				if (!this.list[e].pages) {
@@ -217,4 +326,18 @@
 
 <style>
 	@import '../../../common/uni-nvue.css';
+
+	.page {
+		margin-top: 20rpx !important;
+		display: flex;
+		padding: 30rpx;
+		border: 1rpx solid #000;
+		background-color: black;
+		display: flex;
+		justify-content: center;
+	}
+
+	.blankAddLine {
+		margin-top: 20rpx !important;
+	}
 </style>

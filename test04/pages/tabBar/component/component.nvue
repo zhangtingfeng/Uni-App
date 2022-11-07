@@ -1,18 +1,35 @@
 <template>
 	<view class="uni-container">
-		<uni-section title="分组A:XXX（攻XX,防XX,组XX,传XX,团XX,另XX）" type="line">
+		<uni-section title="分组A:XXX" type="line">
+			<view style="text-align: center;" class="text-box" scroll-y="true">
+				<text>（攻XX,防XX,组XX,传XX,团XX,另XX）</text>
+			</view>
 			<uni-group mode="card">
-				<view>
-					<navigator url="/pages/component/form/form">
-						阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX)
+				<view style="background-color:#efeff4;margin: 3px;border-radius: 3px;">
+					<navigator url="/pages/component/form/form?operationtype=modify&playerid=1">
+						<icon info size="26" />阿木:
+						<view style="text-align: center;" class="text-box" scroll-y="true">
+							<text>（XXX(攻XX,防XX,组XX,传XX,团XX,另XX)</text>
+						</view>
 					</navigator>
 				</view>
+				<view style="background-color:#efeff4;margin: 3px;border-radius: 3px;">
+					<navigator url="/pages/component/form/form">
+						阿木:
+						<view style="text-align: center;" class="text-box" scroll-y="true">
+							<text>（XXX(攻XX,防XX,组XX,传XX,团XX,另XX)</text>
+						</view>
+
+					</navigator>
+				</view>
+
 				<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
 				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
 				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
 			</uni-group>
 		</uni-section>
-		<uni-section title="分组B:XXX（攻XX,防XX,组XX,传XX,团XX,另XX）" type="line">
+		<uni-section title="分组B:XXX" type="line">
+			<text>攻XX,防XX,组XX,传XX,团XX,另XX</text>
 			<uni-group mode="card">
 				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
 				<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
@@ -27,7 +44,11 @@
 			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
 			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
 		</uni-group>
-
+		<view class="uni-btn-v">
+			<navigator url="/pages/component/form/form?operationtype=add">
+				<button type="primary" @click="add">add member</button>
+			</navigator>
+		</view>
 	</view>
 </template>
 <script>
@@ -144,6 +165,7 @@
 				]
 			}
 		},
+
 		onShareAppMessage() {
 			return {
 				title: '欢迎体验uni-app',
@@ -189,6 +211,23 @@
 						this.list[i].open = false;
 					}
 				}
+			},
+			add() {
+				console.log(1);
+			},
+			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+				///console.log("loadtest04/pages/tabBar/component/component.nvue	[E:/Works/UniAppJpa/test04/pages/tabBar/component/component.nvue]"); //打印出上个页面传递的参数。
+				uni.request({
+					url: "/api/teamPlayer/list",
+					success: (res) => {
+						console.log(res.data);
+					},
+					fail: (err) => {
+						console.error(err);
+					},
+				});
+
+
 			},
 			goDetailPage(panel, e) {
 				if (typeof e === 'string') {
