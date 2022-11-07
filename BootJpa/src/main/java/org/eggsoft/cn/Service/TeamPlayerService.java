@@ -25,6 +25,9 @@ public class TeamPlayerService {
         return teamPlayerRepository.findByNicknameLike(name);
     }
 
+    public List<TeamPlayer> getAllList(){
+        return teamPlayerRepository.findAll();
+    }
 
     public TeamPlayer save(TeamPlayer u){
         return teamPlayerRepository.save(u);

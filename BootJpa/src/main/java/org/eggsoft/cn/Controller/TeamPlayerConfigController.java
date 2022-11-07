@@ -3,7 +3,6 @@ package org.eggsoft.cn.Controller;
 import org.eggsoft.cn.Service.TeamPlayerConfigService;
 
 import org.eggsoft.cn.Service.TeamPlayerService;
-import org.eggsoft.cn.beans.TeamPlayer;
 import org.eggsoft.cn.beans.TeamPlayerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/apiTeamPlayerConfig")
-public class apiTeamPlayerConfigController {
+@RequestMapping("/teamPlayerConfig")
+public class TeamPlayerConfigController {
     @Autowired
     private TeamPlayerConfigService teamPlayerServiceConfig;
 
