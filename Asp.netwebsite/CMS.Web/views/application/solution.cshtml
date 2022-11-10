@@ -1,0 +1,46 @@
+﻿@using CMS.Web.dto
+@model SinglePageDTOModel
+@{Layout = "~/views/base/_layout.cshtml";}
+
+
+<div class="innerBanner">
+    <img src="@Model.cover_image_url" style="width:100%;"/>
+</div>
+<div class="innerNav-box">
+    <div class="innerNav">
+        <div class="innerNav-position">
+            <img src="/static/image/position.png">
+            当前位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<a>行业应用</a>&nbsp;&gt;&nbsp;<a href="@Model.localpath">@Model.category_name</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper w1200">
+    <!--栏目分类开始-->
+    <div class="left-menu fl">
+        <ul>
+            @foreach (var item in Model.categorylist)
+            {
+                <li class="item a1 @(item.url==Model.localpath?"hover":"")"><a href="@item.url"><h3>@item.text</h3><s><img src="@item.icon_url" /></s></a></li>
+            }
+        </ul>
+    </div>
+    <!--栏目分类结束-->
+    <!--单页内容开始-->
+    <div class="content fr">
+        <ul class="piclist clearfix">
+            @foreach (var item in Model.articlelist)
+            {
+            <li>
+                <div class="item">
+                    <a href="/application/detail/@(item.id).html" title="@item.title">
+                        <img src="@item.img_url" alt="@item.title">
+                        <h3>@item.title</h3>
+                    </a>
+                </div>
+            </li>
+            }
+        </ul>
+    </div>
+    <!--单页内容结束-->
+</div>
+<div style="clear:both;height:50px"></div>

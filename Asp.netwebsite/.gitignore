@@ -1,0 +1,17 @@
+/CMS.Api/obj
+/CMS.Api/bin
+/CMS.Bll/bin
+/CMS.Bll/obj
+/CMS.Common/bin
+/CMS.Common/obj
+/CMS.Core/bin
+/CMS.Core/obj
+/CMS.Dal/bin
+/CMS.Dal/obj
+/CMS.Model/bin
+/CMS.Model/obj
+/CMS.UI/obj
+/CMS.UI/bin
+/CMS.Web/obj
+/CMS.Web/bin
+/packages
