@@ -1,53 +1,70 @@
 <template>
 	<view class="uni-container">
-		<uni-section title="分组A:XXX" type="line">
-			<view style="text-align: center;" class="text-box" scroll-y="true">
-				<text>（攻XX,防XX,组XX,传XX,团XX,另XX）</text>
-			</view>
-			<uni-group mode="card">
-				<view style="background-color:#efeff4;margin: 3px;border-radius: 3px;">
-					<navigator url="/pages/component/form/form?operationtype=modify&playerid=1">
-						<icon info size="26" />阿木:
-						<view style="text-align: center;" class="text-box" scroll-y="true">
-							<text>（XXX(攻XX,防XX,组XX,传XX,团XX,另XX)</text>
+		<view v-for="(CurOkTeamplayerList,indexx) in Appcaculist.okJSONObjectTeamplayerIDList">
+			<uni-section :title="AAA(indexx)" type="line">
+				<uni-group mode="card">
+					<view style="margin: 3px;border-radius: 3px;"
+						v-for="(Curplayer,indexy) in CurOkTeamplayerList" @click="doEdit(Curplayer.TeamPlayer.id)">
+						<view style="background-color:#007aff;">队员{{indexy+1}}：{{Curplayer.TeamPlayer.nickname}},
+							总分：{{Math.round(Curplayer.showFixvalue * 100) / 100}}</view>
+						<view style="text-align: center;flex-direction: row" class="text-box" scroll-y="true">
+							<view style="flex-direction: row">
+
+								<text v-for="(CurteamPlayerConfig,indexxy) in Curplayer.TeamPlayer.teamPlayerConfig">
+									{{CurteamPlayerConfig.configname}}{{CurteamPlayerConfig.value}};
+								</text>
+
+							</view>
+
+
 						</view>
-					</navigator>
-				</view>
-				<view style="background-color:#efeff4;margin: 3px;border-radius: 3px;">
-					<navigator url="/pages/component/form/form">
-						阿木:
-						<view style="text-align: center;" class="text-box" scroll-y="true">
-							<text>（XXX(攻XX,防XX,组XX,传XX,团XX,另XX)</text>
-						</view>
 
-					</navigator>
-				</view>
+					</view>
+				</uni-group>
+			</uni-section>
+		</view>
 
-				<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-			</uni-group>
-		</uni-section>
-		<uni-section title="分组B:XXX" type="line">
-			<text>攻XX,防XX,组XX,传XX,团XX,另XX</text>
-			<uni-group mode="card">
-				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-				<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-			</uni-group>
-		</uni-section>
-
-		<uni-group title="card 模式" mode="card">
-			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-			<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
+		<uni-group title="等待分组" mode="card">
+			<view style="background-color:#efeff4;margin: 3px;border-radius: 3px;"
+				v-for="(Curplayer,indexy) in Appcaculist.listJSONNotPlayingObject" @click="doEdit(Curplayer.TeamPlayer.id)">
+				<view>{{Curplayer.TeamPlayer.nickname}},
+					总分：{{Math.round(Curplayer.showFixvalue * 100) / 100}}</view>
+				<view style="text-align: center;flex-direction: row" class="text-box" scroll-y="true">
+					<view style="flex-direction: row">			
+						<text v-for="(CurteamPlayerConfig,indexxy) in Curplayer.TeamPlayer.teamPlayerConfig">
+							{{CurteamPlayerConfig.configname}}{{CurteamPlayerConfig.value}};
+						</text>			
+					</view>	
+				</view>			
+			</view>			
 		</uni-group>
+
+		<uni-group title="未参加" mode="card">
+			<view style="background-color:#efeff4;margin: 3px;border-radius: 3px;"
+				v-for="(Curplayer,indexy) in Appcaculist.listJSONInActiveObject" @click="doEdit(Curplayer.TeamPlayer.id)">
+				<view>{{Curplayer.TeamPlayer.nickname}},
+					总分：{{Curplayer.showFixvalue}}</view>
+				<view style="text-align: center;flex-direction: row" class="text-box" scroll-y="true">
+					<view style="flex-direction: row">			
+						<text v-for="(CurteamPlayerConfig,indexxy) in Curplayer.TeamPlayer.teamPlayerConfig">
+							{{CurteamPlayerConfig.configname}}{{CurteamPlayerConfig.value}};
+						</text>			
+					</view>	
+				</view>			
+			</view>		
+			
+		</uni-group>
+
 		<view class="uni-btn-v">
+			<button type="primary" @click="dorandom">do</button>
 			<navigator url="/pages/component/form/form?operationtype=add">
-				<button type="primary" @click="add">add member</button>
+				<button type="primary">add member</button>
+
 			</navigator>
+			
+		</view>
+		<view>
+		<video :src="src"   class="video"></video>
 		</view>
 	</view>
 </template>
@@ -71,6 +88,9 @@
 		},
 		data() {
 			return {
+				intSize:11,
+				Appcaculist: {},
+				src:'',
 				list: [{
 						id: 'view',
 						name: '视图容器',
@@ -199,6 +219,9 @@
 		},
 		// #endif
 		methods: {
+			AAA: function(indexx) {
+				return "组"+(indexx+1)+",总分"+(this.Appcaculist.okList[indexx]);
+			},
 			triggerCollapse(e, id) {
 				if (!this.list[e].pages) {
 					this.goDetailPage('', this.list[e].url);
@@ -212,22 +235,57 @@
 					}
 				}
 			},
-			add() {
-				console.log(1);
-			},
-			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
-				///console.log("loadtest04/pages/tabBar/component/component.nvue	[E:/Works/UniAppJpa/test04/pages/tabBar/component/component.nvue]"); //打印出上个页面传递的参数。
+			dorandom() {
+				let letthis = this;
+				uni.showLoading({
+					title: '计算中'
+				});
 				uni.request({
-					url: "/api/teamPlayer/list",
+					url: "/api/teamPlayer/Caculist",
 					success: (res) => {
-						console.log(res.data);
+						uni.showLoading({
+							title: '下载成功，正在加载'
+						})
+						let caculist = {};
+						caculist = res.data;
+						
+
+
+						let okList = [];
+						//debugger;
+						let letuUUlength = caculist.okJSONObjectTeamplayerIDList.length;
+						for (let i = 0; i < letuUUlength; i++) {
+							let alllNum = 0;
+							let letCurList = caculist.okJSONObjectTeamplayerIDList[i];
+							for (let j = 0; j < letCurList.length; j++) {
+								alllNum += letCurList[j].showFixvalue;
+							}
+							okList.push(Math.round(alllNum * 100) / 100);
+						}
+						//debugger;
+						caculist.okList = okList;
+						letthis.Appcaculist = caculist;
+						//letthis.intSize=letthis.Appcaculist.listJSONNotPlayingObject.length;
+						uni.hideLoading();
+						//console.log("letthis.caculist=" + JSON.stringify(caculist));
 					},
 					fail: (err) => {
+						console.error("err js");
 						console.error(err);
 					},
 				});
+				console.log(1);
+			},
+			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+				this.src="http://game.beidouguoxin.com/playgame.mp4";
+				this.dorandom();
 
-
+			},
+			doEdit: function(option) { //option为object类型，会序列化上个页面传递的参数
+				uni.reLaunch({
+					url: '/pages/component/form/form?operationtype=modify&playerid=' + option
+				});
+				console.log(option);
 			},
 			goDetailPage(panel, e) {
 				if (typeof e === 'string') {
@@ -259,4 +317,7 @@
 
 <style>
 	@import '../../../common/uni-nvue.css';
+	.video {
+		width: 100%;
+	}
 </style>

@@ -1,5 +1,5 @@
 server:
-  port: 8011 #netstat -ano|findstr 8011 查看8080端口被谁占用   taskkill /f /t /im 6036
+  port: 58083 #netstat -ano|findstr 8011 查看8080端口被谁占用   taskkill /f /t /im 6036
   servlet:
     context-path: /api
 

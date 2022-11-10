@@ -23,19 +23,29 @@
 
 			<view v-for="(CustomeDictionary,index) in CustomeDictionarylist">
 				<view class="uni-padding-wrap uni-common-mt">
-					<view class="uni-title">{{CustomeDictionary.name?CustomeDictionary.name:CustomeDictionary.configname}}
+					<view class="uni-title">
+						{{CustomeDictionary.name?CustomeDictionary.name:CustomeDictionary.configname}}
 					</view>
 					<view>
-						<slider step="1" @change="sliderChangecustom($event,index)" show-value min="0" max="10"
+						<slider step="0.1" @change="sliderChangecustom($event,index)" show-value min="0" max="10"
 							:value="CustomeDictionary.value" />
 					</view>
 				</view>
 			</view>
 
 
+			<view class="uni-padding-wrap uni-common-mt">
+				<view class="uni-title">发挥率%</view>
+				<view>
+					<slider-range :value="rangeValue" :min="rangeMin" :max="rangMax" :step="1" :bar-height="3"
+						:block-size="26" background-color="#EEEEF6" active-color="#FF6B00" :format="format"
+						:decorationVisible="true" @change="handleRangeChange"></slider-range>
+				</view>
+			</view>
+
 			<view class="uni-btn-v">
 				<button @click="formSubmit" form-type="submit">Save</button>
-				<button type="default" @click="formReset" form-type="reset">Reset</button>
+				
 			</view>
 
 		</view>
@@ -43,7 +53,11 @@
 </template>
 <script>
 	import graceChecker from "../../../common/graceChecker.js"
+	import SliderRange from '../../../components/primewind-sliderrange/components/primewind-sliderrange/index.vue'
 	export default {
+		components: {
+			SliderRange
+		},
 		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 
 			console.log(option.operationtype); //打印出上个页面传递的参数。
@@ -51,10 +65,13 @@
 		},
 		data() {
 			return {
+				rangeMin: 30,
+				rangMax: 200,
+				rangeValue: [95, 110],
 				title: '设置队员的分项能力',
 				CustomeDictionarylist: [],
 				Playerobj: {
-					"active": 1,
+					"active": 0,
 					"nickname": ""
 				},
 				teamoption: {}
@@ -63,30 +80,17 @@
 		methods: {
 			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 				let letthis = this;
-				letthis.teamoption = option;
-				let letoperationtype = option.operationtype ? option.operationtype : "add";
-				//debugger;
+letthis.teamoption=option;
+				letthis.readCustonmData(option);
 
-				let leturl = "/api/teamPlayer/getTeamPlayer/" + letoperationtype + "/" + option.playerid;
-				console.log("this leturl" + leturl);
-				uni.request({
-					url: leturl,
-					success: (res) => {
-						//debugger;
-						if (res.data.length > 0) {
-							//letthis.CustomeDictionarylist = res.data;
+				
 
-						}
-					},
-					fail: (err) => {
-						console.error(err);
-					},
-				});
 
-				letthis.readCustonmData();
 
 			},
-			readCustonmData() {
+
+
+			readCustonmData(argoption) {
 				let letthis = this;
 				let leturl = "/api/dictionary/list/Custome";
 				console.log("this leturl" + leturl);
@@ -100,13 +104,52 @@
 							for (let i = 0; i < letthisCustomeDictionarylist.length; i++) {
 								//debugger;
 								if (letthisCustomeDictionarylist[i].value > 0) {
+
 									letthisCustomeDictionarylist[i].value = 8;
 									letthisCustomeDictionarylist[i].id = null;
 									curList.push(letthisCustomeDictionarylist[i]);
 								}
 							}
 							letthis.CustomeDictionarylist = curList;
-							localStorage.setItem("CustomeDictionarylist",JSON.stringify(letthis.CustomeDictionarylist));
+							let letoperationtype = argoption.operationtype;
+							if (letoperationtype == "modify") {
+								letthis.readPlayerData(argoption);
+							}
+						}
+					},
+					fail: (err) => {
+						console.error(err);
+					},
+				});
+			},
+			readPlayerData(argoption) {
+				let letthis = this;
+				//debugger;			
+				let leturl = "/api/teamPlayer/getTeamPlayer/modify/" + argoption.playerid;
+				//debugger;
+				console.log("this leturl" + leturl);
+				uni.request({
+					url: leturl,
+					success: (res) => {
+						//debugger;
+						if (res.data) {
+							//debugger;
+							letthis.Playerobj = res.data;
+							letthis.rangeValue =JSON.parse(res.data.activepercent);
+							let letCustomeDictionarylist = letthis.CustomeDictionarylist;
+							for (let i = 0; i < letCustomeDictionarylist.length; i++) {
+								for (let j = 0; j < letthis.Playerobj.teamPlayerConfig.length; j++) {
+									if (letthis.Playerobj.teamPlayerConfig[j].configname ==
+										letCustomeDictionarylist[i].name) {
+										letCustomeDictionarylist[i].id = letthis.Playerobj.teamPlayerConfig[j].id;
+										letCustomeDictionarylist[i].value = letthis.Playerobj.teamPlayerConfig[j].value;
+											
+										//debugger;
+										break;
+									}
+
+								}
+							}
 						}
 					},
 					fail: (err) => {
@@ -132,7 +175,7 @@
 				let letthis = this;
 
 				let letoperationtype = letthis.teamoption.operationtype ? letthis.teamoption.operationtype : "add";
-
+				letthis.Playerobj.activepercent = JSON.stringify(this.rangeValue);
 
 				console.log("this  before.Playerobj" + JSON.stringify(this.Playerobj));
 				uni.request({
@@ -144,14 +187,19 @@
 						letthis.Playerobj = res.data;
 						console.log("this after.res.Playerobj" + JSON.stringify(res.data));
 						console.log("letthis after.Playerobj" + JSON.stringify(letthis.Playerobj));
+						//debugger;
 						letthis.SaveTeamPlayerConfig(letthis.Playerobj.id);
+
+						console.log('switchTab 发生变化：');
+						//debugger;
 
 					},
 					fail(err) {
 						console.log('teamPlayer失败：', err);
 					}
 				})
-				console.log('save 发生变化：' + e.detail.value);
+
+
 				//console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
 				//定义表单规则
 				/*var rule = [{
@@ -197,29 +245,38 @@
 			formReset: function(e) {
 				//debugger;
 				let letthis = this;
-				letthis.CustomeDictionarylist =JSON.parse(localStorage.getItem("CustomeDictionarylist"));
+				letthis.CustomeDictionarylist = JSON.parse(localStorage.getItem("CustomeDictionarylist"));
 				//this.readCustonmData();
-				console.log('formReset清空数据')
+				console.log('formReset清空数据');
 			},
 			SaveTeamPlayerConfig(teamPlayerID) {
 				let letthis = this;
 				let letoperationtype = letthis.teamoption.operationtype ? letthis.teamoption.operationtype : "add";
 
-
+				//debugger;
 				let curList = [];
-				if (letoperationtype == "add" && letthis.CustomeDictionarylist.length > 0 && letthis.CustomeDictionarylist[
+				/*if (letoperationtype == "add" && letthis.CustomeDictionarylist.length > 0 && letthis.CustomeDictionarylist[
 						0].teamplayerid == null) {
-					for (let i = 0; i < letthis.CustomeDictionarylist.length; i++) {
-						let letPlayConfig = {};
-						letPlayConfig.teamplayerid = teamPlayerID;
-						letPlayConfig.inactive = letthis.CustomeDictionarylist[i].inactive;
-						letPlayConfig.configtype = letthis.CustomeDictionarylist[i].type;
-						letPlayConfig.configname = letthis.CustomeDictionarylist[i].name;
-						letPlayConfig.value = letthis.CustomeDictionarylist[i].value;
-						curList.push(letPlayConfig);
-					}
+					
 				} else {
+					debugger;
 					curList = letthis.CustomeDictionarylist;
+				}*/
+				
+				for (let i = 0; i < letthis.CustomeDictionarylist.length; i++) {
+					let letPlayConfig = {};
+					letPlayConfig.teamplayerid = teamPlayerID;
+					letPlayConfig.inactive = letthis.CustomeDictionarylist[i].inactive;
+					letPlayConfig.configtype = letthis.CustomeDictionarylist[i].type;
+					letPlayConfig.configname = letthis.CustomeDictionarylist[i].name;
+					letPlayConfig.value = letthis.CustomeDictionarylist[i].value;
+					
+					if (letoperationtype == "modify")
+					 {
+						letPlayConfig.id = letthis.CustomeDictionarylist[i].id;
+					}
+					
+					curList.push(letPlayConfig);
 				}
 				//debugger;
 				uni.request({
@@ -232,7 +289,10 @@
 						console.log("this after.res.data" + JSON.stringify(res.data));
 						console.log("letthis after.CustomeDictionarylist" + JSON.stringify(letthis
 							.CustomeDictionarylist));
-						localStorage.setItem("CustomeDictionarylist",JSON.stringify(letthis.CustomeDictionarylist));
+
+						uni.reLaunch({
+							url: '/pages/tabBar/component/component'
+						});
 						//letthis.uniapiSuccess = letthis.uniapiSuccess + 1;
 
 					},
@@ -240,6 +300,13 @@
 						console.log('获取openid失败：', err);
 					}
 				})
+			},
+			format(val) {
+				return val + '%'
+			},
+			handleRangeChange(e) {
+				this.rangeValue = e
+				console.log(e);
 			}
 		}
 	}

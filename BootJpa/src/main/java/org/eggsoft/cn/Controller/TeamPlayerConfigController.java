@@ -37,7 +37,7 @@ public class TeamPlayerConfigController {
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/saveAll")
-    public List<TeamPlayerConfig> saveAll(@RequestBody List<TeamPlayerConfig> TeamPlayerConfigList) {
+    synchronized public List<TeamPlayerConfig> saveAll(@RequestBody List<TeamPlayerConfig> TeamPlayerConfigList) {
         teamPlayerServiceConfig.saveAll(TeamPlayerConfigList);
         //Assert.assertNotNull(student.getId());
         return  TeamPlayerConfigList;

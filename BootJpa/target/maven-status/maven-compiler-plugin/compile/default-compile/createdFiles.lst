@@ -5,6 +5,7 @@ org\eggsoft\cn\Repository\DictionaryRepository.class
 org\eggsoft\cn\Repository\UserRepository.class
 org\eggsoft\cn\beans\Dictionary.class
 org\eggsoft\cn\Controller\DictionarryController.class
+org\eggsoft\cn\Controller\TeamPlayerController$1.class
 org\eggsoft\cn\beans\TeamPlayerConfig.class
 org\eggsoft\cn\Service\DictionaryService.class
 org\eggsoft\cn\Service\TeamPlayerConfigService.class

@@ -29,7 +29,8 @@ public class TeamPlayer  implements Serializable {
     @Column(columnDefinition = "Integer default 1")
     private Integer active;
 
-
+    @Column(length = 200)
+    private String activepercent;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date CreateTime=new Date();

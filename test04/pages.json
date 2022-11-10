@@ -78,12 +78,7 @@
 				}
 			}
 		},
-		{
-			"path": "pages/component/view/view",
-			"style": {
-				"navigationBarTitleText": "view"
-			}
-		},
+		
 		{
 			"path": "pages/component/scroll-view/scroll-view",
 			"style": {

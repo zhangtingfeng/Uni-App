@@ -29,7 +29,7 @@ public class DictionarryController {
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/save")
-    public Dictionary save(@RequestBody Dictionary dictionary) {
+    synchronized public Dictionary save(@RequestBody Dictionary dictionary) {
         dictionaryService.save(dictionary);
         //Assert.assertNotNull(student.getId());
         return  dictionary;
@@ -37,7 +37,7 @@ public class DictionarryController {
 
 //https://blog.csdn.net/qq_38974638/article/details/120070128 JPA 内置方法使用（保存方法、删除方法、查询方法）
     @RequestMapping(method = RequestMethod.POST, value = "/saveAll")
-    public List<Dictionary> saveAll(@RequestBody List<Dictionary> dictionaryList) {
+    synchronized public List<Dictionary> saveAll(@RequestBody List<Dictionary> dictionaryList) {
         dictionaryService.saveAll(dictionaryList);
         //Assert.assertNotNull(student.getId());
         return  dictionaryList;

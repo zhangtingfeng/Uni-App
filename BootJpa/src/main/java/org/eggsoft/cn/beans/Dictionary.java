@@ -27,7 +27,7 @@ public class Dictionary implements Serializable {
     private String type;
     private String name;
 
-    private double value;
+    private String value;
 
     @Column(columnDefinition = "Integer default 1")
     private Integer inactive;
