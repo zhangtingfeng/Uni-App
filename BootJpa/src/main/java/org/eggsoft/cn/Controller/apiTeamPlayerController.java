@@ -23,8 +23,15 @@ public class apiTeamPlayerController {
 
     @GetMapping(value = "/list")
     public List<TeamPlayer> querylist() {
-
+        teamPlayerService.testentityManager();
         return teamPlayerService.getByNickname("%0%");
 
+    }
+
+
+    @GetMapping(value = "/validlist")
+    public List<TeamPlayer> queryvalidlist() {
+        teamPlayerService.testentityManager();
+        return teamPlayerService.findByNicknameLikeNotDelete("0");
     }
 }
