@@ -13,11 +13,14 @@
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
+<<<<<<< HEAD
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
+=======
+>>>>>>> cca802e (tuokedev)
       <option name="name" value="Maven Central repository" />
       <option name="url" value="https://repo1.maven.org/maven2" />
     </remote-repository>
