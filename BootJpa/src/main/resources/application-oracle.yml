@@ -1,5 +1,5 @@
 server:
-  port: 18080
+  port: 8080
   servlet:
     context-path: /demo
 
@@ -27,4 +27,6 @@ spring:
         dialect: org.hibernate.dialect.Oracle12cDialect
     show-sql: true
 
-
+logging:
+  file:
+    path: ../db/logs
