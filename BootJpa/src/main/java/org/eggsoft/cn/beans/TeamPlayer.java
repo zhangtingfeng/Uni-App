@@ -9,13 +9,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-<<<<<<< HEAD
-import java.util.List;
-=======
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
->>>>>>> dev
 
 @Data
 @NoArgsConstructor
@@ -31,11 +27,6 @@ public class TeamPlayer  implements Serializable {
     private String nickname;
 
     @Column(columnDefinition = "Integer default 1")
-<<<<<<< HEAD
-    private Integer inactive;
-
-
-=======
     private Integer active;
 
     @Column(length = 200)
@@ -47,7 +38,6 @@ public class TeamPlayer  implements Serializable {
 
     @Column(length = 200)
     private String playerrole;
->>>>>>> dev
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date CreateTime=new Date();
@@ -59,10 +49,6 @@ public class TeamPlayer  implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "teamplayerid")
-<<<<<<< HEAD
-    private List<TeamPlayerConfig> employees;
-=======
     private List<TeamPlayerConfig> TeamPlayerConfig;
->>>>>>> dev
 
 }

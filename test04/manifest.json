@@ -1,10 +1,6 @@
 {
     "name" : "test04",
-<<<<<<< HEAD
-    "appid" : "__UNI__GB92FE10",
-=======
     "appid" : "__UNI__3348930",
->>>>>>> dev
     "description" : "应用描述",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -139,25 +135,6 @@
         }
     },
     "h5" : {
-<<<<<<< HEAD
-        "template" : "template.h5.html",
-        "router" : {
-            "mode" : "history",
-            "base" : ""
-        },
-        "sdkConfigs" : {
-            "maps" : {
-                "qqmap" : {
-                    "key" : "TKUBZ-D24AF-GJ4JY-JDVM2-IBYKK-KEBCU"
-                }
-            }
-        },
-        "async" : {
-            "timeout" : 20000
-        },
-        "uniStatistics" : {
-            "enable" : true
-=======
         "devServer" : {
             "port" : 8088, //端口号
             "https" : false,
@@ -173,7 +150,6 @@
                     "logLevel" : "debug"
                 }
             }
->>>>>>> dev
         }
     },
     "vueVersion" : "2",

@@ -1,43 +1,6 @@
 <template>
 	<view>
 		<page-head :title="title"></page-head>
-<<<<<<< HEAD
-		<view class="uni-padding-wrap uni-common-mt">
-			<view class="uni-title">进攻</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
-			</view>
-			
-			<view class="uni-title">防守</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
-			</view>
-			
-			<view class="uni-title">组织</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
-			</view>
-			
-			<view class="uni-title">传球</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
-			</view>
-			
-			<view class="uni-title">团队</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
-			</view>
-			
-			<view class="uni-title">其他</view>
-			<view>
-				<slider value="0.2" step="0.1"  @change="sliderChange" show-value min="0.1" max="1" />
-			</view>
-		</view>
-	</view>
-</template>
-<script>
-	export default {
-=======
 
 
 
@@ -88,7 +51,6 @@
 		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 			console.log("load"); //打印出上个页面传递的参数。
 		},
->>>>>>> dev
 		props: {
 			hasLeftWin: {
 				type: Boolean
@@ -99,20 +61,15 @@
 		},
 		data() {
 			return {
-<<<<<<< HEAD
-=======
 				rangeMin: 30,
 				rangMax: 200,
 				rangeValue: [80, 120],
 				uniapiSuccess: 0,
->>>>>>> dev
 				title: '各分项和相应权重值的乘积的综合即队员的综合分',
 				hideList: [
 					'ucharts',
 					'nav-city-dropdown'
 				],
-<<<<<<< HEAD
-=======
 
 				fixRandom: {
 					"type": "fix",
@@ -125,7 +82,6 @@
 					"value": "4"
 				},
 				CustomeDictionarylist: [],
->>>>>>> dev
 				list: [
 					// #ifdef APP-PLUS || H5 || MP-ALIPAY
 					{
@@ -236,12 +192,9 @@
 		},
 		// #ifdef H5
 		watch: {
-<<<<<<< HEAD
-=======
 			uniapiSuccess(newName, oldName) {
 				console.log("uniapiSuccess=" + newName);
 			},
->>>>>>> dev
 			$route: {
 				immediate: true,
 				handler(newRoute) {
@@ -262,11 +215,6 @@
 		},
 		// #endif
 		methods: {
-<<<<<<< HEAD
-			sliderChange(e) {
-				console.log('value 发生变化：' + e.detail.value)
-			},
-=======
 			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 
 				let letthis = this;
@@ -417,7 +365,6 @@
 				console.log('this.fixhowmanypeopleoneGroup 发生变化：' + JSON.stringify(this.fixhowmanypeopleoneGroup));
 			},
 
->>>>>>> dev
 			triggerCollapse(e, id) {
 				if (!this.list[e].pages) {
 					this.goDetailPage(this.list[e].url);
@@ -444,8 +391,6 @@
 					})
 				}
 				return false;
-<<<<<<< HEAD
-=======
 			},
 			format(val) {
 				return val + '%'
@@ -453,7 +398,6 @@
 			handleRangeChange(e) {
 				this.rangeValue = e
 				console.log(e);
->>>>>>> dev
 			}
 		}
 	}
@@ -461,8 +405,6 @@
 
 <style>
 	@import '../../../common/uni-nvue.css';
-<<<<<<< HEAD
-=======
 
 	.page {
 		margin-top: 20rpx !important;
@@ -477,5 +419,4 @@
 	.blankAddLine {
 		margin-top: 20rpx !important;
 	}
->>>>>>> dev
 </style>

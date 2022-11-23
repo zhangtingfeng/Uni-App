@@ -1,37 +1,4 @@
 <template>
-<<<<<<< HEAD
-	<view class="uni-container">
-		<uni-section title="分组A:XXX（攻XX,防XX,组XX,传XX,团XX,另XX）" type="line">
-			<uni-group mode="card">
-				<view>
-					<navigator url="/pages/component/form/form">
-						阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX)
-					</navigator>
-				</view>
-				<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-			</uni-group>
-		</uni-section>
-		<uni-section title="分组B:XXX（攻XX,防XX,组XX,传XX,团XX,另XX）" type="line">
-			<uni-group mode="card">
-				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-				<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-				<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-			</uni-group>
-		</uni-section>
-
-		<uni-group title="card 模式" mode="card">
-			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-			<view> 小郑总:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-			<view> 阿木:XXX(攻XX,防XX,组XX,传XX,团XX,另XX) </view>
-		</uni-group>
-
-	</view>
-</template>
-=======
 
 	<view class="uni-container" :class="{'groupcard':true}">
 		<view v-for="(CurOkTeamplayerList,indexx) in Appcaculist.okJSONObjectTeamplayerIDList">
@@ -212,7 +179,6 @@
 </template>
 
 
->>>>>>> dev
 <script>
 	// TODO 修复Android v3 加载过慢问题
 	// #ifdef APP-PLUS
@@ -233,8 +199,6 @@
 		},
 		data() {
 			return {
-<<<<<<< HEAD
-=======
 
 				intSize: 11,
 				Appcaculist: {},
@@ -266,7 +230,6 @@
 
 				],
 
->>>>>>> dev
 				list: [{
 						id: 'view',
 						name: '视图容器',
@@ -361,10 +324,7 @@
 				]
 			}
 		},
-<<<<<<< HEAD
-=======
 
->>>>>>> dev
 		onShareAppMessage() {
 			return {
 				title: '欢迎体验uni-app',
@@ -398,8 +358,6 @@
 		},
 		// #endif
 		methods: {
-<<<<<<< HEAD
-=======
 			getRow() {
 				//debugger;
 				this.$emit("row-click")
@@ -413,7 +371,6 @@
 				return "战队-" + String.fromCharCode(64 + indexx + 1)+",本次电脑发挥率抽签分数:"+(Math.round(this.Appcaculist.okshowCalavalueRateList[indexx]* 100) / 100);
 				//return "组" + (indexx + 1) + ",总分" + Math.round((this.Appcaculist.okList[indexx]) * 100) / 100;
 			},
->>>>>>> dev
 			triggerCollapse(e, id) {
 				if (!this.list[e].pages) {
 					this.goDetailPage('', this.list[e].url);
@@ -427,8 +384,6 @@
 					}
 				}
 			},
-<<<<<<< HEAD
-=======
 			dorandom() {
 				let letthis = this;
 				uni.showLoading({
@@ -525,7 +480,6 @@
 				});
 				console.log(option);
 			},
->>>>>>> dev
 			goDetailPage(panel, e) {
 				if (typeof e === 'string') {
 					const url = '/pages/component/' + e + '/' + e
@@ -549,22 +503,15 @@
 						})
 					}
 				}
-<<<<<<< HEAD
-			}
-		}
-=======
 			},
 
 		}
 
->>>>>>> dev
 	}
 </script>
 
 <style>
 	@import '../../../common/uni-nvue.css';
-<<<<<<< HEAD
-=======
 
 	.video {
 		width: 100%;
@@ -677,5 +624,4 @@
 	.groupcard {
 		margin: 0px;
 	}
->>>>>>> dev
 </style>

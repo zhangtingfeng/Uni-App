@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="88055de5-b7e4-4fba-9db2-f019b9338b0a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +23,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="2HvgzTba6EiBbwLdrUu1DJvFnYV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -32,6 +42,44 @@
     "last_opened_file_path": "C:/Works/situ-master/Uni-app/HBuilderProjects/uni-app"
   }
 }]]></component>
+  <component name="RunManager" selected="Application.JpademoApplicationOracle">
+    <configuration name="JpademoApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.eggsoft.cn.JpademoApplication" />
+      <module name="BootJpa" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.eggsoft.cn.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JpademoApplicationOracle" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="org.eggsoft.cn.JpademoApplication" />
+      <module name="BootJpa" />
+      <option name="PROGRAM_PARAMETERS" value="--spring.profiles.active=oracle" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.eggsoft.cn.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.JpademoApplicationOracle" />
+      <item itemvalue="Application.JpademoApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.JpademoApplication" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

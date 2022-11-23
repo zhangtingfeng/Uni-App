@@ -29,7 +29,6 @@ node_modules/
 **/node_modules/
 **/uni_modules/
 **/static/
-<<<<<<< HEAD
 
 
 
@@ -38,5 +37,4 @@ node_modules/
 *.iws
 *.iml
 *.ipr
-=======
->>>>>>> dev
+

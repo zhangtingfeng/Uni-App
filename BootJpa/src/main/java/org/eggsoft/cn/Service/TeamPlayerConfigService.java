@@ -1,10 +1,7 @@
 package org.eggsoft.cn.Service;
 
 import org.eggsoft.cn.Repository.TeamPlayerConfigRepository;
-<<<<<<< HEAD
-=======
 import org.eggsoft.cn.beans.Dictionary;
->>>>>>> dev
 import org.eggsoft.cn.beans.TeamPlayer;
 import org.eggsoft.cn.beans.TeamPlayerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +28,7 @@ public class TeamPlayerConfigService {
         return teamPlayerConfigRepository.save(u);
     }
 
-
     public List<TeamPlayerConfig> saveAll(List<TeamPlayerConfig> u){
         return teamPlayerConfigRepository.saveAll(u);
     }
-
 }

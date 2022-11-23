@@ -19,11 +19,7 @@ const store = createStore({
 		colorList: ['#FF0000', '#00FF00', '#0000FF'],
 		noMatchLeftWindow: true,
 		active: 'componentPage',
-<<<<<<< HEAD
-		leftWinActive: '/pages/component/view/view',
-=======
 		leftWinActive: '/pages/tabBar/component/component',
->>>>>>> dev
 		activeOpen: '',
 		menu: [],
 		univerifyErrorMsg: ''
