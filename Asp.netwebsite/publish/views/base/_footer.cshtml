@@ -1,0 +1,104 @@
+﻿@using CMS.Web.dto
+@model List<CategoryDTOModel>
+    @if (DTcms.Common.Utils.CheckAgent() == true)
+    {
+        <div class="footer-address">
+            <dl>
+                <a href="/contactus/index.html">
+                    <dt><img src="/static/image/address.png"></dt>
+                    <dd>位置地图</dd>
+                </a>
+            </dl>
+            <dl>
+                <a href="tel:0755-28934860">
+                    <dt><img src="/static/image/phone.png"></dt>
+                    <dd>联系我们</dd>
+                </a>
+            </dl>
+        </div>
+        return;
+    }
+    <div class="footer">
+        <div class="nav">
+            @foreach (var item in Model)
+            {
+
+                <div class="nav-list">
+                    <h3>@item.text</h3>
+                    <div class="asd">
+                        <ul>
+                            @if (item.children.Any())
+                            {
+                                foreach (var item2 in item.children)
+                                {
+                                    <li><a href="@item2.url" target="_blank">@item2.text</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+
+            <div class="conatact-ways">
+                <h3></h3>
+                <p>地址：@site.global.address　</p>
+                <p>邮编：518170 </p>
+                <p>电话：@site.global.tel（微信同号） </p>
+                <p>QQ：965064198 </p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p> Copyright2012版权所有 &nbsp;&nbsp; 深圳北斗国芯科技有限公司 &nbsp;&nbsp; 粤ICP备14097656号</p>
+        </div>
+
+    </div>
+    <dl class="toolbar1" id="toolbar">
+        <dd><a class="slide tel slide-tel" href="javascritp:void(0);" style="width: 0px;"><i><span class="icon"></span></i>86-755-28934860</a></dd>
+        <dd><i class="qq"><a id="onlineqq" href="" title="在线QQ"><span class="icon"></span></a></i></dd>
+        <dd>
+            <i class="code"><span class="icon"></span></i>
+            <ul class="pop pop-code" style="display: none; right: 90px;">
+                <li><img src="/static/image/wxgzh.png" alt=""><h3><b>beidouguoxin</b></h3></li>
+            </ul>
+        </dd>
+        <dd><i id="top" class="top"><span class="icon"></span></i></dd>
+    </dl>
+    <script type="text/javascript">
+        $(function () {
+            var qqs = ['252387103', '1047212431', '965064198'];
+            var qq = qqs[Math.floor((Math.random() * qqs.length))]
+            $("#onlineqq").attr("href", "tencent://message/?uin=" + qq + "&amp;Menu=yes");
+            /*下拉菜单*/
+            $(".nav-list>ul>li").hover(function () {
+                $(this).find(">a").addClass("on").siblings().show();
+                $(this).siblings().find(">a").removeClass("on").siblings().hide();
+            }, function () {
+                $(this).find(">a").removeClass("on").siblings().hide();
+            });
+            /*浮动客服*/
+            $('#toolbar dd').bind({
+                'mouseenter': function () {
+                    if ($(this).children('.slide').length) {
+                        var _this = $(this).children('.slide');
+                        _this.stop(true, true).animate({ 'width': 220 }, 200);
+                    } else if ($(this).children('.pop').length) {
+                        var _this = $(this).children('.pop');
+                        _this.show().animate({ 'right': 65 }, 200);
+                    }
+                },
+                'mouseleave': function () {
+                    if ($(this).children('.slide').length) {
+                        var _this = $(this).children('.slide');
+                        _this.stop(false, false).animate({ 'width': 0 }, 200);
+                    } else if ($(this).children('.pop').length) {
+                        var _this = $(this).children('.pop');
+                        _this.hide().animate({ 'right': 90 }, 200);
+                    }
+                }
+            });
+            $("#top").click(function () {
+                $("body, html").stop().animate({ "scrollTop": 0 });
+            });
+            $(".nav-list>ul>li:nth-child(3)>ul>li").width(150);
+        });
+    </script>

@@ -27,6 +27,10 @@ spring:
         dialect: org.hibernate.dialect.Oracle12cDialect
     show-sql: true
 
+<<<<<<< HEAD
 logging:
   file:
     path: ../db/logs
+=======
+
+>>>>>>> dev

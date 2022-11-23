@@ -1,0 +1,56 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>百度地图</title>
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            font-family: "微软雅黑";
+            font-size: 14px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #eycms-map {
+            min-height: 400px;
+            width: 100%;
+            line-height: 26px;
+        }
+
+        p {
+            margin: 0;
+            padding: 5px 0;
+        }
+
+        #eycms-map b {
+            color: #CC5522;
+            font-size: 14px;
+        }
+    </style>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=D2d3b9d5a30342fb3610bcf2c5dd8178"></script>
+</head>
+<body>
+    <div id="eycms-map">地图加载中...</div>
+    <script>
+        var map=new BMap.Map("eycms-map");
+        var point=new BMap.Point(114.220277,22.728998);
+        var marker=new BMap.Marker(point);
+        var infoWindow=new BMap.InfoWindow("<b>@site.global.company</b><br>电话：@site.global.tel（微信同号）<br>地址：@site.global.address");
+        map.centerAndZoom(point,13);
+        map.enableScrollWheelZoom(true);
+        map.addOverlay(marker);
+        marker.openInfoWindow(infoWindow,point);
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+        marker.addEventListener("click",function(){this.openInfoWindow(infoWindow);});
+        var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+        map.addControl(ctrl_nav);
+    </script>
+</body>
+</html>

@@ -42,14 +42,8 @@
             <version>8.0.27</version>
         </dependency>
 
-        <!-- oracle -->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc14</artifactId>
-            <version>10.2.0.4.0</version>
-            <!--   <scope>system</scope>
-               <systemPath>${project.basedir}/src/main/resources/libs/ojdbc14-10.2.0.4.0.jar</systemPath>-->
-        </dependency>
+
+
 
         <dependency>
             <groupId>com.oracle</groupId>
@@ -59,14 +53,9 @@
                <systemPath>${project.basedir}/src/main/resources/libs/ojdbc14-10.2.0.4.0.jar</systemPath>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
-        <!--        <dependency>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>druid</artifactId>
-                    <version>1.2.8</version>
-                </dependency>-->
 
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -107,6 +96,15 @@
 
             <version>2.9.2</version>
 
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.73</version>
         </dependency>
     </dependencies>
 

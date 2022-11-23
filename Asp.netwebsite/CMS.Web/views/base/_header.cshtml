@@ -1,0 +1,153 @@
+﻿@using CMS.Web.dto
+@model List<CategoryDTOModel>
+
+    @if (DTcms.Common.Utils.CheckAgent() == true)
+    {
+        <div class="header">
+            <a href="/" class="logo"><img src="/static/image/logo.png" alt="logo" /></a>
+            <span class="icon"></span>
+            <div class="menu_list_bor">
+                <div class="colse_menu"></div>
+                <div class="menu_right">
+                    <div class="menu_top">
+                        <div class="clo"><b></b><span>返回</span></div>
+                    </div>
+                    <div class="menu_list">
+                        <ul>
+                            <li>
+                                <a href="/index.html">首页</a>
+                            </li>
+                            @foreach (var item in Model)
+                            {
+                                <li>
+                                    <a href="@item.url">@item.text</a>
+                                    @if (@item.children.Any())
+                                    {
+                                        <div class="childclass">
+                                            <ul>
+                                                @foreach (var item2 in item.children)
+                                                {
+                                                    <li><a href="@item2.url">@item2.text</a></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                </li>
+                            }
+                                
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <script type="text/javascript">
+                //菜单效果，向右出现
+                $(document).ready(function () {
+                    $(".icon").click(function () {
+                        $(".menu_list_bor").animate({
+                            right: '0'
+                        }, "200");
+                    });
+                    $(".colse_menu").click(function () {
+                        $(".menu_list_bor").animate({
+                            right: '-100%'
+                        }, "slow");
+                        $('.menu_list>ul li').find('span').removeClass('link2');
+                        $('.menu_list>ul li').find('ul').hide();
+                    });
+                    $(".menu_top").click(function () {
+                        $(".menu_list_bor").animate({
+                            right: '-100%'
+                        }, "slow");
+                        $('.menu_list>ul li').find('span').removeClass('link2');
+                        $('.menu_list>ul li').find('ul').hide();
+
+                    });
+                    $(".menu_list>ul li div").prev().attr("href", "javascript:;").after("<b></b>");
+                    $(".menu_list li div ul li ul").prev('a').attr("href", "javascript:;").after("<b></b>");
+                    $('.menu_list>ul>li').children('b').click(function () {
+                        $(this).parent().siblings().find('b').removeClass('nex').next('div').children('ul').slideUp();
+                        $(this).toggleClass('nex').next('div').children('ul').slideToggle().find('ul').hide().prev().removeClass(
+                            'nex');
+                    });
+                    $('.menu_list>ul>li').children('b').next('div').find('li').children('b').click(function () {
+                        if (!$(this).hasClass('nex')) {
+                            $(this).addClass('nex').next('ul').slideDown();
+                        } else {
+                            $(this).removeClass('nex').next('ul').slideUp();
+                        }
+                    });
+
+                });
+            </script>
+        </div>
+        return;
+    }
+
+
+    <div class="header-box">
+        <div class="header">
+            <a href="" class="logo"><img src="/static/image/logo.png" alt="logo" /></a>
+            <div class="nav">
+                <div class="nav-list">
+                    <ul>
+                        <li><a href="/index.html">首页</a></li>
+                        @foreach (var item in Model)
+                        {
+                            <li>
+                                <a href="@item.url">@item.text</a>
+                                @if (@item.children.Any())
+                                {
+                                    <ul style="display:none;">
+                                        @foreach (var item2 in item.children)
+                                        {
+                                            <li><a href="@item2.url">@item2.text</a></li>
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </div>
+                @*<div class="serach-box">
+                        <img src="/static/picture/search-icon.png" class="search-icon" />
+                        <img src="/static/picture/close.png" class="close" />
+                        <div class="search">
+                            <input type="text" id="keyword" value="" placeholder="请输入搜索关键词" />
+                            <a href="javascript:;" class="searchBtn" onclick="goSearch()">搜索</a>
+                        </div>
+                        <script type="text/javascript">
+                                    $("#keyword").keydown(function(e){
+                                        if(e.keyCode == 13){
+                                            goSearch();
+                                            return false;
+                                        }
+                                    })
+                                    function goSearch(){
+                                        if($(".search input").val()==""){
+                                            alert("请输入搜索关键词！")
+                                            return false;
+                                        }else{
+                                            location.href = "/Search/Index?keyword="+encodeURIComponent($("#keyword").val());
+                                        }
+
+                                    }
+                        </script>
+                    </div>*@
+                <script type="text/javascript">
+
+                    $(".search-icon").click(function () {
+                        $(this).hide()
+                        $(".search").fadeIn()
+                        $(".close").show()
+                    })
+
+                    $(".close").click(function () {
+                        $(this).hide()
+                        $(".search").fadeOut()
+                        $(".search-icon").show()
+                    })
+                </script>
+            </div>
+        </div>
+    </div>

@@ -1,5 +1,6 @@
 <template>
 	<view>
+<<<<<<< HEAD
 		<page-head title="view"></page-head>
 		<view class="uni-padding-wrap uni-common-mt">
 			<view class="uni-hello-text">
@@ -100,13 +101,34 @@
 				</view>
 			</view>
 		</view>
+=======
+		
+>>>>>>> dev
 	</view>
 </template>
 <script>
 	export default {
 		data() {
 			return {}
+<<<<<<< HEAD
 		}
+=======
+		},
+		onShow    : function(option) { //option为object类型，会序列化上个页面传递的参数
+		
+			/*uni.reLaunch({
+				url: '/pages/tabBar/component/component'
+			});*、
+			
+		},
+		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+		
+			/*uni.reLaunch({
+				url: '/pages/tabBar/component/component'
+			});*/
+			
+		},
+>>>>>>> dev
 	}
 </script>
 

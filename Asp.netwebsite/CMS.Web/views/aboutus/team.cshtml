@@ -1,0 +1,105 @@
+﻿@using CMS.Web.dto
+@model SinglePageDTOModel
+@{Layout = "~/views/base/_layout.cshtml";}
+
+<style type="text/css">
+    .piclist .item img {
+        height: 364px;
+        width: 100%;
+    }
+
+    .team-member {
+        width: 100%;
+        overflow: hidden;
+        display: block;
+        position: relative;
+    }
+
+        .team-member .member-intro {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            font-size: 16px;
+            line-height: 2rem;
+            color: #1e9fff;
+            background: rgba(0, 0, 0, .7);
+            opacity: 0;
+            padding: 50px 10px 0px 10px;
+        }
+        .team-member:hover .member-intro {
+            opacity: 1;
+        }
+</style>
+<div class="innerBanner">
+    <img src="@Model.cover_image_url" style="width:100%;"/>
+</div>
+<div class="innerNav-box">
+    <div class="innerNav">
+        <div class="innerNav-position">
+            <img src="/static/image/position.png">
+            当前位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<a>关于我们</a>&nbsp;&gt;&nbsp;<a href="@Model.localpath">@Model.category_name</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper w1200">
+    <!--栏目分类开始-->
+    <div class="left-menu fl">
+        <ul>
+            @foreach (var item in Model.categorylist)
+            {
+                <li class="item a1 @(item.url==Model.localpath?"hover":"")"><a href="@item.url"><h3>@item.text</h3><s><img src="@item.icon_url" /></s></a></li>
+            }
+        </ul>
+    </div>
+    <!--栏目分类结束-->
+    <!--图片列表开始-->
+    <div class="content fr">
+        <h2 class="team-title">核心团队</h2>
+        <ul class="piclist clearfix">
+            @foreach (var item in Model.articlelist.Where(p=>p.tags=="核心团队").ToList())
+            {
+                <li>
+                    <div class="item">
+                        <a class="team-member" title="@item.title">
+                            <img src="@item.img_url" alt="@item.title">
+                            <h3>@item.title</h3>
+                            <div class="member-intro">
+                                <strong> @item.title</strong>
+                                <br />  <br />
+                                @item.zhaiyao
+                            </div>
+                        </a>
+
+                    </div>
+
+                </li>
+            }
+
+        </ul>
+        <h2 class="team-title">顾问专家</h2>
+        <ul class="piclist clearfix">
+            @foreach (var item in Model.articlelist.Where(p => p.tags == "顾问专家").ToList())
+            {
+                <li>
+                    <div class="item">
+                        <a class="team-member" title="@item.title">
+                            <img src="@item.img_url" alt="@item.title">
+                            <h3>@item.title</h3>
+                            <div class="member-intro">
+                                <strong> @item.title</strong>
+                                <br />  <br />
+                                @item.zhaiyao
+                            </div>
+                        </a>
+
+                    </div>
+
+                </li>
+            }
+
+        </ul>
+    </div>
+    <!--图片列表结束-->
+</div>
+<div style="clear:both;height:50px"></div>

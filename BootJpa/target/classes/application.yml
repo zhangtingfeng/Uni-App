@@ -1,7 +1,13 @@
 server:
+<<<<<<< HEAD
   port: 8080
   servlet:
     context-path: /demo
+=======
+  port: 58083 #netstat -ano|findstr 58083 查看8080端口被谁占用   taskkill /f /t /im 6036
+  servlet:
+    context-path: /api
+>>>>>>> dev
 
   #com.mysql.jdbc.Driver过时
 spring:
@@ -23,3 +29,9 @@ spring:
     hibernate:
       ddl-auto: update
 
+<<<<<<< HEAD
+=======
+logging:
+  file:
+    path: ../db/logs
+>>>>>>> dev

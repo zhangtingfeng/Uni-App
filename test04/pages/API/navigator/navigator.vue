@@ -60,7 +60,11 @@
 			reLaunch() {
 				if (this.hasLeftWin) {
 					uni.reLaunch({
+<<<<<<< HEAD
 						url: '/pages/component/view/view'
+=======
+						url: '/pages/tabBar/component/component'
+>>>>>>> dev
 					});
 					return;
 				}

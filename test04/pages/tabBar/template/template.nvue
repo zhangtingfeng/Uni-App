@@ -1,6 +1,7 @@
 <template>
 	<view>
 		<page-head :title="title"></page-head>
+<<<<<<< HEAD
 		<view class="uni-padding-wrap uni-common-mt">
 			<view class="uni-title">进攻</view>
 			<view>
@@ -36,6 +37,58 @@
 </template>
 <script>
 	export default {
+=======
+
+
+
+		<!--<view class="uni-padding-wrap uni-common-mt">
+			<view class="uni-title">{{fixRandom.name}}%</view>
+			<view>
+				<slider-range :value="rangeValue" :min="rangeMin" :max="rangMax" :step="1" :bar-height="3"
+					:block-size="26" background-color="#EEEEF6" active-color="#FF6B00" :format="format"
+					:decorationVisible="true" @change="handleRangeChange"></slider-range>
+			</view>
+		</view>-->
+		<view class="uni-padding-wrap uni-common-mt">
+			<view class="uni-title">{{fixhowmanypeopleoneGroup.name}}</view>
+			<view>
+				<slider step="1" @change="sliderChangefixoneGroup" show-value min="2" max="5"
+					:value="fixhowmanypeopleoneGroup.value" />
+			</view>
+		</view>
+
+		<view class="uni-list-cell uni-list-cell-pd" v-for="(CustomeDictionary,index) in CustomeDictionarylist">
+			<view class="uni-padding-wrap uni-common-mt">
+				<view class="uni-title">
+					<input class="uni-input" type="text" v-model="CustomeDictionary.name"
+						placeholder="请修改，例如进攻，防守，不用值设为0" />
+
+				</view>
+				<view>
+					<slider step="0.01" @change="sliderChangecustom($event,index)" show-value min="0" max="1"
+						:value="CustomeDictionary.value" />
+				</view>
+			</view>
+		</view>
+
+		<view class="uni-btn-v">
+			<button type="primary" @click="save">save</button>
+			<button type="primary" @click="add">add</button>
+		</view>
+	</view>
+</template>
+
+<script>
+	import SliderRange from '../../../components/primewind-sliderrange/components/primewind-sliderrange/index.vue'
+
+	export default {
+		components: {
+			SliderRange
+		},
+		onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+			console.log("load"); //打印出上个页面传递的参数。
+		},
+>>>>>>> dev
 		props: {
 			hasLeftWin: {
 				type: Boolean
@@ -46,11 +99,33 @@
 		},
 		data() {
 			return {
+<<<<<<< HEAD
+=======
+				rangeMin: 30,
+				rangMax: 200,
+				rangeValue: [80, 120],
+				uniapiSuccess: 0,
+>>>>>>> dev
 				title: '各分项和相应权重值的乘积的综合即队员的综合分',
 				hideList: [
 					'ucharts',
 					'nav-city-dropdown'
 				],
+<<<<<<< HEAD
+=======
+
+				fixRandom: {
+					"type": "fix",
+					"name": "发挥率",
+					"value": "0.8"
+				},
+				fixhowmanypeopleoneGroup: {
+					"type": "fix",
+					"name": "几人一组",
+					"value": "4"
+				},
+				CustomeDictionarylist: [],
+>>>>>>> dev
 				list: [
 					// #ifdef APP-PLUS || H5 || MP-ALIPAY
 					{
@@ -161,6 +236,12 @@
 		},
 		// #ifdef H5
 		watch: {
+<<<<<<< HEAD
+=======
+			uniapiSuccess(newName, oldName) {
+				console.log("uniapiSuccess=" + newName);
+			},
+>>>>>>> dev
 			$route: {
 				immediate: true,
 				handler(newRoute) {
@@ -181,9 +262,162 @@
 		},
 		// #endif
 		methods: {
+<<<<<<< HEAD
 			sliderChange(e) {
 				console.log('value 发生变化：' + e.detail.value)
 			},
+=======
+			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
+
+				let letthis = this;
+				let leturl ="";
+				/*leturl= "/api/dictionary/list/" + letthis.fixRandom.type + "/" + letthis.fixRandom.name;
+				console.log("this leturl" + leturl);
+				uni.request({
+					url: leturl,
+					success: (res) => {
+						if (res.data.length > 0) {
+							letthis.fixRandom = res.data[0];
+							letthis.rangeValue= JSON.parse(letthis.fixRandom.value);
+							console.log("this start.fixRandom" + JSON.stringify(letthis.fixRandom));
+						}
+					},
+					fail: (err) => {
+						console.error(err);
+					},
+				});*/
+
+				leturl = "/api/dictionary/list/" + letthis.fixhowmanypeopleoneGroup.type + "/" + letthis
+					.fixhowmanypeopleoneGroup.name;
+				console.log("this leturl" + leturl);
+				uni.request({
+					url: leturl,
+					success: (res) => {
+						if (res.data.length > 0) {
+							letthis.fixhowmanypeopleoneGroup = res.data[0];
+							console.log("this start.fixhowmanypeopleoneGroup" + JSON.stringify(letthis
+								.fixhowmanypeopleoneGroup));
+						}
+					},
+					fail: (err) => {
+						console.error(err);
+					},
+				});
+
+
+				leturl = "/api/dictionary/list/Custome";
+				console.log("this leturl" + leturl);
+				uni.request({
+					url: leturl,
+					success: (res) => {
+						//debugger;
+						if (res.data.length > 0) {
+							letthis.CustomeDictionarylist = res.data;
+							//console.log("this start.fixRandom" + JSON.stringify(letthis.fixRandom));
+						}
+					},
+					fail: (err) => {
+						console.error(err);
+					},
+				});
+			},
+			add(e) {
+				this.CustomeDictionarylist.push({
+					"type": "Custome",
+					"name": "",
+					"value": "0"
+				});
+				console.log('add 发生变化：' + e.detail.value)
+			},
+			save(e) {
+
+				let letthis = this;
+				letthis.uniapiSuccess = 0;
+				
+				/*letthis.fixRandom.value=JSON.stringify(letthis.rangeValue);
+				console.log("this  before.fixRandom" + JSON.stringify(this.rangeValue));
+				
+				uni.request({
+					url: '/api/dictionary/save',
+					method: 'POST',
+					data: letthis.fixRandom,
+					success(res) {
+						//debugger;
+						letthis.fixRandom = res.data;
+						letthis.rangeValue= JSON.parse(letthis.fixRandom.value);
+						console.log("this after.res.data" + JSON.stringify(res.data));
+						console.log("letthis after.fixRandom" + JSON.stringify(letthis.fixRandom));
+
+						letthis.uniapiSuccess = letthis.uniapiSuccess + 1;
+
+					},
+					fail(err) {
+						console.log('获取fixRandomopenid失败：', err);
+					}
+				})*/
+
+				uni.request({
+					url: '/api/dictionary/save',
+					method: 'POST',
+					data: letthis.fixhowmanypeopleoneGroup,
+					success(res) {
+						//debugger;
+						letthis.fixhowmanypeopleoneGroup = res.data;
+						console.log("this after.res.data" + JSON.stringify(res.data));
+						console.log("letthis after.fixhowmanypeopleoneGroup" + JSON.stringify(letthis
+							.fixhowmanypeopleoneGroup));
+
+						letthis.uniapiSuccess = letthis.uniapiSuccess + 1;
+
+					},
+					fail(err) {
+						console.log('获取fixhowmanypeopleoneGroupopenid失败：', err);
+					}
+				})
+
+
+				uni.request({
+					url: '/api/dictionary/saveAll',
+					method: 'POST',
+					data: letthis.CustomeDictionarylist,
+					success(res) {
+						//debugger;
+						letthis.CustomeDictionarylist = res.data;
+						console.log("this after.res.data" + JSON.stringify(res.data));
+						console.log("letthis after.CustomeDictionarylist" + JSON.stringify(letthis
+							.CustomeDictionarylist));
+
+						letthis.uniapiSuccess = letthis.uniapiSuccess + 1;
+
+					},
+					fail(err) {
+						console.log('获取openid失败：', err);
+					}
+				})
+			},
+			sliderChangeTextcustom(e, eindex) {
+				debugger;
+			},
+			sliderChangecustom(e, eindex) {
+				this.CustomeDictionarylist[eindex].value = e.detail.value;
+				//this.CustomeDictionarylist[eindex]=e.detail.value;
+				//debugger;
+				console.log('this.CustomeDictionarylist[' + eindex + '] 发生变化：' + e.detail.value)
+				//debugger;
+				console.log('this.CustomeDictionarylist 发生变化：' + JSON.stringify(this.CustomeDictionarylist));
+			},
+			/*sliderChangefix(e) {
+				this.fixRandom.value = e.detail.value;
+				console.log('value 发生变化：' + e.detail.value);
+				console.log('this.fixRandom 发生变化：' + JSON.stringify(this.fixRandom));
+			},*/
+			sliderChangefixoneGroup(e) {
+				this.fixhowmanypeopleoneGroup.value = e.detail.value;
+				console.log('value 发生变化：' + e.detail.value);
+				console.log('this.fixhowmanypeopleoneGroup 发生变化：' + JSON.stringify(this.fixhowmanypeopleoneGroup));
+			},
+
+>>>>>>> dev
 			triggerCollapse(e, id) {
 				if (!this.list[e].pages) {
 					this.goDetailPage(this.list[e].url);
@@ -210,6 +444,16 @@
 					})
 				}
 				return false;
+<<<<<<< HEAD
+=======
+			},
+			format(val) {
+				return val + '%'
+			},
+			handleRangeChange(e) {
+				this.rangeValue = e
+				console.log(e);
+>>>>>>> dev
 			}
 		}
 	}
@@ -217,4 +461,21 @@
 
 <style>
 	@import '../../../common/uni-nvue.css';
+<<<<<<< HEAD
+=======
+
+	.page {
+		margin-top: 20rpx !important;
+		display: flex;
+		padding: 30rpx;
+		border: 1rpx solid #000;
+		background-color: black;
+		display: flex;
+		justify-content: center;
+	}
+
+	.blankAddLine {
+		margin-top: 20rpx !important;
+	}
+>>>>>>> dev
 </style>

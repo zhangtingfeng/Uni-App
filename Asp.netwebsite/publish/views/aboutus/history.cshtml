@@ -1,0 +1,64 @@
+﻿@using CMS.Web.dto
+@model SinglePageDTOModel
+@{Layout = "~/views/base/_layout.cshtml";}
+<link href="/static/css/animate.css" rel="stylesheet" type="text/css" />
+<div class="innerBanner">
+    <img src="@Model.cover_image_url" style="width:100%;" />
+</div>
+<div class="innerNav-box">
+    <div class="innerNav">
+        <div class="innerNav-position">
+            <img src="/static/image/position.png">
+            当前位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<a>关于我们</a>&nbsp;&gt;&nbsp;<a href="@Model.localpath">@Model.category_name</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper w1200">
+    <!--栏目分类开始-->
+    <div class="left-menu fl">
+        <ul>
+            @foreach (var item in Model.categorylist)
+            {
+                <li class="item a1 @(item.url == Model.localpath ? "hover" : "")"><a href="@item.url"><h3>@item.text</h3><s><img src="@item.icon_url" /></s></a></li>
+            }
+        </ul>
+    </div>
+    <!--栏目分类结束-->
+
+    <div class="content fr">
+        <div class="developc">
+            <div class="history">
+                <ul class="" id="lsul">
+                    <li class="clearfix">
+                        
+                        @{  
+                            var i = 1;
+                            foreach (var item in Model.articlelist)
+                            {
+                                i = i + 1;
+                                    <div class="his-bd @(i%2==0?"his-bdl":"his-bdr")  wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="0.6s">
+                                        <div class="his-box clearfix">
+                                            <div class="pic">
+                                                <img src="@item.img_url" width="252" height="172" alt="" />
+                                            </div>
+                                            <div class="text">
+                                                <div>
+                                                    <span class="text-title">@item.title</span>
+                                                    @item.zhaiyao
+                                                    <br />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            }
+                        }
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div style="clear:both;height:50px"></div>

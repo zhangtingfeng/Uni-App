@@ -1,0 +1,84 @@
+﻿@using CMS.Web.dto
+@model SinglePageDTOModel
+@{Layout = "~/views/base/_layout.cshtml";}
+<script type="text/javascript" src="/static/js/laypage/laypage.js"></script>
+<script type="text/javascript">
+    function layerpage() {
+        var total = @(Model.TotalRecordCount.HasValue? Model.TotalRecordCount.Value:0);
+        total > 0 && laypage({
+            cont: $('.pglist'),
+            pages: @(Model.PageSize.HasValue ? Model.PageSize.Value : 0),
+            curr: @(Model.PageIndex.HasValue ? Model.PageIndex.Value : 0),
+            groups: 6,
+            jump: function (e, first) {
+                if (first) return;
+                var _href = location.href;
+                if (_href.indexOf('pageindex') < 0) {
+                    location.href = _href + "?pageindex=" + e.curr
+                }
+                else {
+                    location.href = _href.replace(/pageindex=(\d+)/g, "pageindex=" + e.curr);
+                }
+            }
+        });
+    }
+    $(function(){
+        layerpage();
+    });
+</script>
+<div class="innerBanner">
+    <img src="@Model.cover_image_url" style="width:100%;" />
+</div>
+<div class="innerNav-box">
+    <div class="innerNav">
+        <div class="innerNav-position">
+            <img src="/static/image/position.png">
+            当前位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<a>新闻资讯</a>&nbsp;&gt;&nbsp;<a href="@Model.localpath">@Model.category_name</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper w1200">
+    <!--栏目分类开始-->
+    <div class="left-menu fl">
+        <ul>
+            @foreach (var item in Model.categorylist)
+            {
+                <li class="item a1 @(item.url==Model.localpath?"hover":"")">
+                    <a href="@item.url"><h3>@item.text</h3><s><img src="@item.icon_url" /></s></a>
+                </li>
+            }
+        </ul>
+    </div>
+    <!--栏目分类结束-->
+    <!--单页内容开始-->
+    <div class="content newsPage fr">
+        @foreach (var item in Model.articlelist)
+        {
+            <a class="item hasimg" href="/news/detail/@(item.id).html" title="@item.title">
+                <img class="img fl" src='@(string.IsNullOrWhiteSpace(item.img_url) ? "/static/image/default.jpg" : item.img_url)' alt="@item.title">
+                <h3>@item.title</h3>
+                @{
+                    if (string.IsNullOrEmpty(item.zhaiyao))
+                    {
+                        <div class="txt">
+                            @DTcms.Common.Utils.DropHTML(site.UnTransferred(item.content))
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="txt">
+                            @item.zhaiyao
+                        </div>
+                    }
+                }
+              
+                <div class="dec">
+                    @item.add_time
+                </div>
+            </a>
+        }
+    </div>
+    <div class="pglist"></div>
+    <!--单页内容结束-->
+</div>
+<div style="clear:both;height:50px"></div>

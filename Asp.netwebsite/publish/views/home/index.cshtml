@@ -1,0 +1,190 @@
+﻿@using CMS.Web.dto
+@model HomeDTOModel
+@{
+    Layout = "~/views/base/_layout.cshtml";
+}
+<div class="banner">
+    <div class="hd">
+        <ul></ul>
+    </div>
+    <div class="bd">
+        <ul>
+            @foreach (var item in Model.bannerlist)
+            { 
+                <li><img src="@item.img_url" /></li>
+            }
+            
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(".banner").slide({ titCell: ".hd ul", mainCell: ".bd ul", effect: "fold", autoPlay: true, trigger: "click", delayTime: 1000, autoPage: true });
+</script>
+<div class="product">
+    <div class="product-title">
+        <h3><span>产品</span>中心</h3>
+        <p>用“中国芯”实现“北斗梦”</p>
+    </div>
+    <div class="icase clearfix" id="icase">
+        @foreach (var item in Model.productlist)
+        {
+            <div class="item aos-init aos-animate" aos="fade-up" aos-delay="100">
+                <a href="/product/index.html?id=@item.id" title="@item.title">
+                    <img src="@item.img_url" alt="@item.title">
+                    <h3 class="t1">@item.title</h3>
+                    <div class="bg"></div>
+                    <div class="txtcon">
+                        <h3 class="t2">@item.title</h3>
+                        <span>查看详细</span><s class="ico"></s>
+                    </div>
+                </a>
+            </div>
+        }
+        <div class="item aos-init aos-animate" aos="fade-up" aos-delay="500">
+            <a href="/product/index.html?id=1" title="查看更多">
+                <img src="/static/image/2020040737116141.jpg" alt="查看更多">
+                <h3 class="t1">查看更多</h3>
+                <div class="bg"></div>
+                <div class="txtcon">
+                    <h3 class="t2">查看更多</h3>
+                    <span>查看详细</span>
+                    <s class="ico"></s>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="about">
+    <div class="index-title">
+        <h3><span>关于</span>我们</h3>
+    </div>
+    <div class="about-list">
+        <p>
+            深圳北斗国芯科技有限公司位于深圳龙岗留学生创业园，享受国家、广东省、深圳市、龙岗区北斗导航产业专项政策扶持。公司专业输出北斗系统综合应用解决方案，打造北斗系统应用大平台。公司技术由北斗系统专家领衔，海外留学团队主导应用方案，并与国内顶尖同行结成联盟联研应用产业化发展。
+
+            公司拥有自主的知识产权、专业的核心技术，以及丰富的海内外同行业工作经验；在多系统卫星信号基带处理技术、多星座多频高精度定位算法、多系统射频电路设计等方面有长期的积累和大量成功的经验。公司以北斗产业应用化为己任，通过核心技术开发，提供北斗综合产业化应用解决方案。公司将不断加快核心技术和创新研发，持续完善公司北斗系统行业解决方案，全面参与国家航天科工集团国内北斗应用产业链的构建，将北斗国芯发展成为中国北斗导航产业应用领域的领军企业。
+        </p>
+    </div>
+    <div class="about-data">
+        <div>
+            <img src="/static/image/afb78379faf61586233881913.png" />
+            <p>公司介绍</p>
+        </div>
+        <div>
+            <img src="/static/image/afb78379faf61586234254477.png" style="width: 122px;height: 122px;" />
+            <p>企业文化</p>
+        </div>
+        <div>
+            <img src="/static/image/afb78379faf61586234060206.png" style="width: 122px;height: 122px;" />
+            <p>荣誉资质</p>
+        </div>
+        <div>
+            <img src="/static/image/afb78379faf61586234382196.png" style="width: 122px;height: 122px;" />
+            <p>核心团队</p>
+        </div>
+    </div>
+    <a href="/aboutus/company.html" class="more">查看更多 +</a>
+</div>
+<div class="business">
+    <img src="static/picture/asd.jpg" class="business-bg" />
+    <img src="static/picture/business-shadow.png" class="business-shadow" />
+    <div class="business-list">
+        <div class="business-list-title">
+            <h3>解决方案</h3>
+            <b></b>
+            <span>Solution</span>
+            <p>公司拥有自主的知识产权、专业的核心技术，以及丰富的海内外同行业工作经验；在多系统卫星信号基带处理技术、多星座多频高精度定位算法、多系统射频电路设计等方面有长期的积累和大量成功的经验。</p>
+            <a href="/application/solution.html">More <img src="static/picture/more02.png" /></a>
+        </div>
+        <div class="business-list-item">
+            @foreach (var item in Model.solutionlist)
+            {
+                <a href="/application/detail/@(item.id).html">
+                    <dl>
+                        <dt>
+                            <img src="@item.img_url" />
+                        </dt>
+                        <dd>
+                            <h3>@item.title</h3>
+                            <p>@Html.Raw(item.zhaiyao)</p>
+                        </dd>
+                    </dl>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+<div class="news">
+    <div class="index-title">
+        <h3><span>新闻</span>动态</h3>
+        <p>记录团队成长点滴以及对技术、理念的探索，同时我们乐于分享！</p>
+    </div>
+    <div class="news-list">
+        <dl>
+            <dt style="background-image: url(/static/image/index_news_company.png); ">
+                公司新闻
+            </dt>
+            @foreach (var item in Model.companynewslist)
+            {
+                <dd>
+                    <a href="/news/detail/@(item.id).html" target="_blank">
+                        <h3>@site.title(item.title)</h3>
+                        <p>@site.zhaiyao(item.zhaiyao)</p>
+                        <div>
+                            <span>@item.add_time.ToString("yyyy-MM-dd")</span>
+                            <em><img src="/static/picture/more02.png"></em>
+                        </div>
+                    </a>
+                </dd>
+            }
+        </dl>
+
+        <dl>
+
+            <dt style="background-image: url(/static/image/index_news_industry.jpeg);
+">
+                行业动态
+            </dt>
+            @foreach (var item in Model.industrynewslist)
+            {
+                <dd>
+                    <a href="/news/detail/@(item.id).html" target="_blank">
+                        <h3>@site.title(item.title)</h3>
+                        <p>@site.zhaiyao(item.zhaiyao)</p>
+                        <div>
+                            <span>@item.add_time.ToString("yyyy-MM-dd")</span>
+                            <em><img src="/static/picture/more02.png"></em>
+                        </div>
+                    </a>
+                </dd>
+            }
+        </dl>
+        <dl>
+
+            <dt style="background-image: url(/static/image/index_news_media.png);">
+                媒体聚焦
+            </dt>
+            @foreach (var item in Model.medianewslist)
+            {
+                <dd>
+                    <a href="/news/detail/@(item.id).html" target="_blank">
+                        <h3>@site.title(item.title)</h3>
+                        <p>@site.zhaiyao(item.zhaiyao)</p>
+                        <div>
+                            <span>@item.add_time.ToString("yyyy-MM-dd")</span>
+                            <em><img src="/static/picture/more02.png"></em>
+                        </div>
+                    </a>
+                </dd>
+            }
+        </dl>
+    </div>
+    <div style="clear: both;"></div>
+    <a href="/news/company.html" class="more">查看更多 +</a>
+</div>
+<div class="friendlink">
+    <span> <select name="1" onchange="window.open(this.options[this.selectedIndex].value)"> <option value="">----中国航天科工一院网站群----</option> <option value="http://www.cntv.cn/">----中国网络电视----</option> <option value="http://www.xxjs.casic.cn/">----中国航天科工一院----</option> <option value="http://www.casic-amc.com/">----北京航天测控技术有限公司----</option> <option value="http://www.bcs.net.cn/">----北京航天科工世纪卫星科技有限公司----</option> <option value="http://pages.chinahr.com/2010/bjp/casic_it/intro.asp">----广州航天海特系统工程有限公司----</option> <option value="http://www.xxjs.casic.cn/#">----中国航天系统工程有限公司----</option> </select> </span>
+    <span> <select name="2" onchange="window.open(this.options[this.selectedIndex].value)"> <option value="">----政府部门----</option> <option value="http://www.gov.cn/">----中央人民政府----</option> <option value="http://www.sasac.gov.cn/n1180/index.html">----国务院国资委----</option> <option value="http://www.sasac.gov.cn/n1180/index.html">----科技部----</option> <option value="http://www.xainfo.gov.cn/">----西安科技局----</option> </select> </span>
+    <span> <select name="3" onchange="window.open(this.options[this.selectedIndex].value)"> <option value="">----媒体服务----</option> <option value="http://www.people.com.cn/">----人民网----</option> <option value="http://www.xinhuanet.com/">----新华网----</option> <option value="http://www.sina.com.cn/">----新浪网----</option> <option value="http://gb.cri.cn/">----国际在线----</option> <option value="http://www.chinamil.com.cn/">----中国军网----</option> </select> </span>
+    <span> <select name="4" onchange="window.open(this.options[this.selectedIndex].value)"> <option value="">----合作伙伴----</option> <option value="http://www.baidu.com/">----百度----</option> <option value="www.kinghelm.cn">----深圳金航标----</option> </select> </span>
+</div>

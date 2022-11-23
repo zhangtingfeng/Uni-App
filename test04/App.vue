@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
 <script>
 	import {
 		mapMutations

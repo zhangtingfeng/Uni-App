@@ -1,0 +1,45 @@
+﻿@using CMS.Web.dto
+@model SinglePageDTOModel
+@{
+    Layout = "~/views/base/_layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        
+    });
+</script>
+<div class="innerBanner">
+    <img src="@Model.cover_image_url" style="width:100%;" />
+</div>
+<div class="innerNav-box">
+    <div class="innerNav">
+        <div class="innerNav-position">
+            <img src="/static/image/position.png">
+            当前位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<a>产品中心</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper w1200">
+    <!--栏目分类开始-->
+    <div class="left-menu fl">
+        <ul>
+            @foreach (var item in Model.articlelist)
+            {
+                <li class="item a1 @(item.id==Model.article.id?"hover":"")"><a href="/product/index.html?id=@item.id"><h3>@item.title</h3><s><img src="~/static/image/weixing.png" /></s></a></li>
+            }
+        </ul>
+    </div>
+    <!--栏目分类结束-->
+    <!--单页内容开始-->
+   
+    <div class="content showNews fr">
+        <h1 class="title">@Model.article.title</h1>
+        <div class="showContxt">
+            @Html.Raw(Model.article.content)
+        </div>
+        <div class="clear"></div>
+    </div>
+    
+    <!--单页内容结束-->
+</div>
+<div style="clear:both;height:50px"></div>

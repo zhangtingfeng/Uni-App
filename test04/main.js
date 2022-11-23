@@ -1,11 +1,21 @@
 import App from './App'
 import store from './store'
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false
 Vue.prototype.$store = store
 Vue.prototype.$adpid = "1111111111"
+<<<<<<< HEAD
+=======
+
+	
+>>>>>>> dev
 Vue.prototype.$backgroundAudioData = {
 	playing: false,
 	playTime: 0,
@@ -19,6 +29,11 @@ const app = new Vue({
 app.$mount()
 // #endif
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> dev
 // #ifdef VUE3
 import {
 	createSSRApp

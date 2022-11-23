@@ -3,6 +3,7 @@ server:
   servlet:
     context-path: /demo
 
+
   #com.mysql.jdbc.Driver过时
 spring:
   datasource:
@@ -22,4 +23,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+
+logging:
+  file:
+    path: ../db/logs
 

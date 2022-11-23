@@ -15,5 +15,4 @@ public interface TeamPlayerConfigRepository extends JpaRepository<TeamPlayerConf
 
     public List findListByTeamplayerid(Long teamplayerid);
 
-
 }
