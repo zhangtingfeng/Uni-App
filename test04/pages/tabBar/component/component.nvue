@@ -11,6 +11,8 @@
 						<uni-th :class="{'thdddd':true}" width="60" align="center">位置</uni-th>
 						<uni-th :class="{'thdddd':true}" width="20" align="center"
 							v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
+						<!--	<uni-th :class="{'thdddd':true}" width="60" align="center">状态%</uni-th>-->
+						<uni-th :class="{'thdddd':true}" width="60" align="center">加权分</uni-th>
 						<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
 					</uni-tr>
 
@@ -28,22 +30,29 @@
 							v-for="(CurteamPlayerConfig,index888) in list.TeamPlayer.teamPlayerConfig">
 							{{CurteamPlayerConfig.value}}
 						</uni-td>
+						<!--<uni-td :class="{'trddddoutside':true}">
+							<view class="trddddchinese">{{Math.round(list.showCalavalueRate*100.0)/100 }}</view>
+						</uni-td>-->
+						<uni-td :class="{'trddddoutside':true}">
+							<view class="trddddchinese">{{Math.round(list.showCalavalue*100.0) /100 }}</view>
+						</uni-td>
 						<uni-td :class="{'trdddd':true}">
 							<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
 								type="default" size="mini">Edit</button>
 						</uni-td>
 					</uni-tr>
 					<uni-tr>
-						<uni-td :class="{'trdddd':true}">总分</uni-td>
+						<uni-td :class="{'trdddd':true}"></uni-td>
 						<uni-td :class="{'trddddoutside':true}">
-							<view class="trddddchinese">{{Appcaculist.okSumStatisticsList[indexx]}}</view>
+							<!--{{Appcaculist.okSumStatisticsList[indexx]}}-->
+							<view class="trddddchinese"></view>
 						</uni-td>
 						<uni-td :class="{'trdddd':true}">合计</uni-td>
 						<uni-td :class="{'trdddd':true}"
 							v-for="(ItemValue,index) in Appcaculist.okStatisticsList[indexx]">
 							{{Math.round(ItemValue * 100) / 100}}
 						</uni-td>
-
+						<uni-td :class="{'trdddd':true}">{{Math.round(Appcaculist.okshowCalavalueRateList[indexx]*100.0)/100}}</uni-td>
 					</uni-tr>
 					</uni-table>
 					<!--<view style="margin: 3px;border-radius: 3px;" v-for="(Curplayer,indexy) in CurOkTeamplayerList"
@@ -63,48 +72,48 @@
 		</view>
 		<view class="uni-padding-wrap uni-common-mt">
 			<view class="uni-form-item uni-column">
-				<view :class="{'thdddd':true}" v-for="(ItemValue,indexx) in Appcaculist.okshowCalavalueRateList">
+				<!--<view :class="{'thdddd':true}" v-for="(ItemValue,indexx) in Appcaculist.okshowCalavalueRateList">
 					{{AAA111(indexx)}}
-				</view>
-			
+				</view>-->
 
-			<view :class="{'thdddd':true,'thddddRed':true}">
-				当前分组标准差{{Math.round(Appcaculist.doubleStandardcha * 100) / 100}},标准差越小实力差距越接近均衡</view>
+
+				<view :class="{'thdddd':true,'thddddRed':true}">
+					当前加权标准差{{Math.round(Appcaculist.doubleStandardcha * 100) / 100}},标准差越小实力差距越接近均衡</view>
+			</view>
 		</view>
-	</view>
-	<view class="uni-btn-v">
+		<view class="uni-btn-v">
 
-		<button type="primary" @click="dorandom">重新分组</button>
-	</view>
-	<uni-group title="等待分组" mode="card">
+			<button type="primary" @click="dorandom">重新分组</button>
+		</view>
+		<uni-group title="等待分组" mode="card">
 
-		<uni-table ref="table" border stripe :style="{'fontsize':'5px'}">
-			<uni-tr>
-				<uni-th :class="{'thdddd':true}" width="30" align="center">号码</uni-th>
-				<uni-th :class="{'thdddd':true}" width="30" align="center">称呼</uni-th>
-				<uni-th :class="{'thdddd':true}" width="30" align="center">位置</uni-th>
-				<uni-th :class="{'thdddd':true}" width="20" align="center"
-					v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
-				<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
-			</uni-tr>
+			<uni-table ref="table" border stripe :style="{'fontsize':'5px'}">
+				<uni-tr>
+					<uni-th :class="{'thdddd':true}" width="30" align="center">号码</uni-th>
+					<uni-th :class="{'thdddd':true}" width="30" align="center">称呼</uni-th>
+					<uni-th :class="{'thdddd':true}" width="30" align="center">位置</uni-th>
+					<uni-th :class="{'thdddd':true}" width="20" align="center"
+						v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
+					<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
+				</uni-tr>
 
 
-			<uni-tr v-for="(list, index) in Appcaculist.listJSONNotPlayingObject" :key="index">
-				<uni-td :class="{'trdddd':true}">{{list.TeamPlayer.playernumber}}</uni-td>
-				<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.nickname}}</uni-td>
-				<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.playerrole}}</uni-td>
+				<uni-tr v-for="(list, index) in Appcaculist.listJSONNotPlayingObject" :key="index">
+					<uni-td :class="{'trdddd':true}">{{list.TeamPlayer.playernumber}}</uni-td>
+					<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.nickname}}</uni-td>
+					<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.playerrole}}</uni-td>
 
-				<uni-td :class="{'trdddd':true}"
-					v-for="(CurteamPlayerConfig,index888) in list.TeamPlayer.teamPlayerConfig">
-					{{CurteamPlayerConfig.value}}
-				</uni-td>
-				<uni-td :class="{'trdddd':true}">
-					<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
-						type="default" size="mini">Edit</button>
-				</uni-td>
-			</uni-tr>
-		</uni-table>
-		<!--
+					<uni-td :class="{'trdddd':true}"
+						v-for="(CurteamPlayerConfig,index888) in list.TeamPlayer.teamPlayerConfig">
+						{{CurteamPlayerConfig.value}}
+					</uni-td>
+					<uni-td :class="{'trdddd':true}">
+						<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
+							type="default" size="mini">Edit</button>
+					</uni-td>
+				</uni-tr>
+			</uni-table>
+			<!--
 			<view style="background-color:#efeff4;margin: 3px;border-radius: 3px;"
 				v-for="(Curplayer,indexy) in Appcaculist.listJSONNotPlayingObject"
 				@click="doEdit(Curplayer.TeamPlayer.id)">
@@ -118,36 +127,36 @@
 					</view>
 				</view>
 			</view>-->
-	</uni-group>
+		</uni-group>
 
-	<uni-group title="未参加" mode="card">
-		<uni-table ref="table" border stripe :style="{'fontsize':'5px'}">
-			<uni-tr>
-				<uni-th :class="{'thdddd':true}" width="30" align="center">号码</uni-th>
-				<uni-th :class="{'thdddd':true}" width="30" align="center">称呼</uni-th>
-				<uni-th :class="{'thdddd':true}" width="30" align="center">位置</uni-th>
-				<uni-th :class="{'thdddd':true}" width="20" align="center"
-					v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
-				<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
-			</uni-tr>
+		<uni-group title="未参加" mode="card">
+			<uni-table ref="table" border stripe :style="{'fontsize':'5px'}">
+				<uni-tr>
+					<uni-th :class="{'thdddd':true}" width="30" align="center">号码</uni-th>
+					<uni-th :class="{'thdddd':true}" width="30" align="center">称呼</uni-th>
+					<uni-th :class="{'thdddd':true}" width="30" align="center">位置</uni-th>
+					<uni-th :class="{'thdddd':true}" width="20" align="center"
+						v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
+					<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
+				</uni-tr>
 
 
-			<uni-tr v-for="(list, index) in Appcaculist.listJSONInActiveObject" :key="index">
-				<uni-td :class="{'trdddd':true}">{{list.TeamPlayer.playernumber}}</uni-td>
-				<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.nickname}}</uni-td>
-				<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.playerrole}}</uni-td>
+				<uni-tr v-for="(list, index) in Appcaculist.listJSONInActiveObject" :key="index">
+					<uni-td :class="{'trdddd':true}">{{list.TeamPlayer.playernumber}}</uni-td>
+					<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.nickname}}</uni-td>
+					<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.playerrole}}</uni-td>
 
-				<uni-td :class="{'trdddd':true}"
-					v-for="(CurteamPlayerConfig,index888) in list.TeamPlayer.teamPlayerConfig">
-					{{CurteamPlayerConfig.value}}
-				</uni-td>
-				<uni-td :class="{'trdddd':true}">
-					<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
-						type="default" size="mini">Edit</button>
-				</uni-td>
-			</uni-tr>
-		</uni-table>
-		<!--
+					<uni-td :class="{'trdddd':true}"
+						v-for="(CurteamPlayerConfig,index888) in list.TeamPlayer.teamPlayerConfig">
+						{{CurteamPlayerConfig.value}}
+					</uni-td>
+					<uni-td :class="{'trdddd':true}">
+						<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
+							type="default" size="mini">Edit</button>
+					</uni-td>
+				</uni-tr>
+			</uni-table>
+			<!--
 			<view style="background-color:#efeff4;margin: 3px;border-radius: 3px;"
 				v-for="(Curplayer,indexy) in Appcaculist.listJSONInActiveObject"
 				@click="doEdit(Curplayer.TeamPlayer.id)">
@@ -162,19 +171,19 @@
 				</view>
 			</view>-->
 
-	</uni-group>
+		</uni-group>
 
-	<view class="uni-btn-v">
+		<view class="uni-btn-v">
 
-		<navigator url="/pages/component/form/form?operationtype=add">
-			<button type="primary">add member</button>
+			<navigator url="/pages/component/form/form?operationtype=add">
+				<button type="primary">add member</button>
 
-		</navigator>
+			</navigator>
 
-	</view>
-	<view>
-		<video :src="src" class="video"></video>
-	</view>
+		</view>
+		<view>
+			<video :src="src" class="video"></video>
+		</view>
 	</view>
 </template>
 
@@ -368,7 +377,8 @@
 			},
 			AAA111: function(indexx) {
 				//{{Math.round(ItemValue * 100) /100 }}
-				return "战队-" + String.fromCharCode(64 + indexx + 1)+",本次电脑发挥率抽签分数:"+(Math.round(this.Appcaculist.okshowCalavalueRateList[indexx]* 100) / 100);
+				return "战队-" + String.fromCharCode(64 + indexx + 1) + ",本次电脑发挥率抽签分数:" + (Math.round(this.Appcaculist
+					.okshowCalavalueRateList[indexx] * 100) / 100);
 				//return "组" + (indexx + 1) + ",总分" + Math.round((this.Appcaculist.okList[indexx]) * 100) / 100;
 			},
 			triggerCollapse(e, id) {
@@ -411,6 +421,7 @@
 								.fill(0);
 
 							for (let j = 0; j < letCurList.length; j++) {
+								//debugger;
 								for (let k = 0; k < letCurList[j].TeamPlayer.teamPlayerConfig.length; k++) {
 									let lll = letCurList[j].TeamPlayer.teamPlayerConfig[k];
 									letAAAAAList[k] = letAAAAAList[k] + lll.value;
@@ -587,9 +598,11 @@
 		line-height: 12px;
 		padding: 4px 8px
 	}
-.thddddRed{
-	color: red;
-}
+
+	.thddddRed {
+		color: red;
+	}
+
 	.trdddd {
 		align: center;
 		font-weight: 600;
