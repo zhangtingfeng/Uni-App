@@ -29,3 +29,11 @@ node_modules/
 **/node_modules/
 **/uni_modules/
 **/static/
+
+
+
+### IntelliJ IDEA ###
+**/.idea
+*.iws
+*.iml
+*.ipr
