@@ -141,7 +141,7 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/api/*" : {
-                    "target" : "http://140.210.138.139:58083/api",
+                    "target" : "http://127.0.0.1:58083/api", //127.0.0.1 http://140.210.138.139:58083/api
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {

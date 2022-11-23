@@ -1,73 +1,184 @@
 <template>
-	<view class="uni-container">
+
+	<view class="uni-container" :class="{'groupcard':true}">
 		<view v-for="(CurOkTeamplayerList,indexx) in Appcaculist.okJSONObjectTeamplayerIDList">
 			<uni-section :title="AAA(indexx)" type="line">
-				<uni-group mode="card">
-					<view style="margin: 3px;border-radius: 3px;"
-						v-for="(Curplayer,indexy) in CurOkTeamplayerList" @click="doEdit(Curplayer.TeamPlayer.id)">
+				<uni-group mode="card" :class="{'groupcard':true}" <uni-table ref="table" border stripe
+					:style="{'fontsize':'5px'}">
+					<uni-tr>
+						<uni-th :class="{'thdddd':true}" width="30" align="center">号码</uni-th>
+						<uni-th :class="{'thdddd':true}" width="30" align="center">称呼</uni-th>
+						<uni-th :class="{'thdddd':true}" width="60" align="center">位置</uni-th>
+						<uni-th :class="{'thdddd':true}" width="20" align="center"
+							v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
+						<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
+					</uni-tr>
+
+
+					<uni-tr v-for="(list, index) in CurOkTeamplayerList" :key="index">
+						<uni-td :class="{'trdddd':true}">{{list.TeamPlayer.playernumber}}</uni-td>
+						<uni-td :class="{'trddddoutside':true}">
+							<view class="trddddchinese">{{list.TeamPlayer.nickname}}</view>
+						</uni-td>
+						<uni-td :class="{'trddddoutside':true}">
+							<view class="trddddchinese">{{list.TeamPlayer.playerrole}}</view>
+						</uni-td>
+
+						<uni-td :class="{'trdddd':true}"
+							v-for="(CurteamPlayerConfig,index888) in list.TeamPlayer.teamPlayerConfig">
+							{{CurteamPlayerConfig.value}}
+						</uni-td>
+						<uni-td :class="{'trdddd':true}">
+							<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
+								type="default" size="mini">Edit</button>
+						</uni-td>
+					</uni-tr>
+					<uni-tr>
+						<uni-td :class="{'trdddd':true}">总分</uni-td>
+						<uni-td :class="{'trddddoutside':true}">
+							<view class="trddddchinese">{{Appcaculist.okSumStatisticsList[indexx]}}</view>
+						</uni-td>
+						<uni-td :class="{'trdddd':true}">合计</uni-td>
+						<uni-td :class="{'trdddd':true}"
+							v-for="(ItemValue,index) in Appcaculist.okStatisticsList[indexx]">
+							{{Math.round(ItemValue * 100) / 100}}
+						</uni-td>
+
+					</uni-tr>
+					</uni-table>
+					<!--<view style="margin: 3px;border-radius: 3px;" v-for="(Curplayer,indexy) in CurOkTeamplayerList"
+						@click="doEdit(Curplayer.TeamPlayer.id)">
 						<view style="background-color:#007aff;">队员{{indexy+1}}：{{Curplayer.TeamPlayer.nickname}},
 							总分：{{Math.round(Curplayer.showFixvalue * 100) / 100}}</view>
 						<view style="text-align: center;flex-direction: row" class="text-box" scroll-y="true">
 							<view style="flex-direction: row">
-
 								<text v-for="(CurteamPlayerConfig,indexxy) in Curplayer.TeamPlayer.teamPlayerConfig">
 									{{CurteamPlayerConfig.configname}}{{CurteamPlayerConfig.value}};
 								</text>
-
 							</view>
-
-
 						</view>
-
-					</view>
+					</view>-->
 				</uni-group>
 			</uni-section>
 		</view>
+		<view class="uni-padding-wrap uni-common-mt">
+			<view class="uni-form-item uni-column">
+				<view :class="{'thdddd':true}" v-for="(ItemValue,indexx) in Appcaculist.okshowCalavalueRateList">
+					{{AAA111(indexx)}}
+				</view>
+			
 
-		<uni-group title="等待分组" mode="card">
+			<view :class="{'thdddd':true,'thddddRed':true}">
+				当前分组标准差{{Math.round(Appcaculist.doubleStandardcha * 100) / 100}},标准差越小实力差距越接近均衡</view>
+		</view>
+	</view>
+	<view class="uni-btn-v">
+
+		<button type="primary" @click="dorandom">重新分组</button>
+	</view>
+	<uni-group title="等待分组" mode="card">
+
+		<uni-table ref="table" border stripe :style="{'fontsize':'5px'}">
+			<uni-tr>
+				<uni-th :class="{'thdddd':true}" width="30" align="center">号码</uni-th>
+				<uni-th :class="{'thdddd':true}" width="30" align="center">称呼</uni-th>
+				<uni-th :class="{'thdddd':true}" width="30" align="center">位置</uni-th>
+				<uni-th :class="{'thdddd':true}" width="20" align="center"
+					v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
+				<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
+			</uni-tr>
+
+
+			<uni-tr v-for="(list, index) in Appcaculist.listJSONNotPlayingObject" :key="index">
+				<uni-td :class="{'trdddd':true}">{{list.TeamPlayer.playernumber}}</uni-td>
+				<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.nickname}}</uni-td>
+				<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.playerrole}}</uni-td>
+
+				<uni-td :class="{'trdddd':true}"
+					v-for="(CurteamPlayerConfig,index888) in list.TeamPlayer.teamPlayerConfig">
+					{{CurteamPlayerConfig.value}}
+				</uni-td>
+				<uni-td :class="{'trdddd':true}">
+					<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
+						type="default" size="mini">Edit</button>
+				</uni-td>
+			</uni-tr>
+		</uni-table>
+		<!--
 			<view style="background-color:#efeff4;margin: 3px;border-radius: 3px;"
-				v-for="(Curplayer,indexy) in Appcaculist.listJSONNotPlayingObject" @click="doEdit(Curplayer.TeamPlayer.id)">
+				v-for="(Curplayer,indexy) in Appcaculist.listJSONNotPlayingObject"
+				@click="doEdit(Curplayer.TeamPlayer.id)">
 				<view>{{Curplayer.TeamPlayer.nickname}},
 					总分：{{Math.round(Curplayer.showFixvalue * 100) / 100}}</view>
 				<view style="text-align: center;flex-direction: row" class="text-box" scroll-y="true">
-					<view style="flex-direction: row">			
+					<view style="flex-direction: row">
 						<text v-for="(CurteamPlayerConfig,indexxy) in Curplayer.TeamPlayer.teamPlayerConfig">
 							{{CurteamPlayerConfig.configname}}{{CurteamPlayerConfig.value}};
-						</text>			
-					</view>	
-				</view>			
-			</view>			
-		</uni-group>
+						</text>
+					</view>
+				</view>
+			</view>-->
+	</uni-group>
 
-		<uni-group title="未参加" mode="card">
+	<uni-group title="未参加" mode="card">
+		<uni-table ref="table" border stripe :style="{'fontsize':'5px'}">
+			<uni-tr>
+				<uni-th :class="{'thdddd':true}" width="30" align="center">号码</uni-th>
+				<uni-th :class="{'thdddd':true}" width="30" align="center">称呼</uni-th>
+				<uni-th :class="{'thdddd':true}" width="30" align="center">位置</uni-th>
+				<uni-th :class="{'thdddd':true}" width="20" align="center"
+					v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
+				<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
+			</uni-tr>
+
+
+			<uni-tr v-for="(list, index) in Appcaculist.listJSONInActiveObject" :key="index">
+				<uni-td :class="{'trdddd':true}">{{list.TeamPlayer.playernumber}}</uni-td>
+				<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.nickname}}</uni-td>
+				<uni-td :class="{'trddddchinese':true}">{{list.TeamPlayer.playerrole}}</uni-td>
+
+				<uni-td :class="{'trdddd':true}"
+					v-for="(CurteamPlayerConfig,index888) in list.TeamPlayer.teamPlayerConfig">
+					{{CurteamPlayerConfig.value}}
+				</uni-td>
+				<uni-td :class="{'trdddd':true}">
+					<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
+						type="default" size="mini">Edit</button>
+				</uni-td>
+			</uni-tr>
+		</uni-table>
+		<!--
 			<view style="background-color:#efeff4;margin: 3px;border-radius: 3px;"
-				v-for="(Curplayer,indexy) in Appcaculist.listJSONInActiveObject" @click="doEdit(Curplayer.TeamPlayer.id)">
+				v-for="(Curplayer,indexy) in Appcaculist.listJSONInActiveObject"
+				@click="doEdit(Curplayer.TeamPlayer.id)">
 				<view>{{Curplayer.TeamPlayer.nickname}},
-					总分：{{Curplayer.showFixvalue}}</view>
+					总分：{{Math.round(Curplayer.showFixvalue * 100) / 100}}</view>
 				<view style="text-align: center;flex-direction: row" class="text-box" scroll-y="true">
-					<view style="flex-direction: row">			
+					<view style="flex-direction: row">
 						<text v-for="(CurteamPlayerConfig,indexxy) in Curplayer.TeamPlayer.teamPlayerConfig">
 							{{CurteamPlayerConfig.configname}}{{CurteamPlayerConfig.value}};
-						</text>			
-					</view>	
-				</view>			
-			</view>		
-			
-		</uni-group>
+						</text>
+					</view>
+				</view>
+			</view>-->
 
-		<view class="uni-btn-v">
-			<button type="primary" @click="dorandom">do</button>
-			<navigator url="/pages/component/form/form?operationtype=add">
-				<button type="primary">add member</button>
+	</uni-group>
 
-			</navigator>
-			
-		</view>
-		<view>
-		<video :src="src"   class="video"></video>
-		</view>
+	<view class="uni-btn-v">
+
+		<navigator url="/pages/component/form/form?operationtype=add">
+			<button type="primary">add member</button>
+
+		</navigator>
+
+	</view>
+	<view>
+		<video :src="src" class="video"></video>
+	</view>
 	</view>
 </template>
+
+
 <script>
 	// TODO 修复Android v3 加载过慢问题
 	// #ifdef APP-PLUS
@@ -88,9 +199,37 @@
 		},
 		data() {
 			return {
-				intSize:11,
+
+				intSize: 11,
 				Appcaculist: {},
-				src:'',
+				src: '',
+				// 表格标题
+				th: ["姓名", "手号", "所属", "性别", "昵称", "住址", "备注", "备注"],
+				// 表格内容  这里只能使用 数组套数组格式
+				td: [
+					[
+						"滴滴滴",
+						"183",
+						"多喝水",
+						"中性",
+						"护手霜",
+						"好的",
+						"2",
+						"SCV"
+					],
+					[
+						"滴2",
+						"18397",
+						"多水",
+						"中性",
+						"护手",
+						"好的好",
+						"2",
+						"SCV1"
+					]
+
+				],
+
 				list: [{
 						id: 'view',
 						name: '视图容器',
@@ -219,8 +358,18 @@
 		},
 		// #endif
 		methods: {
+			getRow() {
+				//debugger;
+				this.$emit("row-click")
+			},
 			AAA: function(indexx) {
-				return "组"+(indexx+1)+",总分"+(this.Appcaculist.okList[indexx]);
+				return "战队-" + String.fromCharCode(64 + indexx + 1);
+				//return "组" + (indexx + 1) + ",总分" + Math.round((this.Appcaculist.okList[indexx]) * 100) / 100;
+			},
+			AAA111: function(indexx) {
+				//{{Math.round(ItemValue * 100) /100 }}
+				return "战队-" + String.fromCharCode(64 + indexx + 1)+",本次电脑发挥率抽签分数:"+(Math.round(this.Appcaculist.okshowCalavalueRateList[indexx]* 100) / 100);
+				//return "组" + (indexx + 1) + ",总分" + Math.round((this.Appcaculist.okList[indexx]) * 100) / 100;
 			},
 			triggerCollapse(e, id) {
 				if (!this.list[e].pages) {
@@ -248,25 +397,42 @@
 						})
 						let caculist = {};
 						caculist = res.data;
-						
 
 
-						let okList = [];
+
+						let okStatisticsList = [];
+						let okSumStatisticsList = [];
 						//debugger;
 						let letuUUlength = caculist.okJSONObjectTeamplayerIDList.length;
 						for (let i = 0; i < letuUUlength; i++) {
 							let alllNum = 0;
 							let letCurList = caculist.okJSONObjectTeamplayerIDList[i];
+							let letAAAAAList = new Array(letCurList[0].TeamPlayer.teamPlayerConfig.length)
+								.fill(0);
+
 							for (let j = 0; j < letCurList.length; j++) {
-								alllNum += letCurList[j].showFixvalue;
+								for (let k = 0; k < letCurList[j].TeamPlayer.teamPlayerConfig.length; k++) {
+									let lll = letCurList[j].TeamPlayer.teamPlayerConfig[k];
+									letAAAAAList[k] = letAAAAAList[k] + lll.value;
+									//debugger;
+
+								}
 							}
-							okList.push(Math.round(alllNum * 100) / 100);
+
+							for (let i = 0; i < letAAAAAList.length; i++) {
+								alllNum += letAAAAAList[i];
+							}
+							okStatisticsList.push(letAAAAAList);
+							okSumStatisticsList.push(alllNum);
 						}
+						caculist.okStatisticsList = okStatisticsList;
+						caculist.okSumStatisticsList = okSumStatisticsList;
 						//debugger;
-						caculist.okList = okList;
+
 						letthis.Appcaculist = caculist;
 						//letthis.intSize=letthis.Appcaculist.listJSONNotPlayingObject.length;
 						uni.hideLoading();
+						console.log("caculist.okSumStatisticsList=" + JSON.stringify(okSumStatisticsList));
 						//console.log("letthis.caculist=" + JSON.stringify(caculist));
 					},
 					fail: (err) => {
@@ -277,11 +443,38 @@
 				console.log(1);
 			},
 			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
-				this.src="http://game.beidouguoxin.com/playgame.mp4";
+				//debugger;
+				this.src = "http://game.beidouguoxin.com/playgame.mp4";
 				this.dorandom();
+				this.onsaveIP(option);
+			},
 
+			onsaveIP: function(ipoption) {
+				console.log("ipoption", JSON.stringify(ipoption));
+				let letgetSystemInfoSync = uni.getSystemInfoSync();
+
+				var ip = sessionStorage.getItem('ip'); //获取客户端的ip地址;
+				letgetSystemInfoSync.ip = ip;
+				let letIprecord = {};
+				letIprecord.salesagent = ipoption.agent ? ipoption.agent : window.location.href;
+				letIprecord.type = 'first page';
+				letIprecord.ipaddress = JSON.stringify(letgetSystemInfoSync);
+				console.log("ip", ip);
+				uni.request({
+					url: '/api/iprecord/save',
+					method: 'POST',
+					data: letIprecord,
+					success(res) {
+						//debugger;				
+						console.log('iprecord 发生变化：' + JSON.stringify(res));
+					},
+					fail(err) {
+						console.log('iprecord失败：', err);
+					}
+				})
 			},
 			doEdit: function(option) { //option为object类型，会序列化上个页面传递的参数
+				//debugger;
 				uni.reLaunch({
 					url: '/pages/component/form/form?operationtype=modify&playerid=' + option
 				});
@@ -310,14 +503,125 @@
 						})
 					}
 				}
-			}
+			},
+
 		}
+
 	}
 </script>
 
 <style>
 	@import '../../../common/uni-nvue.css';
+
 	.video {
 		width: 100%;
+	}
+
+	// css表格实现
+	.su-table-box {
+		height: 100%;
+		max-width: 100%;
+		margin: 0rpx 30rpx;
+		overflow-x: auto;
+		padding-bottom: 40rpx;
+
+
+	}
+
+	.su-table {
+		margin-top: 50rpx;
+		display: table;
+		border-collapse: collapse; //合并边框
+		overflow-x: auto;
+		// 宽度不能设置，要完全显示可以用
+		word-break: keep-all;
+		// 设置不换行
+		white-space: nowrap;
+		background-color: #FFFFFF;
+	}
+
+	.su-tr {
+		display: table-row; //此元素会作为一个表格行显示（类似 <tr>）
+	}
+
+	.su-th {
+		display: table-cell; //此元素会作为一个表格单元格显示（类似 <td> 和 <th>）
+		height: 60rpx;
+		line-height: 60rpx;
+		text-align: center;
+		border: 1rpx solid #DDDDDD;
+		border-right: none;
+		border-bottom: none;
+		background-color: #87CEFA;
+		color: #FFFFFF;
+		font-size: x-small;
+
+
+		overflow: hidden;
+	}
+
+	.su-td {
+		padding: 0rpx 30rpx;
+		display: table-cell; //此元素会作为一个表格单元格显示（类似 <td> 和 <th>）
+		height: 60rpx;
+		line-height: 60rpx;
+		text-align: center;
+		border: 1rpx solid #DDDDDD !important;
+		border-right: none;
+		font-size: x-small;
+
+		overflow: hidden;
+	}
+
+	#ifndef H5 page {
+		padding-top: 85px;
+	}
+
+	#endif .uni-group {
+		display: flex;
+		align-items: center;
+	}
+
+	.thdddd {
+		font-size: 4px;
+		line-height: 12px;
+		padding: 4px 8px
+	}
+.thddddRed{
+	color: red;
+}
+	.trdddd {
+		align: center;
+		font-weight: 600;
+		font-size: 12px;
+		line-height: 12px;
+		padding: 4px 8px
+	}
+
+	.trddddoutside {
+		align: center;
+		font-weight: 600;
+		font-size: 12px;
+		line-height: 12px;
+		padding: 0px 0px
+	}
+
+	.trddddchinese {
+		align: center;
+
+		-webkit-transform: scale(0.8);
+		font-weight: 600;
+		font-size: 12px;
+		line-height: 12px;
+		padding: 4px 8px
+	}
+
+	.mymini-btn {
+		font-size: 4px;
+		line-height: 1.2;
+	}
+
+	.groupcard {
+		margin: 0px;
 	}
 </style>

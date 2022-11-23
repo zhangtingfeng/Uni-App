@@ -8,6 +8,15 @@
 				<input class="uni-input" name="nickname" v-model="Playerobj.nickname" placeholder="请输入队员称呼" />
 			</view>
 			<view class="uni-form-item uni-column">
+				<view class="title">号码</view>
+				<input class="uni-input" type="number" name="playernumber" v-model="Playerobj.playernumber"
+					placeholder="请输入号码" />
+			</view>
+			<view class="uni-form-item uni-column">
+				<view class="title">位置</view>
+				<input class="uni-input" name="playerrole" v-model="Playerobj.playerrole" placeholder="请输入队员角色" />
+			</view>
+			<view class="uni-form-item uni-column">
 				<view class="title">是否参与分组</view>
 				<radio-group @change="handleActiveChange($event, Playerobj.active)">
 					<label>
@@ -45,7 +54,7 @@
 
 			<view class="uni-btn-v">
 				<button @click="formSubmit" form-type="submit">Save</button>
-				
+
 			</view>
 
 		</view>
@@ -72,7 +81,9 @@
 				CustomeDictionarylist: [],
 				Playerobj: {
 					"active": 0,
-					"nickname": ""
+					"nickname": "",
+					"playernumber": "",
+					"playerrole": ""
 				},
 				teamoption: {}
 			}
@@ -80,10 +91,10 @@
 		methods: {
 			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
 				let letthis = this;
-letthis.teamoption=option;
+				letthis.teamoption = option;
 				letthis.readCustonmData(option);
 
-				
+
 
 
 
@@ -135,15 +146,17 @@ letthis.teamoption=option;
 						if (res.data) {
 							//debugger;
 							letthis.Playerobj = res.data;
-							letthis.rangeValue =JSON.parse(res.data.activepercent);
+							letthis.rangeValue = JSON.parse(res.data.activepercent);
 							let letCustomeDictionarylist = letthis.CustomeDictionarylist;
 							for (let i = 0; i < letCustomeDictionarylist.length; i++) {
 								for (let j = 0; j < letthis.Playerobj.teamPlayerConfig.length; j++) {
 									if (letthis.Playerobj.teamPlayerConfig[j].configname ==
 										letCustomeDictionarylist[i].name) {
-										letCustomeDictionarylist[i].id = letthis.Playerobj.teamPlayerConfig[j].id;
-										letCustomeDictionarylist[i].value = letthis.Playerobj.teamPlayerConfig[j].value;
-											
+										letCustomeDictionarylist[i].id = letthis.Playerobj.teamPlayerConfig[j]
+											.id;
+										letCustomeDictionarylist[i].value = letthis.Playerobj.teamPlayerConfig[
+											j].value;
+
 										//debugger;
 										break;
 									}
@@ -197,7 +210,7 @@ letthis.teamoption=option;
 					fail(err) {
 						console.log('teamPlayer失败：', err);
 					}
-				})
+				});
 
 
 				//console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
@@ -262,7 +275,7 @@ letthis.teamoption=option;
 					debugger;
 					curList = letthis.CustomeDictionarylist;
 				}*/
-				
+
 				for (let i = 0; i < letthis.CustomeDictionarylist.length; i++) {
 					let letPlayConfig = {};
 					letPlayConfig.teamplayerid = teamPlayerID;
@@ -270,12 +283,11 @@ letthis.teamoption=option;
 					letPlayConfig.configtype = letthis.CustomeDictionarylist[i].type;
 					letPlayConfig.configname = letthis.CustomeDictionarylist[i].name;
 					letPlayConfig.value = letthis.CustomeDictionarylist[i].value;
-					
-					if (letoperationtype == "modify")
-					 {
+
+					if (letoperationtype == "modify") {
 						letPlayConfig.id = letthis.CustomeDictionarylist[i].id;
 					}
-					
+
 					curList.push(letPlayConfig);
 				}
 				//debugger;

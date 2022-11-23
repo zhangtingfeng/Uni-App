@@ -1,12 +1,15 @@
 import App from './App'
 import store from './store'
 
+
+
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false
 Vue.prototype.$store = store
 Vue.prototype.$adpid = "1111111111"
 
+	
 Vue.prototype.$backgroundAudioData = {
 	playing: false,
 	playTime: 0,
@@ -19,6 +22,8 @@ const app = new Vue({
 })
 app.$mount()
 // #endif
+
+
 
 // #ifdef VUE3
 import {

@@ -3,6 +3,10 @@ E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\Controller\UserControlle
 E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\Repository\DictionaryRepository.java
 E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\Controller\TeamPlayerConfigController.java
 E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\JpademoApplication.java
+E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\Repository\IpRecordRepository.java
+E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\beans\Iprecord.java
+E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\Controller\IprecordController.java
+E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\Service\IprecordService.java
 E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\Repository\TeamPlayerConfigRepository.java
 E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\beans\User.java
 E:\Works\UniAppJpa\BootJpa\src\main\java\org\eggsoft\cn\beans\TeamPlayerConfig.java

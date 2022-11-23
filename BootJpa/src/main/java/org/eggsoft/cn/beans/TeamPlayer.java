@@ -32,6 +32,13 @@ public class TeamPlayer  implements Serializable {
     @Column(length = 200)
     private String activepercent;
 
+
+    @Column(length = 200)
+    private String playernumber;
+
+    @Column(length = 200)
+    private String playerrole;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date CreateTime=new Date();
     private Date UpdateTime;

@@ -1,0 +1,57 @@
+﻿@using CMS.Web.dto
+@model SinglePageDTOModel
+@{Layout = "~/views/base/_layout.cshtml";}
+
+<div class="innerBanner">
+    <img src="@Model.cover_image_url" style="width:100%;" />
+</div>
+<div class="innerNav-box">
+    <div class="innerNav">
+        <div class="innerNav-position">
+            <img src="/static/image/position.png">
+            当前位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<a>新闻资讯</a>&nbsp;&gt;&nbsp;<a href="@Model.localpath">@Model.category_name</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper w1200">
+    <!--栏目分类开始-->
+    <div class="left-menu fl">
+        <ul>
+            @foreach (var item in Model.categorylist)
+            {
+                <li class="item a1 @(item.url==Model.category_url?"hover":"")"><a href="@item.url"><h3>@item.text</h3><s><img src="@item.icon_url" /></s></a></li>
+            }
+        </ul>
+    </div>
+    <!--栏目分类结束-->
+    <!--单页内容开始-->
+    <div class="content showNews fr">
+        <h1 class="title">@Model.article.title</h1>
+        <div class="mark"><span>发布日期：@Model.article.add_time</span></div>
+        <div class="showContxt">
+            @Html.Raw(Model.article.content)
+        </div>
+        <div class="clear"></div>
+        <div class="reLink clearfix">
+            @if (Model.preArticle != null)
+            {
+                <div class="prevLink fl">上一篇：<a href="/news/detail/@(Model.preArticle.id).html" title="@Model.preArticle.title">@Model.preArticle.title</a></div>
+            }
+            else
+            {
+                <div class="prevLink fl">上一篇：<a title="暂无数据">暂无数据</a></div>
+            }
+            @if (Model.nextArticle != null)
+            {
+                <div class="nextLink fr">下一篇：<a href="/news/detail/@(Model.nextArticle.id).html" title="@Model.nextArticle.title">@Model.nextArticle.title</a></div>
+            }
+            else
+            {
+                <div class="nextLink fr">下一篇：<a title="暂无数据">暂无数据</a></div>
+            }
+        </div>
+
+    </div>
+    <!--单页内容结束-->
+</div>
+<div style="clear:both;height:50px"></div>

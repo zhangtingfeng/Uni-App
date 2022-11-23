@@ -1,0 +1,31 @@
+﻿@using CMS.Web.dto
+@model SinglePageDTOModel
+@{Layout = "~/views/base/_layout.cshtml";}
+
+
+<div class="innerBanner">
+    <img src="@Model.cover_image_url" style="width:100%;"/>
+</div>
+<div class="innerNav-box">
+    <div class="innerNav">
+        <div class="innerNav-position">
+            <img src="/static/image/position.png">
+            当前位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<a href="#">@Model.category_name</a>
+        </div>
+    </div>
+</div>
+<div class="wrapper">
+    <!--单页内容开始-->
+    <div class="contactPage w1200 clearfix">
+        <div class="txtcon fl">
+            <p><strong style="font-size:20px; color:#000;">@site.global.company</strong></p>
+            <p style="font-size:17px;color:#000;">朱先生：13510091911（微信同号）</p>
+            <p style="font-size:17px;color:#000;">冯先生：13006688777（微信同号）</p>
+            <p style="font-size:17px;color:#000;">热线电话：@site.global.tel（微信同号）</p>
+            <p style="font-size:17px;color:#000;">微信号：beidouguoxin</p>
+            <p style="margin-top:20px;"><img src="/static/image/wxgzh.png" /></p>
+        </div>
+        <div class="mapArea fr"><iframe src="/contactus/baidumap.html" frameborder="0" width="100%" height="100%" scrolling="no"></iframe></div>
+    </div>
+    <!--单页内容结束-->
+</div>

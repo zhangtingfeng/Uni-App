@@ -42,7 +42,6 @@ public class TeamPlayerController {
     synchronized public JSONObject Caculist() {
 
         List<TeamPlayer> TeamPlayerAllList = teamPlayerService.getAllList();
-        //List<Dictionary> myDictionaryList1 = dictionaryService.getListBTypeAndName("fix", "发挥率");
         List<Dictionary> myDictionaryList2 = dictionaryService.getListBTypeAndName("fix", "几人一组");
 
         List<Dictionary> myDictionaryListCustom = dictionaryService.getListBType("Custome");
@@ -67,6 +66,7 @@ public class TeamPlayerController {
                     if (teamPlayerConfig.getConfigname().equals(dictionary.getName())) {
                         numdouble += teamPlayerConfig.getValue() * Double.parseDouble(dictionary.getValue());
                         System.out.println("teamPlayerConfig.getValue()*dictionary.getValue()=" + teamPlayerConfig.getValue() + "*" + dictionary.getValue());
+                        break;
                     }
                 }
             }
@@ -172,6 +172,39 @@ public class TeamPlayerController {
 
         }
 
+
+        //debugger;
+        Integer letuUUlength = okJSONObjectTeamplayerIDList.length;
+        double[] okList = new double[letuUUlength];
+        double[] okshowCalavalueRateList = new double[letuUUlength];
+        double allSumokshowCalavalueRateList=0;
+
+        for (Integer i = 0; i < letuUUlength; i++) {
+            double alllNum = (double)0;
+            double alllshowCalavalueRateNum = (double)0;
+
+            JSONObject[] letCurList = okJSONObjectTeamplayerIDList[i];
+            for (Integer j = 0; j < letCurList.length; j++) {
+                alllNum =alllNum+ letCurList[j].getDoubleValue("showFixvalue");
+                alllshowCalavalueRateNum =alllshowCalavalueRateNum+ letCurList[j].getDoubleValue("showCalavalue");
+            }
+            okList[i]=alllNum;
+            okshowCalavalueRateList[i]=alllshowCalavalueRateNum;
+
+            allSumokshowCalavalueRateList+=alllshowCalavalueRateNum;//计算平均值：
+        }
+
+       //计算平均值 计算方差：
+        double doublePingJun= allSumokshowCalavalueRateList/letuUUlength;
+        double[] FangChashowCalavalueRateList = new double[letuUUlength];
+        double doublePingJunFangcha=0;
+        for (Integer i = 0; i < letuUUlength; i++) {
+            FangChashowCalavalueRateList[i]=(Math.pow(okshowCalavalueRateList[i]-doublePingJun,2));
+            doublePingJunFangcha+=FangChashowCalavalueRateList[i];
+        }
+        double doubleStandardcha=Math.sqrt(doublePingJunFangcha/letuUUlength);
+
+
         JSONObject object = new JSONObject();
         object.put("Mod", intMod);
         object.put("listJSONPlayingObject", mplayingList);
@@ -181,7 +214,10 @@ public class TeamPlayerController {
         object.put("intnewArrayTeamplayerIDList", intnewArrayTeamplayerIDList);
         object.put("intnewAfterArrayTeamplayerIDList", intnewAfterArrayTeamplayerIDList);
         object.put("okJSONObjectTeamplayerIDList", okJSONObjectTeamplayerIDList);
-
+        object.put("okList", okList);
+        object.put("okshowCalavalueRateList", okshowCalavalueRateList);
+        object.put("DictionaryListCustom", myDictionaryListCustom);
+        object.put("doubleStandardcha", doubleStandardcha);
         return object;
 
 

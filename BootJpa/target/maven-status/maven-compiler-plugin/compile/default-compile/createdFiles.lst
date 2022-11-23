@@ -1,5 +1,6 @@
 org\eggsoft\cn\beans\TeamPlayer.class
 org\eggsoft\cn\Controller\TeamPlayerConfigController.class
+org\eggsoft\cn\Repository\IpRecordRepository.class
 org\eggsoft\cn\Controller\TeamPlayerController.class
 org\eggsoft\cn\Repository\DictionaryRepository.class
 org\eggsoft\cn\Repository\UserRepository.class
@@ -13,6 +14,9 @@ org\eggsoft\cn\Service\UserService.class
 org\eggsoft\cn\Controller\UserController.class
 org\eggsoft\cn\JpademoApplication.class
 org\eggsoft\cn\Service\TeamPlayerService.class
+org\eggsoft\cn\beans\Iprecord.class
+org\eggsoft\cn\Service\IprecordService.class
 org\eggsoft\cn\Repository\TeamPlayerConfigRepository.class
 org\eggsoft\cn\beans\User.class
 org\eggsoft\cn\Repository\TeamPlayerRepository.class
+org\eggsoft\cn\Controller\IprecordController.class
