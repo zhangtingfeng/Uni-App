@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbc166d3-df14-4f07-8faf-de4481f23113" name="Changes" comment="tuokedevmain">
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+    <list default="true" id="5e71c9df-4d99-4b86-a5a0-0cc42b19762a" name="Changes" comment="tuokedevmain">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test04/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test04/pages/tabBar/component/component.nvue" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/pages/tabBar/component/component.nvue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test04/unpackage/dist/build/h5/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/unpackage/dist/build/h5/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +72,7 @@
       <recent name="C:\Works\situ-master\Uni-app\HBuilderProjects\uni-app\BootJpa\src\main\resources\libs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JpademoApplicationMysql">
+  <component name="RunManager" selected="Application.JpademoApplicationOracle">
     <configuration name="JpademoApplicationMysql" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="org.eggsoft.cn.JpademoApplication" />
       <module name="BootJpa" />
