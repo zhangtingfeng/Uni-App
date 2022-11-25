@@ -40,7 +40,26 @@ public class TeamPlayerController {
 
     @GetMapping(value = "/Caculist")
     synchronized public JSONObject Caculist() {
+        ArrayList<JSONObject> mpList = new ArrayList<JSONObject>();
+        for (int i=0;i<10;i++){
+            JSONObject object = new JSONObject();
+            JSONObject CaculistAction=CaculistAction();
+            object.put("Standard",CaculistAction.getDoubleValue("doubleStandardcha"));
+            object.put("CaculistActionOBJ",CaculistAction);
+            mpList.add(object);
+        }
 
+        Collections.sort(mpList, new Comparator<JSONObject>() {
+            @Override
+            public int compare(JSONObject p1, JSONObject p2) {
+                return p2.getShortValue("Standard") - p1.getShortValue("Standard");
+            }
+        });
+        return  mpList.get(9);
+
+    }
+
+    private JSONObject CaculistAction(){
         List<TeamPlayer> TeamPlayerAllList = teamPlayerService.getAllList();
         List<Dictionary> myDictionaryList2 = dictionaryService.getListBTypeAndName("fix", "几人一组");
 
@@ -194,7 +213,7 @@ public class TeamPlayerController {
             allSumokshowCalavalueRateList+=alllshowCalavalueRateNum;//计算平均值：
         }
 
-       //计算平均值 计算方差：
+        //计算平均值 计算方差：
         double doublePingJun= allSumokshowCalavalueRateList/letuUUlength;
         double[] FangChashowCalavalueRateList = new double[letuUUlength];
         double doublePingJunFangcha=0;
@@ -219,9 +238,8 @@ public class TeamPlayerController {
         object.put("DictionaryListCustom", myDictionaryListCustom);
         object.put("doubleStandardcha", doubleStandardcha);
         return object;
-
-
     }
+
 
     @GetMapping(value = "/getTeamPlayer/{operationtype}/{playerid}")
     synchronized public TeamPlayer getTeamPlayer(@PathVariable("operationtype") String operationtype, @PathVariable("playerid") String playerid) {
