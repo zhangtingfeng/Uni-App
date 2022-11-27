@@ -13,7 +13,7 @@
 							v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
 						<!--	<uni-th :class="{'thdddd':true}" width="60" align="center">状态%</uni-th>-->
 						<uni-th :class="{'thdddd':true}" width="60" align="center">加权分</uni-th>
-						<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
+						<uni-th :class="{'thdddd':true}" width="30" align="center" v-if="StorageAdmin">操作</uni-th>
 					</uni-tr>
 
 
@@ -36,7 +36,7 @@
 						<uni-td :class="{'trddddoutside':true}">
 							<view class="trddddchinese">{{Math.round(list.showCalavalue*100.0) /100 }}</view>
 						</uni-td>
-						<uni-td :class="{'trdddd':true}">
+						<uni-td :class="{'trdddd':true}" v-if="StorageAdmin">
 							<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
 								type="default" size="mini">Edit</button>
 						</uni-td>
@@ -52,7 +52,9 @@
 							v-for="(ItemValue,index) in Appcaculist.okStatisticsList[indexx]">
 							{{Math.round(ItemValue * 100) / 100}}
 						</uni-td>
-						<uni-td :class="{'trdddd':true}">{{Math.round(Appcaculist.okshowCalavalueRateList[indexx]*100.0)/100}}</uni-td>
+						<uni-td :class="{'trdddd':true}">
+							{{Math.round(Appcaculist.okshowCalavalueRateList[indexx]*100.0)/100}}
+						</uni-td>
 					</uni-tr>
 					</uni-table>
 					<!--<view style="margin: 3px;border-radius: 3px;" v-for="(Curplayer,indexy) in CurOkTeamplayerList"
@@ -71,15 +73,23 @@
 			</uni-section>
 		</view>
 		<view class="uni-padding-wrap uni-common-mt">
-			<view class="uni-form-item uni-column">
+			<view class="uni-form-item uni-column" :class="{'trddddtipe':true}" >
 				<!--<view :class="{'thdddd':true}" v-for="(ItemValue,indexx) in Appcaculist.okshowCalavalueRateList">
 					{{AAA111(indexx)}}
 				</view>-->
 
 
-				<view :class="{'thdddd':true,'thddddRed':true}">
-					当前加权标准差{{Math.round(Appcaculist.doubleStandardcha * 100) / 100}},标准差越小实力差距越接近均衡</view>
+				<view :class="{'thddddTiptext':true}">
+					当前各组之间加权标准差
+				</view>
+				<view :class="{'thddddTiptext':true,'thddddRed':true}">
+					{{Math.round(Appcaculist.doubleStandardcha * 100) / 100}}
+				</view>
+				<view :class="{'thddddTiptext':true}">
+					,值越小实力差距越小
+				</view>
 			</view>
+			
 		</view>
 		<view class="uni-btn-v">
 
@@ -94,7 +104,7 @@
 					<uni-th :class="{'thdddd':true}" width="30" align="center">位置</uni-th>
 					<uni-th :class="{'thdddd':true}" width="20" align="center"
 						v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
-					<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
+					<uni-th :class="{'thdddd':true}" width="30" align="center" v-if="StorageAdmin">操作</uni-th>
 				</uni-tr>
 
 
@@ -107,7 +117,7 @@
 						v-for="(CurteamPlayerConfig,index888) in list.TeamPlayer.teamPlayerConfig">
 						{{CurteamPlayerConfig.value}}
 					</uni-td>
-					<uni-td :class="{'trdddd':true}">
+					<uni-td :class="{'trdddd':true}" v-if="StorageAdmin">
 						<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
 							type="default" size="mini">Edit</button>
 					</uni-td>
@@ -137,7 +147,7 @@
 					<uni-th :class="{'thdddd':true}" width="30" align="center">位置</uni-th>
 					<uni-th :class="{'thdddd':true}" width="20" align="center"
 						v-for="(list,index) in Appcaculist.DictionaryListCustom" :key="index">{{list.name}}</uni-th>
-					<uni-th :class="{'thdddd':true}" width="30" align="center">操作</uni-th>
+					<uni-th :class="{'thdddd':true}" width="30" align="center" v-if="StorageAdmin">操作</uni-th>
 				</uni-tr>
 
 
@@ -150,7 +160,7 @@
 						v-for="(CurteamPlayerConfig,index888) in list.TeamPlayer.teamPlayerConfig">
 						{{CurteamPlayerConfig.value}}
 					</uni-td>
-					<uni-td :class="{'trdddd':true}">
+					<uni-td :class="{'trdddd':true}" v-if="StorageAdmin">
 						<button :class="{'mini-btn':true,'mymini-btn':true}" @click="doEdit(list.TeamPlayer.id)"
 							type="default" size="mini">Edit</button>
 					</uni-td>
@@ -173,7 +183,7 @@
 
 		</uni-group>
 
-		<view class="uni-btn-v">
+		<view class="uni-btn-v" v-if="StorageAdmin">
 
 			<navigator url="/pages/component/form/form?operationtype=add">
 				<button type="primary">add member</button>
@@ -208,7 +218,7 @@
 		},
 		data() {
 			return {
-
+				StorageAdmin:false,
 				intSize: 11,
 				Appcaculist: {},
 				src: '',
@@ -239,98 +249,7 @@
 
 				],
 
-				list: [{
-						id: 'view',
-						name: '视图容器',
-						open: false,
-						pages: [
-							'view',
-							'scroll-view',
-							'swiper'
-							// #ifndef MP-TOUTIAO || MP-LARK
-							,
-							'movable-view',
-							'cover-view'
-							// #endif
-						]
-					}, {
-						id: 'content',
-						name: '基础内容',
-						open: false,
-						pages: ['text', 'rich-text', 'progress']
-					}, {
-						id: 'form',
-						name: '表单组件',
-						open: false,
-						pages: ['button', 'checkbox', 'form', 'input', 'label', 'picker', 'picker-view', 'radio',
-							'slider',
-							'switch', 'textarea',
-							// #ifdef APP-PLUS || MP-WEIXIN || H5
-							'editor',
-							// #endif
-						]
-					}, {
-						id: 'nav',
-						name: '导航',
-						open: false,
-						pages: ['navigator']
-					}, {
-						id: 'media',
-						name: '媒体组件',
-						open: false,
-						pages: [
-							'image',
-							'video'
-						],
-					},
-					// #ifndef MP-TOUTIAO || MP-KUAISHOU
-					{
-						id: 'map',
-						name: '地图',
-						open: false,
-						pages: ['map']
 
-					},
-					// #endif
-					// #ifndef QUICKAPP-WEBVIEW-UNION
-					{
-						id: 'canvas',
-						name: '画布',
-						open: false,
-						pages: ['canvas']
-					},
-					// #endif
-					// #ifdef APP-PLUS || H5
-					{
-						id: 'web-view',
-						name: '网页',
-						open: false,
-						pages: [{
-							name: '网络网页',
-							url: '/pages/component/web-view/web-view'
-						}, {
-							name: '本地网页',
-							url: '/pages/component/web-view-local/web-view-local'
-						}]
-					},
-					// #endif
-					// #ifndef APP-PLUS || H5 || MP-LARK || MP-JD
-					{
-						id: 'web-view',
-						name: '网页',
-						open: false,
-						pages: ['web-view']
-					},
-					// #endif
-					// #ifndef H5 || MP-BAIDU || QUICKAPP-WEBVIEW || MP-LARK || MP-JD
-					{
-						id: 'ad',
-						url: 'ad',
-						name: 'AD组件',
-						open: false
-					},
-					// #endif
-				]
 			}
 		},
 
@@ -347,7 +266,7 @@
 		},
 		// #ifdef H5
 		watch: {
-			$route: {
+			/*$route: {
 				immediate: true,
 				handler(newRoute) {
 					if (newRoute.matched.length) {
@@ -363,7 +282,7 @@
 						}
 					}
 				}
-			}
+			}*/
 		},
 		// #endif
 		methods: {
@@ -394,13 +313,21 @@
 					}
 				}
 			},
-			dorandom() {
+			doLoad(){
+				this.dorandom("maybeMemory");
+				
+			},
+			dorandom(e) {
 				let letthis = this;
+				let leturl="/api/teamPlayer/Caculist";
+				if (e!="maybeMemory"){
+					leturl+="/forceupdate"
+				}  
 				uni.showLoading({
-					title: '计算中'
+					title: '正在计算最优组合'
 				});
 				uni.request({
-					url: "/api/teamPlayer/Caculist",
+					url: leturl,
 					success: (res) => {
 						uni.showLoading({
 							title: '下载成功，正在加载'
@@ -454,10 +381,13 @@
 				console.log(1);
 			},
 			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
-				//debugger;
+				//debugger; 
+				//uni.setStorageSync("admin", option.admin);
 				this.src = "http://game.beidouguoxin.com/playgame.mp4";
-				this.dorandom();
+				this.doLoad();
 				this.onsaveIP(option);
+				this.StorageAdmin=uni.getStorageSync("admin")=="admin";
+				let ddd=0;
 			},
 
 			onsaveIP: function(ipoption) {
@@ -599,9 +529,7 @@
 		padding: 4px 8px
 	}
 
-	.thddddRed {
-		color: red;
-	}
+	
 
 	.trdddd {
 		align: center;
@@ -636,5 +564,19 @@
 
 	.groupcard {
 		margin: 0px;
+	}
+
+	.trddddtipe {
+		flex-direction: row;
+		
+	}
+	
+	.thddddTiptext {
+		
+		padding: 0 0;
+	}
+	
+	.thddddRed {
+		color: red;
 	}
 </style>
