@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5e71c9df-4d99-4b86-a5a0-0cc42b19762a" name="Changes" comment="tuokedevmain">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/TeamPlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/TeamPlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Repository/TeamPlayerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Repository/TeamPlayerRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +125,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="fbc166d3-df14-4f07-8faf-de4481f23113" name="Changes" comment="tuokedevmain" />
+      <changelist id="5e71c9df-4d99-4b86-a5a0-0cc42b19762a" name="Changes" comment="tuokedevmain" />
       <created>1667525994824</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
