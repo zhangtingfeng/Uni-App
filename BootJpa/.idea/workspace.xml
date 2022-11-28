@@ -5,23 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fbc166d3-df14-4f07-8faf-de4481f23113" name="Changes" comment="tuokedevmain">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/BaseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/common/JsonUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/common/RedisServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Service/BaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/IprecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/IprecordController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/TeamPlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/TeamPlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Service/IprecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Service/IprecordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/JpademoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/JpademoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Service/TeamPlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Service/TeamPlayerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/beans/TeamPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/beans/TeamPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application-oracle.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-oracle.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application-oracle.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application-oracle.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test04/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test04/pages/component/form/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/pages/component/form/form.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test04/pages/tabBar/component/component.nvue" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/pages/tabBar/component/component.nvue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test04/pages/tabBar/template/template.nvue" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/pages/tabBar/template/template.nvue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test04/unpackage/dist/build/h5/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/unpackage/dist/build/h5/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +32,7 @@
     </option>
   </component>
   <component name="Git.Rebase.Settings">
-    <option name="NEW_BASE" value="dev" />
+    <option name="NEW_BASE" value="main" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -78,14 +73,18 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Works/gitChinaCMTQiChaaCha/china_credit_management&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Works/Uni-App/BootJpa/src/main/resources&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Works\Uni-App\BootJpa\src\main\resources" />
       <recent name="C:\Works\situ-master\Uni-app\HBuilderProjects\uni-app\BootJpa\src\main\resources" />
       <recent name="C:\Works\situ-master\Uni-app\HBuilderProjects\uni-app\BootJpa\src\main\resources\libs" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Works\Uni-App\BootJpa" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="pubService" />
@@ -95,7 +94,7 @@
       <recent name="org.eggsoft.cn.Controller" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.JpademoApplicationMysql">
+  <component name="RunManager" selected="Application.JpademoApplicationOracle">
     <configuration name="JpademoApplicationMysql" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="org.eggsoft.cn.JpademoApplication" />
       <module name="BootJpa" />
@@ -119,17 +118,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

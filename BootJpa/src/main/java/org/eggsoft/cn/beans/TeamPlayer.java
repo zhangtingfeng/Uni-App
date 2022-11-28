@@ -4,6 +4,7 @@ package org.eggsoft.cn.beans;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "player_teamplayer")
 public class TeamPlayer  implements Serializable {
     @Id

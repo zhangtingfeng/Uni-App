@@ -1,7 +1,9 @@
 package org.eggsoft.cn;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @SpringBootApplication
 public class JpademoApplication {
@@ -9,4 +11,7 @@ public class JpademoApplication {
         System.out.println("1111Hello world!");
         SpringApplication.run(JpademoApplication.class, args);
     }
+
+
+
 }
