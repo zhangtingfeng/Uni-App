@@ -11,13 +11,37 @@ spring:
     url: jdbc:mysql://rm-uf655z4n9sg2kmrz93o.mysql.rds.aliyuncs.com:3306/_10chen_mysql
     username: _10chen_mysql
     password: _10chen_mysql
-
-
     # Hikari 数据源专用配置
     hikari:
       maximum-pool-size: 20
       minimum-idle: 5
     # JPA 相关配置
+
+  redis:
+    ip: 140.210.138.139
+    host: 140.210.138.139
+    port: 58085
+    password: foob1234ared #没有密码可以不用配置这个
+    database: 0
+    jedis:
+      pool:
+        max-active: 500  #最大连接数：能够同时建立的“最大链接个数”
+        max-idle: 200 #最大空闲数：空闲链接数大于maxIdle时，将进行回收
+        min-idle: 20 #最小空闲数：低于minIdle时，将创建新的链接
+        max-wait: -1ms #最大等待时间：单位ms
+    pool:
+      max-active: 500  #最大连接数：能够同时建立的“最大链接个数”
+      max-idle: 200 #最大空闲数：空闲链接数大于maxIdle时，将进行回收
+      min-idle: 20 #最小空闲数：低于minIdle时，将创建新的链接
+      max-wait: -1ms #最大等待时间：单位ms
+
+    ####Ubuntu关机重启命令简介: 重启命令:
+    #1.reboot
+    #2.shutdown -r now 立刻重启(root用户使用)
+    #3.shutdown -r 10 过10分钟自动重启(root用户使用)
+    #4.shutdown -r 20:35 在时间为20:35时候重启(root用户使用)
+    timeout: 5000ms
+
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true

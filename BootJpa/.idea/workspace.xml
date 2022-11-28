@@ -4,10 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="5e71c9df-4d99-4b86-a5a0-0cc42b19762a" name="Changes" comment="tuokedevmain">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Repository/TeamPlayerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Repository/TeamPlayerRepository.java" afterDir="false" />
+=======
+    <list default="true" id="fbc166d3-df14-4f07-8faf-de4481f23113" name="Changes" comment="tuokedevmain">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/BaseController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/common/JsonUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/common/RedisServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/IprecordController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/IprecordController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/TeamPlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Controller/TeamPlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Service/IprecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/eggsoft/cn/Service/IprecordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-oracle.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-oracle.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application-oracle.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application-oracle.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test04/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test04/pages/component/form/form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/pages/component/form/form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test04/pages/tabBar/component/component.nvue" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/pages/tabBar/component/component.nvue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test04/pages/tabBar/template/template.nvue" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/pages/tabBar/template/template.nvue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test04/unpackage/dist/build/h5/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../test04/unpackage/dist/build/h5/index.html" afterDir="false" />
+>>>>>>> 539bc0a1ae712042adca4aa438c40b777c5678d0
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +37,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -64,13 +84,21 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Works/situ-master/CA1031/situ/pom.xml&quot;
+    &quot;last_opened_file_path&quot;: &quot;E:/Works/gitChinaCMTQiChaaCha/china_credit_management&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Works\situ-master\Uni-app\HBuilderProjects\uni-app\BootJpa\src\main\resources" />
       <recent name="C:\Works\situ-master\Uni-app\HBuilderProjects\uni-app\BootJpa\src\main\resources\libs" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="pubService" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="common" />
+      <recent name="org.eggsoft.cn.Controller" />
     </key>
   </component>
   <component name="RunManager" selected="Application.JpademoApplicationOracle">
@@ -125,7 +153,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5e71c9df-4d99-4b86-a5a0-0cc42b19762a" name="Changes" comment="tuokedevmain" />
+      <changelist id="fbc166d3-df14-4f07-8faf-de4481f23113" name="Changes" comment="tuokedevmain" />
       <created>1667525994824</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

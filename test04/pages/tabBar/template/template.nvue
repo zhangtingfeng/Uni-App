@@ -4,14 +4,7 @@
 
 
 
-		<!--<view class="uni-padding-wrap uni-common-mt">
-			<view class="uni-title">{{fixRandom.name}}%</view>
-			<view>
-				<slider-range :value="rangeValue" :min="rangeMin" :max="rangMax" :step="1" :bar-height="3"
-					:block-size="26" background-color="#EEEEF6" active-color="#FF6B00" :format="format"
-					:decorationVisible="true" @change="handleRangeChange"></slider-range>
-			</view>
-		</view>-->
+		
 		<view class="uni-padding-wrap uni-common-mt">
 			<view class="uni-title">{{fixhowmanypeopleoneGroup.name}}</view>
 			<view>
@@ -34,7 +27,7 @@
 			</view>
 		</view>
 
-		<view class="uni-btn-v">
+		<view class="uni-btn-v" v-if="StorageAdmin">
 			<button type="primary" @click="save">save</button>
 			<button type="primary" @click="add">add</button>
 		</view>
@@ -61,9 +54,10 @@
 		},
 		data() {
 			return {
+				StorageAdmin:false,StorageAdmin:false,
 				rangeMin: 30,
 				rangMax: 200,
-				rangeValue: [80, 120],
+				
 				uniapiSuccess: 0,
 				title: '各分项和相应权重值的乘积的综合即队员的综合分',
 				hideList: [
@@ -216,24 +210,10 @@
 		// #endif
 		methods: {
 			onLoad: function(option) { //option为object类型，会序列化上个页面传递的参数
-
+				this.StorageAdmin=uni.getStorageSync("admin")=="admin";
 				let letthis = this;
 				let leturl ="";
-				/*leturl= "/api/dictionary/list/" + letthis.fixRandom.type + "/" + letthis.fixRandom.name;
-				console.log("this leturl" + leturl);
-				uni.request({
-					url: leturl,
-					success: (res) => {
-						if (res.data.length > 0) {
-							letthis.fixRandom = res.data[0];
-							letthis.rangeValue= JSON.parse(letthis.fixRandom.value);
-							console.log("this start.fixRandom" + JSON.stringify(letthis.fixRandom));
-						}
-					},
-					fail: (err) => {
-						console.error(err);
-					},
-				});*/
+				
 
 				leturl = "/api/dictionary/list/" + letthis.fixhowmanypeopleoneGroup.type + "/" + letthis
 					.fixhowmanypeopleoneGroup.name;
@@ -282,27 +262,7 @@
 				let letthis = this;
 				letthis.uniapiSuccess = 0;
 				
-				/*letthis.fixRandom.value=JSON.stringify(letthis.rangeValue);
-				console.log("this  before.fixRandom" + JSON.stringify(this.rangeValue));
 				
-				uni.request({
-					url: '/api/dictionary/save',
-					method: 'POST',
-					data: letthis.fixRandom,
-					success(res) {
-						//debugger;
-						letthis.fixRandom = res.data;
-						letthis.rangeValue= JSON.parse(letthis.fixRandom.value);
-						console.log("this after.res.data" + JSON.stringify(res.data));
-						console.log("letthis after.fixRandom" + JSON.stringify(letthis.fixRandom));
-
-						letthis.uniapiSuccess = letthis.uniapiSuccess + 1;
-
-					},
-					fail(err) {
-						console.log('获取fixRandomopenid失败：', err);
-					}
-				})*/
 
 				uni.request({
 					url: '/api/dictionary/save',

@@ -1,7 +1,9 @@
 package org.eggsoft.cn.Controller;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.core.JsonParser;
 import org.eggsoft.cn.Service.DictionaryService;
 import org.eggsoft.cn.Service.TeamPlayerService;
 import org.eggsoft.cn.beans.Dictionary;
@@ -12,11 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
+import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/teamPlayer")
-public class TeamPlayerController {
+public class TeamPlayerController extends BaseController {
     @Autowired
     private TeamPlayerService teamPlayerService;
 
@@ -38,32 +39,58 @@ public class TeamPlayerController {
 
     }
 
-    @GetMapping(value = "/Caculist")
-    synchronized public JSONObject Caculist() {
-        ArrayList<JSONObject> mpList = new ArrayList<JSONObject>();
-        for (int i=0;i<10;i++){
-            JSONObject object = new JSONObject();
-            JSONObject CaculistAction=CaculistAction();
-            object.put("Standard",CaculistAction.getDoubleValue("doubleStandardcha"));
-            object.put("CaculistActionOBJ",CaculistAction);
-            mpList.add(object);
-        }
-
-        Collections.sort(mpList, new Comparator<JSONObject>() {
-            @Override
-            public int compare(JSONObject p1, JSONObject p2) {
-                return p2.getShortValue("Standard") - p1.getShortValue("Standard");
+    @GetMapping(value = {"/Caculist","/Caculist/{strType}"})
+    synchronized public JSONObject Caculist(@PathVariable(name="strType", required = false) final String strType) {
+        String RedisKey = "JSONObjectCaculist2";
+        JSONObject returnJSONObject = null;
+        try {
+            Object objkey = redisServiceImpl.getKey(RedisKey);
+            if (objkey!=null && objkey!="" && ( strType==null)){
+                //JSONObject json = new JsonParser().parse((objkey.toString()).getAsJsonObject());
+                returnJSONObject = JSONObject.parseObject(objkey.toString());
+                return returnJSONObject;
             }
-        });
-        return  mpList.get(9);
+
+            //Object oreturnJSONObject= getRedisData(RedisKey);
+            int intCounts = 40;
+            ArrayList<JSONObject> mpList = new ArrayList<JSONObject>();
+
+///1.取磁盘配置
+            List<TeamPlayer> TeamPlayerAllList = teamPlayerService.getAllList();
+            List<Dictionary> myDictionaryList2 = dictionaryService.getListBTypeAndName("fix", "几人一组");
+
+            List<Dictionary> myDictionaryListCustom = dictionaryService.getListBType("Custome");
+            // 2.计算40次组间标准差
+            for (int i = 0; i < intCounts; i++) {
+                JSONObject object = new JSONObject();
+                JSONObject CaculistAction = CaculistAction(TeamPlayerAllList, myDictionaryList2, myDictionaryListCustom);
+                object.put("Standard", CaculistAction.getDoubleValue("doubleStandardcha"));
+                object.put("CaculistActionOBJ", CaculistAction);
+                mpList.add(object);
+            }
+///uni.setStorageSync(univerifyInfoKey, univerifyInfo)
+            Collections.sort(mpList, new Comparator<JSONObject>() {
+                @Override
+                public int compare(JSONObject p1, JSONObject p2) {
+                    return p2.getShortValue("Standard") - p1.getShortValue("Standard");
+                }
+            });
+
+            returnJSONObject = mpList.get(intCounts - 1).getJSONObject("CaculistActionOBJ");
+            String StrJson=JSONObject.toJSONString(returnJSONObject, SerializerFeature.WriteMapNullValue,SerializerFeature.DisableCircularReferenceDetect);
+            redisServiceImpl.setStr(RedisKey,StrJson ,TimeUnit.SECONDS.toSeconds(24*30*60*60));//30d过期);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+        // 3.输出最小的标准差的分组详情
+        return returnJSONObject;
 
     }
 
-    private JSONObject CaculistAction(){
-        List<TeamPlayer> TeamPlayerAllList = teamPlayerService.getAllList();
-        List<Dictionary> myDictionaryList2 = dictionaryService.getListBTypeAndName("fix", "几人一组");
+    synchronized private JSONObject CaculistAction(List<TeamPlayer> TeamPlayerAllList, List<Dictionary> myDictionaryList2, List<Dictionary> myDictionaryListCustom) {
 
-        List<Dictionary> myDictionaryListCustom = dictionaryService.getListBType("Custome");
 
         if (myDictionaryList2.size() == 0) {
             return null;
@@ -196,32 +223,32 @@ public class TeamPlayerController {
         Integer letuUUlength = okJSONObjectTeamplayerIDList.length;
         double[] okList = new double[letuUUlength];
         double[] okshowCalavalueRateList = new double[letuUUlength];
-        double allSumokshowCalavalueRateList=0;
+        double allSumokshowCalavalueRateList = 0;
 
         for (Integer i = 0; i < letuUUlength; i++) {
-            double alllNum = (double)0;
-            double alllshowCalavalueRateNum = (double)0;
+            double alllNum = (double) 0;
+            double alllshowCalavalueRateNum = (double) 0;
 
             JSONObject[] letCurList = okJSONObjectTeamplayerIDList[i];
             for (Integer j = 0; j < letCurList.length; j++) {
-                alllNum =alllNum+ letCurList[j].getDoubleValue("showFixvalue");
-                alllshowCalavalueRateNum =alllshowCalavalueRateNum+ letCurList[j].getDoubleValue("showCalavalue");
+                alllNum = alllNum + letCurList[j].getDoubleValue("showFixvalue");
+                alllshowCalavalueRateNum = alllshowCalavalueRateNum + letCurList[j].getDoubleValue("showCalavalue");
             }
-            okList[i]=alllNum;
-            okshowCalavalueRateList[i]=alllshowCalavalueRateNum;
+            okList[i] = alllNum;
+            okshowCalavalueRateList[i] = alllshowCalavalueRateNum;
 
-            allSumokshowCalavalueRateList+=alllshowCalavalueRateNum;//计算平均值：
+            allSumokshowCalavalueRateList += alllshowCalavalueRateNum;//计算平均值：
         }
 
         //计算平均值 计算方差：
-        double doublePingJun= allSumokshowCalavalueRateList/letuUUlength;
+        double doublePingJun = allSumokshowCalavalueRateList / letuUUlength;
         double[] FangChashowCalavalueRateList = new double[letuUUlength];
-        double doublePingJunFangcha=0;
+        double doublePingJunFangcha = 0;
         for (Integer i = 0; i < letuUUlength; i++) {
-            FangChashowCalavalueRateList[i]=(Math.pow(okshowCalavalueRateList[i]-doublePingJun,2));
-            doublePingJunFangcha+=FangChashowCalavalueRateList[i];
+            FangChashowCalavalueRateList[i] = (Math.pow(okshowCalavalueRateList[i] - doublePingJun, 2));
+            doublePingJunFangcha += FangChashowCalavalueRateList[i];
         }
-        double doubleStandardcha=Math.sqrt(doublePingJunFangcha/letuUUlength);
+        double doubleStandardcha = Math.sqrt(doublePingJunFangcha / letuUUlength);
 
 
         JSONObject object = new JSONObject();
