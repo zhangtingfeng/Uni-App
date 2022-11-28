@@ -76,7 +76,7 @@
 			return {
 				rangeMin: 30,
 				rangMax: 200,
-				rangeValue: [95, 110],
+				rangeValue: [100, 100],
 				title: '设置队员的分项能力',
 				CustomeDictionarylist: [],
 				Playerobj: {
