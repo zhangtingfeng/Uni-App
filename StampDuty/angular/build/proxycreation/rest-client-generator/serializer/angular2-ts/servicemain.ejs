@@ -1,0 +1,31 @@
+/**
+* Generated REST client by rest-client-generator
+*/
+import {
+ Injectable,
+ InjectionToken,
+ Inject,
+ NgModule
+} from '@angular/core';
+import {
+ HttpModule,
+ Http,
+ Headers,
+ RequestMethod,
+ RequestOptionsArgs,
+ Response,
+ ResponseContentType
+} from '@angular/http';
+
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { SERVICE_ROOT_URL, SERVICE_JSON_DATE_PATTERN, substituteUrl, encodeParams } from './ReferenceDataModuleService';
+
+
+/**
+* Services stuff.
+*/
+<% services.forEach(function(service) { %>
+   <%- include('service', {service: service, rootUrl: rootUrl, varPfx: varPfx}) %>
+<% }); %>
+

@@ -1,0 +1,669 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://titan.srd.trafigura.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="LegalEntityService"
+    targetNamespace="http://titan.srd.trafigura.com/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://titan.srd.trafigura.com/"
+            elementFormDefault="qualified" targetNamespace="http://titan.srd.trafigura.com/" version="1.0">
+            <xs:element name="CounterpartyAddressList" type="tns:CounterpartyAddressList" />
+            <xs:element name="CounterpartyList" type="tns:CounterpartyList" />
+            <xs:element name="GroupCompanyAddressList" type="tns:GroupCompanyAddressList" />
+            <xs:element name="GroupCompanyList" type="tns:GroupCompanyList" />
+            <xs:element name="getAllCounterparties" type="tns:getAllCounterparties" />
+            <xs:element name="getAllCounterpartiesResponse" type="tns:getAllCounterpartiesResponse" />
+            <xs:element name="getAllCounterpartyAddresses" type="tns:getAllCounterpartyAddresses" />
+            <xs:element name="getAllCounterpartyAddressesResponse" type="tns:getAllCounterpartyAddressesResponse" />
+            <xs:element name="getAllGroupCompanies" type="tns:getAllGroupCompanies" />
+            <xs:element name="getAllGroupCompaniesResponse" type="tns:getAllGroupCompaniesResponse" />
+            <xs:element name="getAllTradingGroupCompanies" type="tns:getAllTradingGroupCompanies" />
+            <xs:element name="getAllTradingGroupCompaniesResponse" type="tns:getAllTradingGroupCompaniesResponse" />
+            <xs:element name="getCounterpartyAddressByID" type="tns:getCounterpartyAddressByID" />
+            <xs:element name="getCounterpartyAddressByIDResponse" type="tns:getCounterpartyAddressByIDResponse" />
+            <xs:element name="getCounterpartyAddressByShortCode" type="tns:getCounterpartyAddressByShortCode" />
+            <xs:element name="getCounterpartyAddressByShortCodeResponse"
+                type="tns:getCounterpartyAddressByShortCodeResponse" />
+            <xs:element name="getCounterpartyByID" type="tns:getCounterpartyByID" />
+            <xs:element name="getCounterpartyByIDResponse" type="tns:getCounterpartyByIDResponse" />
+            <xs:element name="getCounterpartyByShortCode" type="tns:getCounterpartyByShortCode" />
+            <xs:element name="getCounterpartyByShortCodeResponse" type="tns:getCounterpartyByShortCodeResponse" />
+            <xs:element name="getGroupCompanyAddressByShortCode" type="tns:getGroupCompanyAddressByShortCode" />
+            <xs:element name="getGroupCompanyAddressByShortCodeResponse"
+                type="tns:getGroupCompanyAddressByShortCodeResponse" />
+            <xs:element name="getGroupCompanyByID" type="tns:getGroupCompanyByID" />
+            <xs:element name="getGroupCompanyByIDResponse" type="tns:getGroupCompanyByIDResponse" />
+            <xs:element name="getGroupCompanyByShortCode" type="tns:getGroupCompanyByShortCode" />
+            <xs:element name="getGroupCompanyByShortCodeResponse" type="tns:getGroupCompanyByShortCodeResponse" />
+            <xs:element name="getUniqueCounterpartyByShortCode" type="tns:getUniqueCounterpartyByShortCode" />
+            <xs:element name="getUniqueCounterpartyByShortCodeResponse"
+                type="tns:getUniqueCounterpartyByShortCodeResponse" />
+            <xs:element name="getUniqueGroupCompanyByShortCode" type="tns:getUniqueGroupCompanyByShortCode" />
+            <xs:element name="getUniqueGroupCompanyByShortCodeResponse"
+                type="tns:getUniqueGroupCompanyByShortCodeResponse" />
+            <xs:complexType name="getAllTradingGroupCompanies">
+                <xs:sequence />
+            </xs:complexType>
+            <xs:complexType name="getAllTradingGroupCompaniesResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:GroupCompanyList" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="GroupCompanyList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="GroupCompany" type="tns:GroupCompany" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="GroupCompany">
+                <xs:complexContent>
+                    <xs:extension base="tns:LegalEntity">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="CommoditiesIds">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="CommodityID"
+                                            type="tns:SRDId" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="ChartOfAccountsID" type="tns:SRDId" />
+                            <xs:element minOccurs="0" name="FinancialConsolidationHierarchyID" type="tns:SRDId" />
+                            <xs:element name="CostAndIncomeVATInclusive" type="xs:boolean" />
+                            <xs:element minOccurs="0" name="financialYearStartId" type="tns:SRDId" />
+                            <xs:element minOccurs="0" name="functionalCurrencyId" type="tns:SRDId" />
+                            <xs:element name="GaiInScope" type="xs:boolean" />
+                            <xs:element minOccurs="0" name="onBehalfOf" type="xs:string" />
+                            <xs:element minOccurs="0" name="regulatoryFunctionalCurrencyId" type="tns:SRDId" />
+                            <xs:element name="SalesInvoiceTaxFunctionalityRequired" type="xs:boolean" />
+                            <xs:element name="TaxInvoiceDateRequired" type="xs:boolean" />
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="LegalEntity">
+                <xs:complexContent>
+                    <xs:extension base="tns:versionedStatusItem">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="KycApproved" nillable="true" type="xs:boolean" />
+                            <xs:element minOccurs="0" name="Intermediaries" nillable="true" type="xs:boolean" />
+                            <xs:element minOccurs="0" name="HighRisk" nillable="true" type="xs:boolean" />
+                            <xs:element minOccurs="0" name="AccountsId" nillable="true" type="xs:int" />
+                            <xs:element minOccurs="0" name="UnderComplianceLimit" nillable="true" type="xs:boolean" />
+                            <xs:element minOccurs="0" name="GroupCompanies">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="GroupCompanyID"
+                                            type="tns:SRDId" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="Roles">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Role"
+                                            type="tns:LegalEntityRole" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="AccountCodes">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="AccountCode"
+                                            type="tns:accountCode" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="RiskCountryId" nillable="true" type="tns:SRDId" />
+                            <xs:element minOccurs="0" name="IncorporationCountryId" nillable="true" type="tns:SRDId" />
+                            <xs:element minOccurs="0" name="PreferredBankAccountId" nillable="true" type="tns:SRDId" />
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="versionedStatusItem">
+                <xs:complexContent>
+                    <xs:extension base="tns:versionedItem">
+                        <xs:sequence />
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="versionedItem">
+                <xs:complexContent>
+                    <xs:extension base="tns:EnumeratedItem">
+                        <xs:sequence />
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="EnumeratedItem">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="BusinessLines">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" name="BusinessLineID"
+                                    type="tns:SRDId" />
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="Description" type="xs:string" />
+                    <xs:element minOccurs="0" name="EffectiveDateRange" type="tns:DateRange" />
+                    <xs:element minOccurs="0" name="Identifier" type="tns:SRDId" />
+                    <xs:element minOccurs="0" name="Rank" nillable="true" type="xs:int" />
+                    <xs:element minOccurs="0" name="ShortCode" type="xs:string" />
+                    <xs:element minOccurs="0" name="Status" type="tns:SRDId" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="SRDId">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="HexString" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="LegalEntityRole">
+                <xs:complexContent>
+                    <xs:extension base="tns:CodeSet">
+                        <xs:sequence />
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="CodeSet">
+                <xs:complexContent>
+                    <xs:extension base="tns:EnumeratedItem">
+                        <xs:sequence />
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="DateRange">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Start" nillable="true" type="xs:dateTime" />
+                    <xs:element minOccurs="0" name="Finish" nillable="true" type="xs:dateTime" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="accountCode">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="AccountCodeType" type="tns:AccountCodeType" />
+                    <xs:element minOccurs="0" name="AccountCodeValue" type="xs:string" />
+                    <xs:element minOccurs="0" name="identifier" type="tns:RefDataKey" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="AccountCodeType">
+                <xs:complexContent>
+                    <xs:extension base="tns:CodeSet">
+                        <xs:sequence />
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="RefDataKey">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Identifier" type="tns:SRDId" />
+                    <xs:element name="Version" type="xs:long" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getCounterpartyByShortCode">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getCounterpartyByShortCodeResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:CounterpartyList" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CounterpartyList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="Counterparty" type="tns:Counterparty" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Counterparty">
+                <xs:complexContent>
+                    <xs:extension base="tns:LegalEntity">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="CommoditiesIds">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element maxOccurs="unbounded" minOccurs="0" name="CommodityID"
+                                            type="tns:SRDId" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="DefaultBankCharge" type="tns:DefaultBankCharge" />
+                            <xs:element name="RelatedParty" type="xs:boolean" />
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="DefaultBankCharge">
+                <xs:complexContent>
+                    <xs:extension base="tns:CodeSet">
+                        <xs:sequence />
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="getCounterpartyAddressByID">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:SRDId" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getCounterpartyAddressByIDResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:CounterpartyAddress" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CounterpartyAddress">
+                <xs:complexContent>
+                    <xs:extension base="tns:LegalEntityAddress">
+                        <xs:sequence />
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="LegalEntityAddress">
+                <xs:complexContent>
+                    <xs:extension base="tns:address">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="LegalEntityId" nillable="true" type="tns:SRDId" />
+                            <xs:element minOccurs="0" name="LegalEntityShortCode" nillable="true" type="xs:string" />
+                            <xs:element minOccurs="0" name="LegalEntityVersion" nillable="true" type="xs:long" />
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="address">
+                <xs:complexContent>
+                    <xs:extension base="tns:versionedStatusItem">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="address1" type="xs:string" />
+                            <xs:element minOccurs="0" name="address2" type="xs:string" />
+                            <xs:element minOccurs="0" name="address3" type="xs:string" />
+                            <xs:element minOccurs="0" name="address4" type="xs:string" />
+                            <xs:element minOccurs="0" name="TypeId" type="tns:SRDId" />
+                            <xs:element minOccurs="0" name="city" type="xs:string" />
+                            <xs:element minOccurs="0" name="CountryId" type="tns:SRDId" />
+                            <xs:element minOccurs="0" name="locationId" type="tns:SRDId" />
+                            <xs:element minOccurs="0" name="stateProvince" type="xs:string" />
+                            <xs:element minOccurs="0" name="zip" type="xs:string" />
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="getAllCounterparties">
+                <xs:sequence />
+            </xs:complexType>
+            <xs:complexType name="getAllCounterpartiesResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:CounterpartyList" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getCounterpartyAddressByShortCode">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getCounterpartyAddressByShortCodeResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:CounterpartyAddressList" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CounterpartyAddressList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="CounterpartyAddress"
+                        type="tns:CounterpartyAddress" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getAllGroupCompanies">
+                <xs:sequence />
+            </xs:complexType>
+            <xs:complexType name="getAllGroupCompaniesResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:GroupCompanyList" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getGroupCompanyByShortCode">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getGroupCompanyByShortCodeResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:GroupCompanyList" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getGroupCompanyByID">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:SRDId" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getGroupCompanyByIDResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:GroupCompany" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getCounterpartyByID">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:SRDId" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getCounterpartyByIDResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:Counterparty" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getUniqueCounterpartyByShortCode">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getUniqueCounterpartyByShortCodeResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:Counterparty" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getGroupCompanyAddressByShortCode">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getGroupCompanyAddressByShortCodeResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:GroupCompanyAddressList" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="GroupCompanyAddressList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="GroupCompanyAddress"
+                        type="tns:GroupCompanyAddress" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="GroupCompanyAddress">
+                <xs:complexContent>
+                    <xs:extension base="tns:LegalEntityAddress">
+                        <xs:sequence />
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="getUniqueGroupCompanyByShortCode">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getUniqueGroupCompanyByShortCodeResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:GroupCompany" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getAllCounterpartyAddresses">
+                <xs:sequence />
+            </xs:complexType>
+            <xs:complexType name="getAllCounterpartyAddressesResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:CounterpartyAddressList" />
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getAllTradingGroupCompaniesResponse">
+        <wsdl:part element="tns:getAllTradingGroupCompaniesResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCounterpartyByShortCode">
+        <wsdl:part element="tns:getCounterpartyByShortCode" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAllGroupCompaniesResponse">
+        <wsdl:part element="tns:getAllGroupCompaniesResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCounterpartyAddressByShortCodeResponse">
+        <wsdl:part element="tns:getCounterpartyAddressByShortCodeResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getUniqueGroupCompanyByShortCodeResponse">
+        <wsdl:part element="tns:getUniqueGroupCompanyByShortCodeResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCounterpartyByID">
+        <wsdl:part element="tns:getCounterpartyByID" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getGroupCompanyByShortCodeResponse">
+        <wsdl:part element="tns:getGroupCompanyByShortCodeResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getUniqueCounterpartyByShortCode">
+        <wsdl:part element="tns:getUniqueCounterpartyByShortCode" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAllCounterpartyAddressesResponse">
+        <wsdl:part element="tns:getAllCounterpartyAddressesResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getGroupCompanyAddressByShortCodeResponse">
+        <wsdl:part element="tns:getGroupCompanyAddressByShortCodeResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getUniqueCounterpartyByShortCodeResponse">
+        <wsdl:part element="tns:getUniqueCounterpartyByShortCodeResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAllTradingGroupCompanies">
+        <wsdl:part element="tns:getAllTradingGroupCompanies" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCounterpartyAddressByID">
+        <wsdl:part element="tns:getCounterpartyAddressByID" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAllCounterparties">
+        <wsdl:part element="tns:getAllCounterparties" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCounterpartyAddressByShortCode">
+        <wsdl:part element="tns:getCounterpartyAddressByShortCode" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAllGroupCompanies">
+        <wsdl:part element="tns:getAllGroupCompanies" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getGroupCompanyByShortCode">
+        <wsdl:part element="tns:getGroupCompanyByShortCode" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getGroupCompanyByID">
+        <wsdl:part element="tns:getGroupCompanyByID" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getGroupCompanyAddressByShortCode">
+        <wsdl:part element="tns:getGroupCompanyAddressByShortCode" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCounterpartyByShortCodeResponse">
+        <wsdl:part element="tns:getCounterpartyByShortCodeResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCounterpartyAddressByIDResponse">
+        <wsdl:part element="tns:getCounterpartyAddressByIDResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAllCounterpartiesResponse">
+        <wsdl:part element="tns:getAllCounterpartiesResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getUniqueGroupCompanyByShortCode">
+        <wsdl:part element="tns:getUniqueGroupCompanyByShortCode" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getAllCounterpartyAddresses">
+        <wsdl:part element="tns:getAllCounterpartyAddresses" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCounterpartyByIDResponse">
+        <wsdl:part element="tns:getCounterpartyByIDResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getGroupCompanyByIDResponse">
+        <wsdl:part element="tns:getGroupCompanyByIDResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="LegalEntityService">
+        <wsdl:operation name="getAllTradingGroupCompanies">
+            <wsdl:input message="tns:getAllTradingGroupCompanies" name="getAllTradingGroupCompanies"> </wsdl:input>
+            <wsdl:output message="tns:getAllTradingGroupCompaniesResponse" name="getAllTradingGroupCompaniesResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCounterpartyByShortCode">
+            <wsdl:input message="tns:getCounterpartyByShortCode" name="getCounterpartyByShortCode"> </wsdl:input>
+            <wsdl:output message="tns:getCounterpartyByShortCodeResponse" name="getCounterpartyByShortCodeResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCounterpartyAddressByID">
+            <wsdl:input message="tns:getCounterpartyAddressByID" name="getCounterpartyAddressByID"> </wsdl:input>
+            <wsdl:output message="tns:getCounterpartyAddressByIDResponse" name="getCounterpartyAddressByIDResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAllCounterparties">
+            <wsdl:input message="tns:getAllCounterparties" name="getAllCounterparties"> </wsdl:input>
+            <wsdl:output message="tns:getAllCounterpartiesResponse" name="getAllCounterpartiesResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCounterpartyAddressByShortCode">
+            <wsdl:input message="tns:getCounterpartyAddressByShortCode" name="getCounterpartyAddressByShortCode">
+            </wsdl:input>
+            <wsdl:output message="tns:getCounterpartyAddressByShortCodeResponse"
+                name="getCounterpartyAddressByShortCodeResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAllGroupCompanies">
+            <wsdl:input message="tns:getAllGroupCompanies" name="getAllGroupCompanies"> </wsdl:input>
+            <wsdl:output message="tns:getAllGroupCompaniesResponse" name="getAllGroupCompaniesResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getGroupCompanyByShortCode">
+            <wsdl:input message="tns:getGroupCompanyByShortCode" name="getGroupCompanyByShortCode"> </wsdl:input>
+            <wsdl:output message="tns:getGroupCompanyByShortCodeResponse" name="getGroupCompanyByShortCodeResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getGroupCompanyByID">
+            <wsdl:input message="tns:getGroupCompanyByID" name="getGroupCompanyByID"> </wsdl:input>
+            <wsdl:output message="tns:getGroupCompanyByIDResponse" name="getGroupCompanyByIDResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCounterpartyByID">
+            <wsdl:input message="tns:getCounterpartyByID" name="getCounterpartyByID"> </wsdl:input>
+            <wsdl:output message="tns:getCounterpartyByIDResponse" name="getCounterpartyByIDResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getUniqueCounterpartyByShortCode">
+            <wsdl:input message="tns:getUniqueCounterpartyByShortCode" name="getUniqueCounterpartyByShortCode">
+            </wsdl:input>
+            <wsdl:output message="tns:getUniqueCounterpartyByShortCodeResponse"
+                name="getUniqueCounterpartyByShortCodeResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getGroupCompanyAddressByShortCode">
+            <wsdl:input message="tns:getGroupCompanyAddressByShortCode" name="getGroupCompanyAddressByShortCode">
+            </wsdl:input>
+            <wsdl:output message="tns:getGroupCompanyAddressByShortCodeResponse"
+                name="getGroupCompanyAddressByShortCodeResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getUniqueGroupCompanyByShortCode">
+            <wsdl:input message="tns:getUniqueGroupCompanyByShortCode" name="getUniqueGroupCompanyByShortCode">
+            </wsdl:input>
+            <wsdl:output message="tns:getUniqueGroupCompanyByShortCodeResponse"
+                name="getUniqueGroupCompanyByShortCodeResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAllCounterpartyAddresses">
+            <wsdl:input message="tns:getAllCounterpartyAddresses" name="getAllCounterpartyAddresses"> </wsdl:input>
+            <wsdl:output message="tns:getAllCounterpartyAddressesResponse" name="getAllCounterpartyAddressesResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="LegalEntityServiceSoapBinding" type="tns:LegalEntityService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="getAllTradingGroupCompanies">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getAllTradingGroupCompanies">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getAllTradingGroupCompaniesResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCounterpartyAddressByID">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getCounterpartyAddressByID">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getCounterpartyAddressByIDResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCounterpartyByShortCode">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getCounterpartyByShortCode">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getCounterpartyByShortCodeResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAllCounterparties">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getAllCounterparties">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getAllCounterpartiesResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCounterpartyAddressByShortCode">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getCounterpartyAddressByShortCode">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getCounterpartyAddressByShortCodeResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAllGroupCompanies">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getAllGroupCompanies">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getAllGroupCompaniesResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getGroupCompanyByShortCode">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getGroupCompanyByShortCode">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getGroupCompanyByShortCodeResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getGroupCompanyByID">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getGroupCompanyByID">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getGroupCompanyByIDResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCounterpartyByID">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getCounterpartyByID">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getCounterpartyByIDResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getUniqueCounterpartyByShortCode">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getUniqueCounterpartyByShortCode">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getUniqueCounterpartyByShortCodeResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getGroupCompanyAddressByShortCode">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getGroupCompanyAddressByShortCode">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getGroupCompanyAddressByShortCodeResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getUniqueGroupCompanyByShortCode">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getUniqueGroupCompanyByShortCode">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getUniqueGroupCompanyByShortCodeResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAllCounterpartyAddresses">
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input name="getAllCounterpartyAddresses">
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output name="getAllCounterpartyAddressesResponse">
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="LegalEntityService">
+        <wsdl:port binding="tns:LegalEntityServiceSoapBinding" name="LegalEntityServicePort">
+            <soap:address location="http://dtraflocorh907:7070/TradeServiceV2/LegalEntityService" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

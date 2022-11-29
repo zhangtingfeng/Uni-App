@@ -1,0 +1,91 @@
+<%
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
+  var responseType = 'void';
+  if (method.responseMediaType) {
+    switch (method.responseMediaType) {
+      case 'text/plain':
+        responseType = 'string';
+        break;
+      case 'application/json':
+        responseType = '' + method.responseType;
+        break;
+      case 'application/octet-stream':
+        responseType = 'any';
+        break;
+      default:
+        responseType = 'ArrayBuffer';
+    }
+  }
+
+
+
+  var requestType = null;
+  if (method.requestMediaType) {
+    if (method.requestMediaType === 'application/json') {
+      requestType = method.requestType;
+    }
+  }
+
+  var params = (method.pathParams || []).concat(method.queryParams || []).concat(method.formParams || []);
+
+  var argsVars = params.map(function(pathParam) {
+    return pathParam.name + ': ' + pathParam.type;
+  });
+
+  if (requestType) {
+    var reqType = requestType;
+    if(reqType !== 'string' && reqType !== 'Date' && reqType !== 'number' && reqType !== 'boolean' && reqType !== 'any'){
+      reqType = '' + reqType;
+    }
+    argsVars.push( varPfx + 'request: ' + reqType);
+  }
+%>
+
+public <%- method.name %>(<%- argsVars.join(', ') %>): Observable<<%- responseType %>>{
+    <% if (method.pathParams) { %>
+    let <%- varPfx %>url = this.<%- varPfx %>rootUrl + substituteUrl('<%- method.path %>', {<%- method.pathParams.map(function(param) { return param.name; }).join(', '); %>});
+    <% } else { %>
+    let <%- varPfx %>url = this.<%- varPfx %>rootUrl  + '<%- method.path %>';
+    <% } %>
+    let <%- varPfx %>headers: Headers = new Headers();
+    <%- varPfx %>headers.append('Accept', '<%- method.responseMediaType || '*/*' -%>');
+    <% if (method.requestMediaType) { %>
+      <%- varPfx %>headers.append('Content-Type', '<%- method.requestMediaType %>');
+    <% } %>
+    let <%- varPfx %>options: RequestOptionsArgs = {
+        method: RequestMethod.<%- capitalize(method.method) %>,
+        <% if (method.queryParams) { %>
+          search: encodeParams({<%- method.queryParams.map(function(param) { return param.name; }).join(', '); %>}),
+        <% } %>
+        <% if (method.formParams) { %>
+          body: encodeParams({<%- method.formParams.map(function(param) { return param.name; }).join(', '); %>}),
+        <% } %>
+        <% if (requestType) { %>
+          body: JSON.stringify(<%- varPfx %>request),
+        <% } %>
+        <%  if (responseType === 'File') { %>
+          responseType: ResponseContentType.Blob,
+        <% } %>
+        <%  if (responseType === 'ArrayBuffer') { %>
+          responseType: ResponseContentType.ArrayBuffer,
+        <% } %>
+        headers: <%- varPfx %>headers
+    };
+    return this.<%- varPfx %>http.request(<%- varPfx %>url, <%- varPfx %>options)
+        .map((<%- varPfx %>res: Response) => {
+        <% if (responseType !== 'void') { %>
+          <% if (responseType === 'string') { %>
+            return <%- varPfx %>res.text();
+          <% } else if (responseType === 'File') { %>
+            return <%- varPfx %>res;
+          <% } else if (responseType === 'ArrayBuffer') { %>
+            return <%- varPfx %>res.arrayBuffer();
+          <% } else { %>
+            return <%- varPfx %>res;
+          <% } %>
+        <% } %>
+    });
+}

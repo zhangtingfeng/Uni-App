@@ -1,0 +1,205 @@
+'use strict';
+
+var _ = require('lodash');
+var util = require('./parser-util');
+var path = require('path');
+var yaml = require('js-yaml');
+
+function Swagger2Parser(options) {
+    this.options = options;
+}
+
+Swagger2Parser.prototype.parse = function () {
+    return util.fetchFile(this.options.input)
+        .then(function (swaggerContent) {
+            this.types = [];
+            this.services = {};
+
+            var swaggerDef;
+            if (this.options.input.endsWith('.json') || this.options.input.endsWith('.JSON')) {
+                swaggerDef = JSON.parse(swaggerContent);
+            } else if (this.options.input.endsWith('.yaml') || this.options.input.endsWith('.YAML')) {
+                swaggerDef = yaml.load(swaggerContent);
+            }
+
+            this.parsePaths(swaggerDef);
+            this.parseDefinitions(swaggerDef);
+
+            var rootUrl = null;
+            if (this.options.rootUrl) {
+                rootUrl = this.options.rootUrl;
+            } else if (swaggerDef.host && swaggerDef.basePath) {
+                rootUrl = path.join(swaggerDef.host, swaggerDef.basePath);
+            }
+
+            return {
+                rootUrl: rootUrl,
+                services: _.values(this.services),
+                types: this.types
+            };
+        }.bind(this));
+};
+
+Swagger2Parser.prototype.parsePaths = function (swaggerDef) {
+    _.forEach(swaggerDef.paths, function (pathDef, pathKey) {
+        _.forEach(pathDef, function (methodDef, methodKey) {
+            var method = this.parseMethod(methodDef, methodKey, pathKey);
+
+            methodDef.tags.every(function (tag) {
+                var serviceName = util.format(tag.replace(this.options.serviceExclude, ''), this.options.capitalize) + this.options.serviceSuffix;
+
+                if (!this.services[serviceName]) {
+                    this.services[serviceName] = {
+                        name: serviceName,
+                        methods: []
+                    };
+                }
+                this.services[serviceName].methods.push(method);
+            }.bind(this));
+        }.bind(this));
+    }.bind(this));
+};
+
+Swagger2Parser.prototype.parseMethod = function (methodDef, httpMethod, path) {
+    var method = {
+        method: httpMethod.toUpperCase(),
+        name: util.format(methodDef.operationId.replace(this.options.methodExclude, ''), false),
+        path: path
+    };
+
+    if (methodDef.consumes == undefined || methodDef.consumes == null) {
+        methodDef.consumes = ["application/json"];
+    }
+    if (methodDef.produces == undefined || methodDef.produces == null) {
+        methodDef.produces = ["application/json"];
+    }    
+    if (methodDef.consumes) {
+        method.requestMediaType = methodDef.consumes[0]; // support only single media type
+    }
+    if (methodDef.produces) {
+        method.responseMediaType = methodDef.produces[0]; // support only single media type
+    }
+
+    var paramDef = _.find(methodDef.parameters, _.matchesProperty('in', 'body'));
+    if (paramDef) {
+        if (paramDef.schema.$ref !== undefined) {
+            method.requestType = getType(paramDef.schema.$ref, this.options.capitalize);
+        }
+    } else {
+        if(methodDef.requestBody != undefined && methodDef.requestBody.content!= undefined && 
+            methodDef.requestBody.content[methodDef.consumes[0]] !== undefined && methodDef.requestBody.content[methodDef.consumes[0]].schema.$ref !== undefined) {
+            method.requestType = getType(methodDef.requestBody.content[methodDef.consumes[0]].schema.$ref, this.options.capitalize);
+        }
+    }
+
+
+    var parmsDef = _.filter(methodDef.parameters, _.matchesProperty('in', 'query'));
+    if (parmsDef.length) {
+        method.queryParams = _.map(parmsDef, function (paramDef) {
+            return {
+                name: paramDef.name,
+                type: getJsType(paramDef) // array not supported
+            };
+        });
+    }
+
+    parmsDef = _.filter(methodDef.parameters, _.matchesProperty('in', 'formData'));
+    if (parmsDef.length) {
+        method.formParams = _.map(parmsDef, function (paramDef) {
+            return {
+                name: paramDef.name,
+                type: getJsType(paramDef)  // array not supported
+            };
+        });
+    }
+
+    parmsDef = _.filter(methodDef.parameters, _.matchesProperty('in', 'path'));
+    if (parmsDef.length) {
+        method.pathParams = _.map(parmsDef, function (paramDef) {
+            return {
+                name: paramDef.name,
+                type: getJsType(paramDef)  // array not supported
+            };
+        });
+    }
+
+    if (_.has(methodDef, 'responses.200.schema.$ref')) {
+        method.responseType = getType(methodDef.responses['200'].schema.$ref, this.options.capitalize);
+    }
+    else if (_.has(methodDef, 'responses.200.content.application/json.schema.items.$ref')) {
+        method.responseType = getType(methodDef.responses['200'].content['application/json'].schema.items.$ref, this.options.capitalize) + '[]';
+    }
+    else if (_.has(methodDef, 'responses.200.content.application/json.schema.$ref')) {
+        method.responseType = getType(methodDef.responses['200'].content['application/json'].schema.$ref, this.options.capitalize);
+    }
+
+    return method;
+};
+
+Swagger2Parser.prototype.parseDefinitions = function (swaggerDef) {
+    var schemas = swaggerDef.components != undefined ? swaggerDef.components.schemas : swaggerDef.definitions;
+    this.types = _.map(schemas, function (typeDef, typeKey) {
+        return {
+            type: 'class',
+            name: util.format(typeKey, this.options.capitalize),
+            fields: _.map(typeDef.properties, function (propDef, propKey) {
+                var array = false;
+                var type;
+
+                if (propDef.enum) {
+                    type = '(\'' + propDef.enum.join('\' | \'') + '\')';
+                } else if (propDef.type) {
+                    if (propDef.type === 'array') {
+                        array = true;
+                        if (propDef.items.type) {
+                            if (propDef.items.enum) {
+                                type = '(\'' + propDef.items.enum.join('\' | \'') + '\')';
+                            } else {
+                                type = getJsType(propDef.items.type);
+                            }
+                        } else {
+                            type = getType(propDef.items.$ref, this.options.capitalize);
+                        }
+                    } else {
+                        type = getJsType(propDef);
+                    }
+                } else if (propDef.$ref) {
+                    type = getType(propDef.$ref, this.options.capitalize);
+                } else {
+                    type = 'Object';
+                }
+
+                return {
+                    name: propKey,
+                    type: type,
+                    optional: !typeDef.required || typeDef.required.indexOf(propKey) === -1,
+                    array: array
+                };
+            }.bind(this))
+        };
+    }.bind(this));
+};
+
+function getJsType(definitionInput) {
+    var definition = definitionInput.schema != undefined ? definitionInput.schema : definitionInput;
+    switch (definition.type) {
+        case 'string':
+            return (definition.format === 'date' || definition.format === 'date-time') ? 'Date' : 'string';
+        case 'number':
+        case 'integer':
+            return 'number';
+        case 'boolean':
+            return 'boolean';
+        default:
+            return 'Object'; // all others types
+    }
+}
+
+function getType(definition, capitalize) {
+    return util.format(definition.replace('#/definitions/', '').replace('#/components/schemas/', ''), capitalize);
+}
+
+module.exports = function (options) {
+    var parser = new Swagger2Parser(options);
+    return parser.parse();
+};

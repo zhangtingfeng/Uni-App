@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.trafigura.situ</groupId>
+		<artifactId>situ-parent</artifactId>
+		<version>2022.9.0</version>
+		<relativePath>../../pom.xml</relativePath>
+		<!--<relativePath /> -->
+	</parent>
+	<artifactId>situ-integration</artifactId>
+	<name>situ-integration</name>
+	<description>Project for situ-integration</description>
+
+	<profiles>
+		<profile>
+			<id>AAD</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-dependencies</artifactId>
+						<type>pom</type>
+						<version>${spring.boot.version}</version>
+						<scope>import</scope>
+					</dependency>
+					<dependency>
+						<groupId>com.azure.spring</groupId>
+						<artifactId>azure-spring-boot-bom</artifactId>
+						<version>${azure.bom.version}</version>
+						<type>pom</type>
+						<scope>import</scope>
+						<exclusions>
+							<exclusion>
+								<groupId>com.azure.spring</groupId>
+								<artifactId>azure-spring-boot-starter-active-directory-b2c</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			<dependencies>
+				<dependency>
+					<groupId>com.azure.spring</groupId>
+					<artifactId>azure-spring-boot-starter-active-directory</artifactId>
+					<version>${azure.bom.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>AADB2C</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-dependencies</artifactId>
+						<type>pom</type>
+						<version>${spring.boot.version}</version>
+						<scope>import</scope>
+					</dependency>
+					<dependency>
+						<groupId>com.azure.spring</groupId>
+						<artifactId>azure-spring-boot-bom</artifactId>
+						<version>${azure.bom.version}</version>
+						<type>pom</type>
+						<scope>import</scope>
+
+						<exclusions>
+							<exclusion>
+								<groupId>com.azure.spring</groupId>
+								<artifactId>azure-spring-boot-starter-active-directory</artifactId>
+							</exclusion>
+						</exclusions>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+			<dependencies>
+				<dependency>
+					<groupId>com.azure.spring</groupId>
+					<artifactId>azure-spring-boot-starter-active-directory-b2c</artifactId>
+					<version>${azure.bom.version}</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-to-slf4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.security.oauth</groupId>-->
+<!--			<artifactId>spring-security-oauth2</artifactId>-->
+<!--			<version>2.0.10.RELEASE</version>-->
+<!--		</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-resource-server</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>com.azure.spring</groupId>-->
+<!--			<artifactId>azure-spring-boot-starter-active-directory-b2c</artifactId>-->
+<!--		</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.trafigura.situ</groupId>
+			<artifactId>situ-integration-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.trafigura.situ</groupId>
+			<artifactId>situ-domain</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<classifier>spring-boot</classifier>
+							<mainClass>
+								com.trafigura.situ.SituIntegrationApplication
+							</mainClass>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- <plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>2.2.4</version>
+				<executions>
+					<execution>
+						<id>process</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<processors>
+								<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+							</processors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
+
+		</plugins>
+	</build>
+
+</project>

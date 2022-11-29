@@ -1,0 +1,16 @@
+{ 
+    "/situquery/*": {
+        "target": "http://dtraflocorh2233:8001/situquery",
+        "pathRewrite": {
+            "^/situquery": ""
+        },
+        "secure": false
+    },
+    "/situcommand/*": {  
+        "target": "http://dtraflocorh2233:8002/situcommand",
+        "pathRewrite": {
+            "^/situcommand": ""
+        },
+        "secure": false
+    }
+}

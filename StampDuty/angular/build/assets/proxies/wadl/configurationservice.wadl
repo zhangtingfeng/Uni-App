@@ -1,0 +1,326 @@
+﻿<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <grammars>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://model.configuration.titan.trafigura.com" attributeFormDefault="unqualified"
+            elementFormDefault="unqualified" targetNamespace="http://model.configuration.titan.trafigura.com">
+            <xs:element name="CommodityList">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="CommodityIds" type="xs:string" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Configuration" type="tns:Configuration" />
+            <xs:element name="EnvInstance" type="tns:EnvInstance" />
+            <xs:element name="listOfConfigurationItem">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Items" type="tns:ConfigurationItem" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="listOfDesktopModuleInfo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="ModuleInfo"
+                            type="tns:DesktopModuleInfo" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="listOfPerspective">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Perspectives" type="tns:Perspective" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="listOfUserSetting">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Settings" type="tns:UserSetting" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="DesktopModuleInfo">
+                <xs:sequence>
+                    <xs:element name="Oid" type="xs:int" />
+                    <xs:element name="Active" type="xs:boolean" />
+                    <xs:element minOccurs="0" name="Version" type="xs:string" />
+                    <xs:element minOccurs="0" name="Text" type="xs:string" />
+                    <xs:element minOccurs="0" name="ModuleName" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Configuration">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="Items" type="tns:ConfigurationItem" />
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="ModuleNames" type="xs:string" />
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="Modules" type="tns:DesktopModule" />
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="Perspectives" type="tns:Perspective" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ConfigurationItem">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Key" type="xs:string" />
+                    <xs:element minOccurs="0" name="Value" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="DesktopModule">
+                <xs:sequence>
+                    <xs:element name="HasUserOptions" type="xs:boolean" />
+                    <xs:element minOccurs="0" name="Name" type="xs:string" />
+                    <xs:element name="Oid" type="xs:int" />
+                    <xs:element name="PermissionControlled" type="xs:boolean" />
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="RolesGranted" type="tns:DesktopModuleRole" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="DesktopModuleRole">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Name" type="xs:string" />
+                    <xs:element name="Oid" type="xs:int" />
+                    <xs:element minOccurs="0" name="PermissionName" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Perspective">
+                <xs:sequence>
+                    <xs:element name="Active" type="xs:boolean" />
+                    <xs:element name="Fixed" type="xs:boolean" />
+                    <xs:element minOccurs="0" name="Formdata" type="xs:string" />
+                    <xs:element minOccurs="0" name="Name" type="xs:string" />
+                    <xs:element name="Oid" type="xs:int" />
+                    <xs:element minOccurs="0" name="Owner" type="xs:string" />
+                    <xs:element name="TemplatePerspectiveId" nillable="true" type="xs:int" />
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="Windows" type="tns:PerspectiveWindow" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="PerspectiveWindow">
+                <xs:sequence>
+                    <xs:element name="HeightInDockedMode" nillable="true" type="xs:int" />
+                    <xs:element name="Hidden" type="xs:boolean" />
+                    <xs:element name="Module" type="xs:int" />
+                    <xs:element minOccurs="0" name="Name" type="xs:string" />
+                    <xs:element name="Oid" type="xs:int" />
+                    <xs:element name="PinnedToDesktop" nillable="true" type="xs:boolean" />
+                    <xs:element minOccurs="0" name="Position" type="tns:Point" />
+                    <xs:element minOccurs="0" name="SideInDockedMode" type="tns:SideInDockedMode" />
+                    <xs:element minOccurs="0" name="Size" type="tns:Point" />
+                    <xs:element name="WidthInDockedMode" nillable="true" type="xs:int" />
+                    <xs:element minOccurs="0" name="WindowState" type="tns:WindowState" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Point">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="XCoord" type="xs:int" />
+                    <xs:element minOccurs="0" name="YCoord" type="xs:int" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="EnvInstance">
+                <xs:sequence>
+                    <xs:element name="InstanceName" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="UserSetting">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="ModuleName" type="xs:string" />
+                    <xs:element name="Oid" type="xs:int" />
+                    <xs:element minOccurs="0" name="Settings" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+            <xs:simpleType name="SideInDockedMode">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Left" />
+                    <xs:enumeration value="Right" />
+                    <xs:enumeration value="Top" />
+                    <xs:enumeration value="Bottom" />
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType name="WindowState">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="AutoHidden" />
+                    <xs:enumeration value="Floating" />
+                    <xs:enumeration value="Docked" />
+                    <xs:enumeration value="Closed" />
+                    <xs:enumeration value="Maximized" />
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="DesktopModuleInfo" type="tns:DesktopModuleInfo" />
+            <xs:element name="Configuration" type="tns:Configuration" />
+            <xs:element name="Perspective" type="tns:Perspective" />
+            <xs:element name="EnvInstance" type="tns:EnvInstance" />
+        </xs:schema>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://model.clientmanagement.titan.trafigura.com" attributeFormDefault="unqualified"
+            elementFormDefault="unqualified" targetNamespace="http://model.clientmanagement.titan.trafigura.com">
+            <xs:element name="listOfLog">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Logs" type="tns:Log" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:complexType name="Log">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="Ticks" type="xs:long" />
+                    <xs:element minOccurs="0" name="Level" type="xs:string" />
+                    <xs:element minOccurs="0" name="Message" type="xs:string" />
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </grammars>
+    <resources base="http://dtraflocorh1013:9004/configuration">
+        <resource path="/clientmanagement">
+            <resource path="/postLogs">
+                <method name="POST">
+                    <request>
+                        <param name="user" style="query" type="xs:string" />
+                        <representation mediaType="application/json" />
+                    </request>
+                    <response status="204" />
+                </method>
+            </resource>
+        </resource>
+        <resource path="/configurationservice">
+            <resource path="/deletePerspective">
+                <method name="POST">
+                    <request>
+                        <representation mediaType="application/json" />
+                    </request>
+                    <response status="204" />
+                </method>
+            </resource>
+            <resource path="/getConfiguration">
+                <method name="GET">
+                    <request>
+                        <param name="user" style="query" type="xs:string" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" element="Configuration" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/getConfigurationItems">
+                <method name="GET">
+                    <request>
+                        <param name="user" style="query" type="xs:string" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/getDesktopModuleInfo">
+                <method name="GET">
+                    <request>
+                        <param name="modules" style="query" repeating="true" type="xs:string" />
+                        <param name="excludingOids" style="query" repeating="true" type="xs:int" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/getManagedCommoditiesForValuationInstance">
+                <method name="GET">
+                    <request>
+                        <param name="environment" style="query" type="xs:string" />
+                        <param name="instance" style="query" type="xs:int" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/getManagingInstanceForCommodity">
+                <method name="GET">
+                    <request>
+                        <param name="environment" style="query" type="xs:string" />
+                        <param name="commodityId" style="query" type="xs:string" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/getPerspective">
+                <method name="GET">
+                    <request>
+                        <param name="id" style="query" type="xs:int" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/getUserSettings">
+                <method name="GET">
+                    <request>
+                        <param name="user" style="query" type="xs:string" />
+                        <param name="modules" style="query" repeating="true" type="xs:string" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/saveConfigurationItems">
+                <method name="POST">
+                    <request>
+                        <param name="user" style="query" type="xs:string" />
+                        <representation mediaType="application/json" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/updateDesktopModuleInfo">
+                <method name="POST">
+                    <request>
+                        <representation mediaType="application/json" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/updatePerspective">
+                <method name="POST">
+                    <request>
+                        <representation mediaType="application/json" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/updatePerspectives">
+                <method name="POST">
+                    <request>
+                        <param name="user" style="query" type="xs:string" />
+                        <representation mediaType="application/json" />
+                    </request>
+                    <response>
+                        <representation mediaType="application/json" />
+                    </response>
+                </method>
+            </resource>
+            <resource path="/updatePerspectivesNoReturn">
+                <method name="POST">
+                    <request>
+                        <param name="user" style="query" type="xs:string" />
+                        <representation mediaType="application/json" />
+                    </request>
+                    <response status="204" />
+                </method>
+            </resource>
+            <resource path="/updateUserSettings">
+                <method name="POST">
+                    <request>
+                        <param name="user" style="query" type="xs:string" />
+                        <representation mediaType="application/json" />
+                    </request>
+                    <response status="204" />
+                </method>
+            </resource>
+        </resource>
+    </resources>
+</application>

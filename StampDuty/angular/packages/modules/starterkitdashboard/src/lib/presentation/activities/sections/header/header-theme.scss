@@ -1,0 +1,98 @@
+@use 'sass:map';
+@use '~@angular/material'as mat;
+
+@mixin header-theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  $background: map.get($color-config, background);
+  $foreground: map.get($color-config, foreground);
+
+  .heading {
+    cursor: default;
+  }
+
+  .header {
+    color: mat.get-color-from-palette($background, card);
+    background-color: mat.get-color-from-palette($primary);
+  }
+
+  .iconcolors {
+    cursor: pointer;
+    color: mat.get-color-from-palette($background, card);
+  }
+
+  .itemholdercolor {
+    background-color: mat.get-color-from-palette($foreground, secondary-text);
+  }
+
+  .applylabelcolor {
+    color: mat.get-color-from-palette($background, card);
+  }
+
+  .applyaccentborder {
+    border: 0.5px solid mat.get-color-from-palette($background, card);
+  }
+
+  .applyprimaryborder {
+    border-left: 0.5px solid mat.get-color-from-palette($background, card);
+    border-bottom: 0.5px solid mat.get-color-from-palette($background, card);
+    border-top: 0.5px solid mat.get-color-from-palette($background, card);
+  }
+
+  .applywarnborder {
+    border-right: 0.5px solid mat.get-color-from-palette($background, card);
+    border-bottom: 0.5px solid mat.get-color-from-palette($background, card);
+    border-top: 0.5px solid mat.get-color-from-palette($background, card);
+  }
+
+  .mat-menu-panel {
+    border-radius: 0px;
+    border: 1px solid mat.get-color-from-palette($background, status-bar);
+  }
+
+  .applyprimarycolor {
+    background-color: mat.get-color-from-palette($primary);
+  }
+
+  .header-line {
+    width: 0;
+    height: 52px;
+    margin: auto 0;
+    border: 0.7px solid;
+    border-top: 0px;
+    border-bottom: 0;
+    border-right: 0;
+    border-image: linear-gradient(to bottom, rgba(43, 50, 184, 0) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0) 100%);
+    border-image-slice: 1;
+  }
+  
+  .mat-toolbar-single-row {
+    height: 64px;
+  }
+
+}
+
+@mixin header-typography($config) {
+
+  starterkit-header {
+    font : {
+      family: mat.font-family($config);
+      size: mat.font-size($config, body-1);
+    }
+
+    .header-typography {
+      font : {
+        family: mat.font-family($config);
+        size: mat.font-size($config, body-1);
+      }
+    }
+
+    .heading {
+      font : {
+        family: mat.font-family($config);
+        size: mat.font-size($config, display-1);
+      }
+    }
+  }
+}

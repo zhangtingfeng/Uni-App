@@ -1,0 +1,90 @@
+<mat-toolbar class="header header-typography">
+    <div fxFill fxLayout="row">
+        <div fxFlex="1" *ngIf="!IsMobile" fxFlex.lt-md>&nbsp;</div>
+        <div fxFlex.lt-md="10" fxLayoutAlign="center center" (click)="LeftSideNavigation.toggle()">
+            <fa-icon class="applybarcolor"  [icon]="['fas', 'bars' ]" size="lg"></fa-icon>
+        </div>
+        <div fxFlex="1">&nbsp;</div>
+        <div fxFlex="11" fxFlex.lt-md="40" fxLayoutAlign="start center" class="heading"
+            (click)="NavigateTo('home')">
+           Stamp duty
+        </div>
+        <div fxFlex="65" fxFlex.lt-md fxLayoutAlign="center center">
+            <img src='/assets/traflogo_white.svg' (click)="ViewModel.LoadTrafiguraPage()" class="logopointer">
+        </div>
+        <!-- TODO: Need to enable for internationalization-->
+        <!--<div fxFlex="4" fxFlex.lt-md="8" fxLayoutAlign="center center"> 
+            <fa-icon [icon]="['fas', 'language']" [matMenuTriggerFor]="selectlanguage"></fa-icon>
+        </div>-->
+        <div fxFlex="4" fxFlex.lt-md="8" fxLayoutAlign="center center">
+            <fa-icon class="iconcolors" [icon]="['far', 'bell']" size="lg" (click)="NavigateTo('notifications')">
+            </fa-icon>
+        </div>
+        <mat-divider *ngIf="!IsMobile" class="header-line" [vertical]="true"></mat-divider>
+        <div fxFlex="4" *ngIf="!IsMobile" fxLayoutAlign="center center">
+            <fa-icon [icon]="['fas', 'home']" size="lg" (click)="NavigateTo('home')"></fa-icon>
+        </div>
+        <!-- TODO: Need to enable for Theme-->
+        <mat-divider *ngIf="!IsMobile" class="header-line" [vertical]="true"></mat-divider>
+        <div fxFlex="4" *ngIf="!IsMobile" fxLayoutAlign="center center" [matMenuTriggerFor]="thememenu">
+            <fa-icon [icon]="['fas', 'fill-drip']" size="lg"></fa-icon>
+        </div>
+        <div fxFlex fxFlex.lt-md="9" class="iconcolors" fxLayoutGap="10px" fxLayoutAlign="center center"
+            fxLayoutAlign.lt-md="start center" (click)="NavigateTo('myprofile')" fxLayout="row">
+            <mat-divider class="header-line" [vertical]="true"></mat-divider>
+            <div fxFlex="10">
+                <fa-icon [icon]="['far', 'user-circle']" size="lg"></fa-icon>
+            </div>
+            <div fxFlex *ngIf="!IsMobile">
+            Welcome, {{ViewModel.ClientName}}
+            </div>
+        </div>
+        <div fxFlex="2" fxFlex.lt-md="10" fxLayoutAlign="center center" class="iconcolors"
+            [matMenuTriggerFor]="myprofilemenu">
+            <fa-icon [icon]="['fas', 'chevron-down']" class="lg"></fa-icon>
+        </div>
+        <!-- TODO: Need to enable for internationalization-->
+        <!--<mat-menu #selectlanguage="matMenu">
+            <button mat-menu-item fxLayoutAlign="center" (click)="language('en')">English</button>
+            <button mat-menu-item fxLayoutAlign="center" (click)="language('es')">Spanish</button>
+            <button mat-menu-item fxLayoutAlign="center" (click)="language('zh')">Chinese</button>
+        </mat-menu>-->
+    </div>
+</mat-toolbar>
+
+<mat-menu #myprofilemenu="matMenu" class="mat-elevation-z0 menupanel">
+    <div mat-menu-item fxFlex="100" class="itemholdercolor"
+        *ngFor="let item of ViewModel.Model.UserMenuData ;let last=last" (click)="NavigateTo(item.navigationUrl)">
+        <div fxFlex fxLayout="row" fxLayoutGap="5px" class="applythemewidth">
+            <div fxFlex="20" fxLayout="column">
+                <div fxFlex="5">&nbsp;</div>
+                <div fxFlex="10" fxLayout="row" class="applylabelcolor" fxLaoutAlign="center center">
+                    <fa-icon [icon]="item.icon" size="lg"></fa-icon>
+                </div>
+            </div>
+            <div fxFlex class="applylabelcolor">{{item.buttonName}}</div>
+        </div>
+    </div>
+</mat-menu>
+
+<mat-menu #thememenu="matMenu" class="mat-elevation-z0 menupanel">
+    <div mat-menu-item *ngFor="let item of ViewModel.Model.ThemeData" (click)="ApplyTheme(item.url)"
+        class="itemholdercolor" fxLayoutGap="10px">
+        <div fxFlex fxLayout="row" fxLayoutGap="15px" class="applythemewidth">
+            <div fxFlex="75" fxLayout="column">
+                <div fxFlex="25">&nbsp;</div>
+                <div fxFlex="50" fxLayout="row" fxLaoutAlign="center center">
+                    <div fxFlex="33" class="applyprimaryborder" [ngStyle]="{'background-color': item.primaryColor}">
+                        &nbsp;</div>
+                    <div fxFlex="33" class="applyaccentborder" [ngStyle]="{'background-color': item.accentColor}">
+                        &nbsp;
+                    </div>
+                    <div fxFlex="33" class="applywarnborder" [ngStyle]="{'background-color': item.warnColor}">&nbsp;
+                    </div>
+                </div>
+                <div fxFlex="25">&nbsp;</div>
+            </div>
+            <div fxFlex="25" class="applylabelcolor">{{item.displayName}}</div>
+        </div>
+    </div>
+</mat-menu>

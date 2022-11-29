@@ -1,0 +1,96 @@
+blank path
+
+  1. git clone git@gitlab.global.trafigura.com:CLA/situ.git
+  2.git checkout master
+  3.git pull
+  4.git checkout -b dev
+  5.  development(git add .; git commit -m "CA-86  story id(http://ttraflonrh712:8080/secure/Dashboard.jspa)"; git push origin dev)
+  6.git rebase master
+  7,（git web 删除分支CLA situ Repository Branches）
+  8.git push
+  9.submit a merge requset to kevin  at git webpage
+   
+https://fccsui-dev.global.trafigura.com:9443/
+
+situtest-1@skysh163.onmicrosoft.com
+
+k1*itu@1234!6
+  
+
+
+ "build": "ts-node  ./build/index.ts --createproxy --stack_size=3200 \"$(which wsdl-to-ts)\"",
+ 
+  git add .
+git commit -m "CA-86 "
+//git如何把master合并到自己分支
+//1.切换到主分支
+    
+  //  git checkout master
+
+//2.使用git pull把master代码拉到本地
+
+  //  git pull
+
+//3.切换到自己的分支——>(XXX)
+
+    git checkout XXX
+
+//4.使用merge把主分支的代码合并到自己的分支
+
+ //git rebase master// git merge master
+
+<<<<<<< HEAD
+//git add .
+//git commit -m "CA-86 "
+=======
+
+------dev  coding 
+>>>>>>> 28332f1 (CA-86  optimizing)
+  注意：合并时有可能会有冲突，解决完冲突才能push
+
+//5.最后push，你分支的代码就和主分支的一样了
+
+ // git push
+      
+    
+// test rebase
+
+
+
+
+
+
+
+
+
+blank path
+
+  1. git clone git@gitlab.global.trafigura.com:CLA/situ.git
+  2.git checkout master
+  3.git pull
+  4.git checkout -b dev
+  5.  development(git add .; git commit -m "CA-86  story id(http://ttraflonrh712:8080/secure/Dashboard.jspa)"; git push origin dev)
+  6.git rebase master
+  7,（git web 删除分支CLA situ Repository Branches）
+  8.git push
+  9.submit a merge requset to kevin  at git webpage
+   
+
+<!--/*  
+UserName:
+situtest-1@skysh163.onmicrosoft.com
+password: k1*itu@1234!6
+*/-->
+
+
+http://dtraflocorh2233:8001/situquery/swagger-ui/index.html
+http://dtraflocorh2233:8002/situcommand/swagger-ui/index.html
+
+http://10.193.77.234:8001/situquery/swagger-ui/index.html#/pnl-data-qry-controller/rmUsingPOST
+
+http://10.193.77.234:8002/situcommand/swagger-ui/index.html#
+
+
+https://confluence/pages/viewpage.action?spaceKey=CLA&title=DEVOPS  CMT
+
+https://confluence/pages/viewpage.action?pageId=158210955

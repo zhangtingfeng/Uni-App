@@ -1,8 +1,8 @@
-
 server:
-  port: 8080
+  port: 58083
   servlet:
-    context-path: /demo
+    context-path: /api
+
 
   #com.mysql.jdbc.Driver过时
 spring:
@@ -22,7 +22,13 @@ spring:
         default_catalog: CMT_OWNER   #多个表空间必须指定
         default_schema: CMT_OWNER #多个表空间必须指定
         dialect: org.hibernate.dialect.Oracle12cDialect
+        format_sql: true
     show-sql: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.cfg.DefaultComponentSafeNamingStrategy
 
 
 logging:

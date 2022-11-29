@@ -1,0 +1,90 @@
+{
+    "ConfigDetails": {
+        "configUrl": "",
+        "items": [
+
+
+
+            { "key": "service.situquery.query", "value": "http://dtraflocorh2233:8001/situquery" },
+            { "key": "service.upload.query", "value": "http://dtraflocorh2233:8002/situcommand" },
+            { "key": "service.logging", "value": "http://localhost:3001/graphql" },
+            { "key": "service.authentication", "value": "http://dtraflocorh1252:8087" },
+            { "key": "service.starterkit.staticdata", "value": "http://dtraflocorh1252:8089"},
+            { "key": "service.starterkit.command", "value": "http://dtraflocorh1252:8082" },
+            { "key": "service.starterkit.query", "value": "http://dtraflocorh1252:8083" }
+
+        ]
+    },
+    "Version": "1.0.0",
+    "ApplicationId": "Starterkit",
+    "ProductionMode": true,
+    "IsFakeMode": false,
+    "EnableLogging": false,
+    "LogCount": 20,
+    "LoginMode": "azure",
+    "StoreCacheToIndexedDB": false,
+    "OpenIdDetails": {
+        "azure": {
+            "msalInstanceConfig": {
+                "auth": {
+                    "clientId": "4008a8f8-35ab-4268-858c-5d4a08b3fc5b",
+                    "authority": "https://login.microsoftonline.com/98e0fe99-0239-47f6-8a08-2da6a29e6af3/",
+                    "validateAuthority": true,
+                    "redirectUri": "http://localhost:4200",
+                    "postLogoutRedirectUri": "http://localhost:4200",
+                    "navigateToLoginRequestUrl": true
+                },
+                "cache": {
+                    "cacheLocation": "localStorage",
+                    "storeAuthStateInCookie": false
+                },
+                "system": {
+                    "enableLogging": true
+                }
+            },
+            "msalGuardConfig": {
+                "interactionType": "redirect",
+                "authRequest": {
+                    "scopes": [
+                        "email",
+                        "openid",
+                        "profile"
+                    ]
+                }
+            },
+            "msalInterceptorConfig": {
+                "interactionType": "redirect",
+                "protectedResourceMap": [
+                    ["https://graph.microsoft.com/v1.0/users", ["profile"]],
+                    ["http://dtraflocorh2233:8001/situquery/*", ["https://trafiguragroup.onmicrosoft.com/4008a8f8-35ab-4268-858c-5d4a08b3fc5b/Situ.all"]],
+                    ["http://dtraflocorh2233:8001/situcommand/*", ["https://trafiguragroup.onmicrosoft.com/4008a8f8-35ab-4268-858c-5d4a08b3fc5b/Situ.all"]]
+                ],
+                "authRequest": {
+                    "scopes": [
+                        "email",
+                        "openid",
+                        "profile"
+                    ]
+                }
+            }
+        },
+        "loginpage": {}
+    },
+    "url": [
+        {
+            "url": "/downloadsourcefile",
+            "type": "blob"
+        },
+        {
+            "url": "/downloadreport",
+            "type": "blob"
+        },
+        {
+            "url": "/downloaddefaultreport",
+            "type": "blob"
+        }
+
+
+
+    ]
+}

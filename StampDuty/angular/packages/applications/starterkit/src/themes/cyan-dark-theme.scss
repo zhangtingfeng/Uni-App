@@ -1,0 +1,14 @@
+@use '@angular/material' as mat;
+
+$anms-cyan-primary: mat.define-palette(mat.$cyan-palette, 700, 300, 900);
+$anms-cyan-accent: mat.define-palette(mat.$green-palette,300);
+// The "warn" palette is optional and defaults to red if not specified.
+$anms-cyan-warn: mat.define-palette(mat.$red-palette, 600);
+
+$anms-cyan-theme: mat.define-dark-theme((
+ color: (
+   primary: $anms-cyan-primary,
+   accent: $anms-cyan-accent,
+   warn: $anms-cyan-warn,
+ )
+));

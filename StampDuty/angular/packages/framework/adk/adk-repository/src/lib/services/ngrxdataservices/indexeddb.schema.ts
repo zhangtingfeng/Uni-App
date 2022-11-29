@@ -1,0 +1,1 @@
+import { DBConfig } from "ngx-indexed-db";export const dbConfig: DBConfig = {    name: 'titan',    version: 1,    objectStoresMeta: [    ]};

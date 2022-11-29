@@ -1,0 +1,83 @@
+<div fxFlex="100" fxFlexFill [ngStyle]="ViewPortHeightDefinition.OuterClassStyle" fxLayout="column" fxLayoutGap="10px">
+
+
+
+
+    <div fxFlex="20" fxLayout="row" class="uploadheadingholder">
+       
+        <div fxFlex="10px">&nbsp;</div>
+        <div fxFlex fxLayoutAlign="start center" [ngClass]="ViewModel.UploadTextHeader">
+            {{ViewModel.TranslationCollection.uploadDocumentHeader}}
+        </div>
+        <div fxFlex fxLayoutAlign="end center">
+            <button mat-button [matTooltip]="ViewModel.TranslationCollection.pagecodeDesc">
+                {{ViewModel.Model.PageCode}}
+            </button>
+        </div>
+        <div fxFlex="5" fxFlex.lt-md="10" fxLayoutAlign="center center" (click)="ClosePopup()">
+            <fa-icon class="closeiconcolor" [icon]="['fas', 'times']" [size]="UploadCloseIconSize"></fa-icon>
+        </div>
+        <div fxFlex="10px">&nbsp;</div>
+    </div>
+    <div fxFlex fxLayout="row" fxFlex="50">
+        <ng-container [ngTemplateOutlet]="taxrateContent"></ng-container>
+    </div>
+
+
+   
+    <div fxFlex fxLayout="buttonshow">
+        <ng-container [ngTemplateOutlet]="ngbuttonshow"></ng-container>
+    </div>
+</div>
+   
+ 
+<ng-template #taxrateContent>
+    <div fxFlex class="invoicesection" fxLayout="column">
+        <div class="loading" *ngIf="ViewModel.InProgressData && ViewModel.InProgressData !== ''">
+            <mat-progress-spinner matSuffix diameter="30" strokeWidth="3" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        <div fxFlex fxLayout="row wrap" fxLayoutGap="5%" *ngIf="_dialogRef.componentInstance.data.ActionId=='addconfigurationtaxrate'">
+            <div fxFlex="40" >
+                <digital101-multiselectcombobox [Content]="ViewModel.TableTaxItem">
+                </digital101-multiselectcombobox>
+            </div>
+            <div fxFlex="40" >
+                <digital101-textbox  [Content]="ViewModel.TaxRate" [IsDirty]="ViewModel.TaxRate.IsDirty">
+                </digital101-textbox>
+            </div>
+            <div fxFlex="40" >
+                <digital101-textbox  [Content]="ViewModel.DisplayCNText" [IsDirty]="ViewModel.DisplayCNText.IsDirty">
+                </digital101-textbox>
+            </div>
+            <div fxFlex="40" >
+                <digital101-datetime  [Content]="ViewModel.StartDate" [IsDirty]="ViewModel.StartDate.IsDirty">
+                </digital101-datetime>
+            </div>
+
+            <div fxFlex="40" >
+                <digital101-datetime  [Content]="ViewModel.EndDate" [IsDirty]="ViewModel.EndDate.IsDirty">
+                </digital101-datetime>
+            </div>
+            
+           
+        </div>
+    </div>
+</ng-template>
+
+
+
+
+<ng-template #ngbuttonshow>
+    <div fxFlex fxLayout="row wrap" fxLayoutGap="8%" class="fieldpad" style="">
+        <div fxFlex fxlayout="row" fxLayoutGap="10px" fxLayoutAlign="end center" >
+            <div fxFlex="20px" style="">&nbsp;</div>
+       
+            <div fxFlex="60px" style="padding-right: 140px;" >
+                <button mat-stroked-button color="primary" 
+                (click)="EditOKclick()"
+                >Submit</button>
+            </div>    
+        </div>
+    </div>
+</ng-template>
+

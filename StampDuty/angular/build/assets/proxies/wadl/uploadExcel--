@@ -1,0 +1,293 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OneDeskPortalApp",
+        "description": "API Reference for OneDesk Portal Application",
+        "contact": {
+            "name": "PricingPortal@trafigura.com",
+            "url": "https://www.trafigura.com/",
+            "email": "PricingPortal@trafigura.com"
+        },
+        "license": {
+            "name": "Trafigura License",
+            "url": "https://www.trafigura.com/"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://10.193.77.234:5001/situquery",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/rm": {
+            "post": {
+                "tags": [
+                    "pnl-data-qry-controller"
+                ],
+                "operationId": "rmUsingPOST",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RMExcelSearchVO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SituResponseListRMExcelVO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/downloadData": {
+            "post": {
+                "tags": [
+                    "app-download-data-qry-controller"
+                ],
+                "operationId": "downloadDataUsingPOST",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RMExcelSearchVO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SituResponseListRMExcelVO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dataquery": {
+            "post": {
+                "tags": [
+                    "app-data-qry-controller"
+                ],
+                "operationId": "rm_1UsingPOST",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RMExcelSearchVO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SituResponseListRMExcelVO"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RMExcelSearchVO": {
+                "type": "object",
+                "properties": {
+                    "docID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "groupCo": {
+                        "type": "string"
+                    },
+                    "trade": {
+                        "type": "string"
+                    },
+                    "quota": {
+                        "type": "string"
+                    },
+                    "direction": {
+                        "type": "string"
+                    },
+                    "assignment": {
+                        "type": "string"
+                    },
+                    "fulfilment": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "ccy": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "statusType": {
+                        "type": "string"
+                    },
+                    "derivative": {
+                        "type": "string"
+                    },
+                    "counterparty": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "string"
+                    },
+                    "perUnit": {
+                        "type": "string"
+                    },
+                    "estimate_cny": {
+                        "type": "string"
+                    },
+                    "commodity": {
+                        "type": "string"
+                    },
+                    "deliveryDate": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ErrorMessage": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            },
+            "MetaMessage": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            },
+            "RMExcelVO": {
+                "type": "object",
+                "properties": {
+                    "DOC_ID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "Group Co": {
+                        "type": "string"
+                    },
+                    "Trade": {
+                        "type": "string"
+                    },
+                    "Quota": {
+                        "type": "string"
+                    },
+                    "Direction": {
+                        "type": "string"
+                    },
+                    "Assignment": {
+                        "type": "string"
+                    },
+                    "Fulfilment": {
+                        "type": "string"
+                    },
+                    "Status": {
+                        "type": "string"
+                    },
+                    "Category": {
+                        "type": "string"
+                    },
+                    "Ccy": {
+                        "type": "string"
+                    },
+                    "Code": {
+                        "type": "string"
+                    },
+                    "Description": {
+                        "type": "string"
+                    },
+                    "Status Type": {
+                        "type": "string"
+                    },
+                    "Derivative": {
+                        "type": "string"
+                    },
+                    "Counterparty": {
+                        "type": "string"
+                    },
+                    "Quantity": {
+                        "type": "string"
+                    },
+                    "Per Unit": {
+                        "type": "string"
+                    },
+                    "Estimate (CNY) ": {
+                        "type": "string"
+                    },
+                    "Commodity": {
+                        "type": "string"
+                    },
+                    "Delivery Date": {
+                        "type": "string"
+                    }
+                }
+            },
+            "SituResponseListRMExcelVO": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RMExcelVO"
+                        }
+                    },
+                    "meta": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MetaMessage"
+                        }
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ErrorMessage"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

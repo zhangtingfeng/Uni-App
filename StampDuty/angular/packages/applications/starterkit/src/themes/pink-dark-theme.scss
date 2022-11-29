@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+
+$anms-pink-primary: mat.define-palette(mat.$pink-palette, 800, 300, 900);
+$anms-pink-accent: mat.define-palette(mat.$yellow-palette,A400);
+// The "warn" palette is optional and defaults to red if not specified.
+$anms-pink-warn: mat.define-palette(mat.$red-palette, 500);
+
+$anms-pink-theme: mat.define-dark-theme((
+ color: (
+   primary: $anms-pink-primary,
+   accent: $anms-pink-accent,
+   warn: $anms-pink-warn,
+ )
+));
+

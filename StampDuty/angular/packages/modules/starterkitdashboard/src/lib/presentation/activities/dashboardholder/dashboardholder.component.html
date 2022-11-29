@@ -1,0 +1,35 @@
+<ng-container>
+    <div fxFill BodyUnloadDirective>
+        <mat-sidenav-container autosize fullscreen>
+            <mat-sidenav #leftnavigation [ngClass]="SideNavigationClass" position="start" [mode]="leftnavMode"
+                [(opened)]="leftnavOpen" fixedInViewport="false" fixedTopGap="0" fixedBottomGap="0">
+                <starterkit-leftnavigation (LeftNavigationToggleButtonEvent)="LeftNavigationToggleButtonEvent($event)">
+                </starterkit-leftnavigation>
+            </mat-sidenav>
+            <div class="loading starterkit-dashboard-body starterkit-dashboard-subheading"
+                *ngIf="ViewModel.InProgressData && ViewModel.InProgressData !== ''">
+                <mat-progress-spinner matSuffix diameter="30" strokeWidth="3" mode="indeterminate">
+                </mat-progress-spinner>
+            </div>
+            <div fxFill>
+                <div fxFlex>
+                    <starterkit-header [LeftSideNavigation]="leftnavigation"></starterkit-header>
+                </div>
+                <div fxFlex="100" class="content-position" [ngClass]="PaddingTopClass">
+                    <digital101-list [Content]="ViewModel.InitialRouterOutlet">
+                        <ng-template let-data="data">
+                            <span class="content-holder">
+                                <main>
+                                    <router-outlet #o="outlet"></router-outlet>
+                                </main>
+                            </span>
+                        </ng-template>
+                    </digital101-list>
+                </div>
+                <div fxFlex>
+                    <starterkit-footer></starterkit-footer>
+                </div>
+            </div>
+        </mat-sidenav-container>
+    </div>
+</ng-container>

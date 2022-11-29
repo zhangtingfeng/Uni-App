@@ -1,0 +1,45 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "volumes": [
+    {
+      "name": "nginx-proxy",
+      "host": {
+        "sourcePath": "/etc/nginx/conf.d"
+      }
+    },
+	{
+      "name": "nginx-certs",
+      "host": {
+        "sourcePath": "/etc/pki/tls/certs"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "nginx-proxy",
+      "image": "434694667199.dkr.ecr.eu-west-2.amazonaws.com/nginx:1.21.0",
+      "essential": true,
+      "memory": 1024,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "mountPoints": [
+		{
+          "sourceVolume": "nginx-proxy",
+          "containerPath": "/etc/nginx/conf.d/"
+        },
+		{
+          "sourceVolume": "nginx-certs",
+          "containerPath": "/etc/pki/tls/certs"
+        },
+        {
+          "sourceVolume": "awseb-logs-nginx-proxy",
+          "containerPath": "/var/log/nginx"
+        }
+      ]
+    }
+  ]
+}

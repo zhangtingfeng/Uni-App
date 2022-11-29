@@ -1,0 +1,965 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "OneDeskPortalApp",
+		"description": "API Reference for OneDesk Portal Application",
+		"contact": {
+			"name": "PricingPortal@trafigura.com",
+			"url": "https://www.trafigura.com/",
+			"email": "PricingPortal@trafigura.com"
+		},
+		"license": {
+			"name": "Trafigura License",
+			"url": "https://www.trafigura.com/"
+		},
+		"version": "1.0"
+	},
+	"servers": [
+		{
+			"url": "http://10.193.77.234:8001/situquery",
+			"description": "Generated server url"
+		}
+	],
+	"paths": {
+		"/reportgeneration": {
+			"post": {
+				"tags": [
+					"app-data-qry-controller"
+				],
+				"operationId": "reportGenerationUsingPOST",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StumpDutySearchVO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseListReportGenerationVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/downloadsourcefile": {
+			"post": {
+				"tags": [
+					"app-download-data-qry-controller"
+				],
+				"operationId": "downloadSourceFileUsingPOST",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentInfoVO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/octet-stream": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/downloadreport": {
+			"post": {
+				"tags": [
+					"app-download-data-qry-controller"
+				],
+				"operationId": "downloadReportUsingPOST",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StumpDutySearchVO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/octet-stream": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/downloaddefaultreport": {
+			"post": {
+				"tags": [
+					"app-download-data-qry-controller"
+				],
+				"operationId": "downloadDefaultReportUsingPOST",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/StumpDutySearchVO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/octet-stream": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/docinfo": {
+			"post": {
+				"tags": [
+					"app-data-qry-controller"
+				],
+				"operationId": "docInfoUsingPOST",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/DocumentInfoVO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseListDocumentInfoVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/viewmessage/{docID}": {
+			"get": {
+				"tags": [
+					"app-data-qry-controller"
+				],
+				"operationId": "viewMessageUsingGET",
+				"parameters": [
+					{
+						"name": "docID",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseListSystemMessageVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/userDetail": {
+			"get": {
+				"tags": [
+					"app-data-qry-controller"
+				],
+				"operationId": "userDetailUsingGET",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseAppAccountsDTO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/getrateconfiguration/{rateID}": {
+			"get": {
+				"tags": [
+					"app-data-qry-controller"
+				],
+				"operationId": "getRateConfigurationInfoUsingGET",
+				"parameters": [
+					{
+						"name": "rateID",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseRateConfigurationVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/getrateconfiguration/list": {
+			"get": {
+				"tags": [
+					"app-data-qry-controller"
+				],
+				"operationId": "getRateConfigurationInfoListUsingGET",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseListRateConfigurationVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/getgcstampdutytemplate/list": {
+			"get": {
+				"tags": [
+					"app-data-qry-controller"
+				],
+				"operationId": "getGCStampDutyTemplateListUsingGET",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseListGCStampDutyTemplateVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/getgcconfiguration/{gcID}": {
+			"get": {
+				"tags": [
+					"app-data-qry-controller"
+				],
+				"operationId": "getGCConfigurationInfoUsingGET",
+				"parameters": [
+					{
+						"name": "gcID",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseGroupCompanyVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/getgcconfiguration/list": {
+			"get": {
+				"tags": [
+					"app-data-qry-controller"
+				],
+				"operationId": "getGroupCompanyListUsingGET",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseListGroupCompanyVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/downloadsourcefile/{docID}": {
+			"get": {
+				"tags": [
+					"app-download-data-qry-controller"
+				],
+				"operationId": "downloadSourceFile_1UsingGET",
+				"parameters": [
+					{
+						"name": "docID",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/octet-stream": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"StumpDutySearchVO": {
+				"type": "object",
+				"properties": {
+					"snapshotYear_from": {
+						"type": "string"
+					},
+					"snapshotMonth_from": {
+						"type": "string"
+					},
+					"snapshotYear_to": {
+						"type": "string"
+					},
+					"snapshotMonth_to": {
+						"type": "string"
+					},
+					"groupCompanyCode": {
+						"type": "string"
+					},
+					"includeInterCompanyTrade": {
+						"type": "boolean"
+					}
+				}
+			},
+			"ErrorMessage": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					}
+				}
+			},
+			"MetaMessage": {
+				"type": "object",
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				}
+			},
+			"ReportGenerationVO": {
+				"type": "object",
+				"properties": {
+					"groupCompanyTaxID": {
+						"type": "string"
+					},
+					"groupCompanyChineseName": {
+						"type": "string"
+					},
+					"contractTaxNo": {
+						"type": "string"
+					},
+					"contractNo": {
+						"type": "string"
+					},
+					"contractName": {
+						"type": "string"
+					},
+					"byPeriodORByContract": {
+						"type": "string"
+					},
+					"contractCounts": {
+						"type": "string"
+					},
+					"taxableItem": {
+						"type": "string"
+					},
+					"taxableChildItem": {
+						"type": "string"
+					},
+					"startDate": {
+						"type": "string",
+						"format": "date"
+					},
+					"endDate": {
+						"type": "string",
+						"format": "date"
+					},
+					"tradeDate": {
+						"type": "string",
+						"format": "date"
+					},
+					"taxableAmountOFTheContract": {
+						"type": "number"
+					},
+					"actualSettlementDate": {
+						"type": "string",
+						"format": "date"
+					},
+					"actualSettlementAmount": {
+						"type": "number"
+					},
+					"taxRate": {
+						"type": "string"
+					},
+					"taxDeductionAndExemptionCodeAndName": {
+						"type": "string"
+					},
+					"counterpartyChineseName": {
+						"type": "string"
+					},
+					"counterpartyTaxID": {
+						"type": "string"
+					},
+					"counterpartyTaxableAmount": {
+						"type": "number"
+					},
+					"mappingFailMessage": {
+						"type": "string"
+					}
+				}
+			},
+			"SituResponseListReportGenerationVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ReportGenerationVO"
+						}
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"DocumentInfoVO": {
+				"type": "object",
+				"properties": {
+					"docID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"docType": {
+						"type": "string"
+					},
+					"snapshotYear": {
+						"type": "string"
+					},
+					"snapshotMonth": {
+						"type": "string"
+					},
+					"groupCompanyCode": {
+						"type": "string"
+					},
+					"groupCompanyCNName": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					},
+					"active": {
+						"type": "string"
+					},
+					"uploadStatus": {
+						"type": "string"
+					},
+					"systemMessage": {
+						"type": "string"
+					},
+					"messageCount": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"createdBy": {
+						"type": "string"
+					},
+					"createdTimestamp": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"SituResponseListDocumentInfoVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/DocumentInfoVO"
+						}
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"SituResponseListSystemMessageVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SystemMessageVO"
+						}
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"SystemMessageVO": {
+				"type": "object",
+				"properties": {
+					"messageID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"docID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"sheetName": {
+						"type": "string"
+					},
+					"lineNumber": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"message": {
+						"type": "string"
+					}
+				}
+			},
+			"AppAccountsDTO": {
+				"type": "object",
+				"properties": {
+					"userId": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"username": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"chineseName": {
+						"type": "string"
+					},
+					"phoneNumber": {
+						"type": "string"
+					},
+					"accountNonExpired": {
+						"type": "boolean"
+					},
+					"accountNonLocked": {
+						"type": "boolean"
+					},
+					"credentialsNonExpired": {
+						"type": "boolean"
+					},
+					"enabled": {
+						"type": "boolean"
+					},
+					"roles": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/AppRolesDTO"
+						}
+					},
+					"accountCompanies": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/AppCompanyDTO"
+						}
+					},
+					"authorities": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/GrantedAuthority"
+						}
+					},
+					"password": {
+						"type": "string"
+					}
+				}
+			},
+			"AppCompanyDTO": {
+				"type": "object",
+				"properties": {
+					"companyCode": {
+						"type": "string"
+					},
+					"chineseCpName": {
+						"type": "string"
+					},
+					"companyName": {
+						"type": "string"
+					},
+					"primaryEmail": {
+						"type": "string"
+					},
+					"primaryPhoneNumber": {
+						"type": "string"
+					},
+					"legalEntityId": {
+						"type": "string"
+					},
+					"legalAccountId": {
+						"type": "string"
+					}
+				}
+			},
+			"AppPrivilegesDTO": {
+				"type": "object",
+				"properties": {
+					"privilegeRef": {
+						"type": "string"
+					},
+					"privilegeValue": {
+						"type": "string"
+					},
+					"privilegeType": {
+						"type": "string"
+					}
+				}
+			},
+			"AppRolesDTO": {
+				"type": "object",
+				"properties": {
+					"privileges": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/AppPrivilegesDTO"
+						}
+					},
+					"name": {
+						"type": "string"
+					}
+				}
+			},
+			"GrantedAuthority": {
+				"type": "object",
+				"properties": {
+					"authority": {
+						"type": "string"
+					}
+				}
+			},
+			"SituResponseAppAccountsDTO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/AppAccountsDTO"
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"RateConfigurationVO": {
+				"type": "object",
+				"properties": {
+					"createdBy": {
+						"type": "string"
+					},
+					"createdTimestamp": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"ID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"TaxableItem": {
+						"type": "string"
+					},
+					"Rate": {
+						"type": "number"
+					},
+					"DisplayCNText": {
+						"type": "string"
+					},
+					"ValidFrom": {
+						"type": "string",
+						"format": "date"
+					},
+					"ValidTo": {
+						"type": "string",
+						"format": "date"
+					}
+				}
+			},
+			"SituResponseRateConfigurationVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/RateConfigurationVO"
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"SituResponseListRateConfigurationVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RateConfigurationVO"
+						}
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"GCStampDutyTemplateVO": {
+				"type": "object",
+				"properties": {
+					"gcStampDutyTemplateID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"gcStampDutyTemplateName": {
+						"type": "string"
+					}
+				}
+			},
+			"SituResponseListGCStampDutyTemplateVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/GCStampDutyTemplateVO"
+						}
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"GroupCompanyVO": {
+				"type": "object",
+				"properties": {
+					"createdBy": {
+						"type": "string"
+					},
+					"createdTimestamp": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"groupCompanyID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"groupCompanyCode": {
+						"type": "string"
+					},
+					"groupCompanyCNName": {
+						"type": "string"
+					},
+					"groupCompanyENName": {
+						"type": "string"
+					},
+					"gcStampDutyTemplateID": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"SituResponseGroupCompanyVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/GroupCompanyVO"
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"SituResponseListGroupCompanyVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/GroupCompanyVO"
+						}
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			}
+		}
+	}
+}

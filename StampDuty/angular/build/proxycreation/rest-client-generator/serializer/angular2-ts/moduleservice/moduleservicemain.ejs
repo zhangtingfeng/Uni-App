@@ -1,0 +1,19 @@
+/**
+* Generated REST client by rest-client-generator
+*/
+
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable, Inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable, pipe } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
+
+import * as fromRoot from 'adk-core';
+import { ClientFactory, ServiceClient } from 'shared-framework';
+import { ProxyServiceBase, HttpRequestType, AppSettingConfig, AppSettingsModel, ConfigItem } from 'adk-core';
+import * as ServiceTypes from './ServiceTypes';
+
+<% services.forEach(function(service) { %>
+<%- include('moduleservice', {service: service, rootUrl: rootUrl, varPfx: varPfx, methodNamePrefix: methodNamePrefix}) %>
+<% }); %>
+

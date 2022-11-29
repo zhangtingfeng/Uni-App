@@ -1,0 +1,101 @@
+.content-position {
+    overflow-y: auto;
+    height: calc(100vh - 93px);
+}
+
+.browse,
+.instructor {
+    padding: 7px 18px;
+}
+
+.bannerContent {
+    z-index: 9;
+}
+
+.radius {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.card {
+    cursor: pointer;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.subsectionlist {
+    cursor: pointer;
+}
+
+.card-body {
+    padding: 0px 20px 0px 20px;
+
+    .descriptionHeight {
+        height: 130px;
+    }
+}
+
+.banner-description {
+    text-align: center;
+}
+
+.visit {
+    position: relative;
+    width: 100px;
+}
+
+
+.visit fa-icon {
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    transition: all .35s;
+}
+
+.tile-icon {
+    transition: all .35s;
+}
+
+.applyellipse {
+    transition: all .35s;
+}
+
+.applyellipse:hover {
+    font-size: 22px;
+}
+
+.tile-icon:hover {
+    font-size: 22px;
+    opacity: 1;
+}
+
+.card:hover .visit fa-icon {
+    opacity: 1;
+    left: 22px;
+}
+
+.card-footer {
+    padding: 10px 10px 10px 20px;
+}
+
+.card-header {
+    padding: 20px 20px 0px 20px;
+
+}
+
+.tile_desktop {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.tile_laptop {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.listcard {
+    padding-left: 10px !important;
+}

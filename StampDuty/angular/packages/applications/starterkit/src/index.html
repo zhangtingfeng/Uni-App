@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Stampduty</title>
+    <base href="/">
+
+    <script>
+        var global = window;
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="theme-color" content="#1976d2">
+
+    <style type="text/css">
+        html,
+        body {
+            box-sizing: border-box;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+
+        }
+
+        @keyframes showTopText {
+            0% {
+                transform: translate3d(0, 100%, 0);
+            }
+
+            40%,
+            60% {
+                transform: translate3d(0, 50%, 0);
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        @keyframes showBottomText {
+            10% {
+                transform: translate3d(0, -100%, 0);
+            }
+
+            100% {
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .traflogo {
+            height: 100%;
+            width: 100%;
+            background: url("/assets/traflogo_blue.png");
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .loginbg {
+            background-image: url('/assets/loginbg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .animated-title {
+            color: #0029b2;
+            font-family: Open-Sans, Arial, sans-serif;
+            height: 90vmin;
+            left: 50%;
+            position: absolute;
+            top: 45%;
+            transform: translate(-50%, -50%);
+            width: 90vmin;
+        }
+
+        .animated-title>div {
+            height: 50%;
+            overflow: hidden;
+            position: absolute;
+            width: 100%;
+        }
+
+        .animated-title>div div {
+            font-size: 3vmin;
+            padding: 2vmin 0;
+            position: absolute;
+        }
+
+        .loadingprogress {
+            font-size: 2.2vmin !important;
+            margin-left: 85%;
+            color: #1da1f2;
+        }
+
+        .animated-title>div div span {
+            display: block;
+        }
+
+        .animated-title>div.text-top {
+            border-bottom: 0.4vmin solid lightgrey;
+            top: 0;
+        }
+
+        .animated-title>div.text-top div {
+            animation: showTopText 0.5s;
+            animation-delay: 1s;
+            animation-fill-mode: forwards;
+            bottom: 0;
+            transform: translate(0, 100%);
+        }
+
+        .animated-title>div.text-top div span:first-child {
+            color: #2d317c;
+        }
+
+        .animated-title>div.text-bottom {
+            bottom: 0;
+        }
+
+        .animated-title>div.text-bottom div {
+            animation: showBottomText 0.5s;
+            animation-delay: 1.75s;
+            animation-fill-mode: forwards;
+            top: 0;
+            transform: translate(0, -100%);
+        }
+
+        .meter {
+            height: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meter span {
+            display: block;
+            height: 0.4vmin;
+        }
+
+        .progress {
+            background-color: #2d317c;
+            -webkit-animation: progressBar 7s ease-in-out;
+            -webkit-animation-fill-mode: both;
+            -moz-animation: progressBar 7s ease-in-out;
+            -moz-animation-fill-mode: both;
+        }
+
+        @-webkit-keyframes progressBar {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#1976d2">
+</head>
+
+<body>
+    <starterkit-root>
+        <div class="animated-title">
+            <div class="text-top traflogo">
+                <div>
+                    <span>Stampduty</span>
+                </div>
+            </div>
+            <div class="text-bottom meter">
+                <span style="width:97%;"><span class="progress"></span></span>
+                <div class="loadingprogress">Loading ...</div>
+            </div>
+        </div>
+    </starterkit-root>
+    <app-redirect></app-redirect>
+    <noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
+
+</html>

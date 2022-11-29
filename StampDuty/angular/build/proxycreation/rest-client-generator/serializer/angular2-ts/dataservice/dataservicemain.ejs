@@ -1,0 +1,85 @@
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { DefaultDataService, HttpUrlGenerator, Logger, QueryParams, EntityCollectionServiceBase, EntityCollectionServiceElementsFactory, EntityMetadata } from '@ngrx/data';
+import { ModuleConstants } from 'adk-shared';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { catchError, map, Observable, of, switchMap } from 'rxjs';
+import { AppSettingConfig, AppSettingsModel } from 'adk-core';
+import { Helpers } from 'shared-framework';
+<% if (service.proxyServiceName  == 'CompositeRepositories') { %>
+import { CompositeRepositories } from './../../referencedata/compositerepositories.service';
+<% } else { %>
+import { <%- service.proxyServiceName %> } from './../referencedataproxy/<%- service.proxyServiceName %>';
+<% } %>
+import * as dto from './../servicetypes/classes';
+
+@Injectable()
+export class <%- service.name %>DataService extends DefaultDataService<<%- service.dtoName %>> {
+    constructor(http: HttpClient, httpUrlGenerator: HttpUrlGenerator, logger: Logger, public obj<%- service.proxyServiceName %>: <%- service.proxyServiceName %>, @Optional() public ngxIndexedDBService: NgxIndexedDBService, @Inject(AppSettingConfig) public appSettingsModel: AppSettingsModel) {
+        super('<%- service.name %>', http, httpUrlGenerator);
+        logger.log('Created custom <%- service.name %> EntityDataService');
+    }
+
+    getAll(): Observable<<%- service.dtoName %>[]> {
+        let input = {
+            <%- service.extraParams %> 
+            BaseParams : ModuleConstants.BaseParams
+        }
+        let startWithObservable = of([]);
+        if(Helpers.IsNotNull(this.ngxIndexedDBService)  && this.appSettingsModel.StoreCacheToIndexedDB) {
+            startWithObservable = this.ngxIndexedDBService.getAll('<%- service.name %>');
+        }        
+        return startWithObservable
+            .pipe(
+                switchMap(x => {
+                    if(Helpers.IsNotNull(x) && x.length > 0) {
+                        return of(x);
+                    }
+                    return this.obj<%- service.proxyServiceName %>.<%- service.getAllMethodName %>(input)
+                        .pipe(
+                            switchMap(x => {
+                                return Helpers.IsNotNull(this.ngxIndexedDBService)  && this.appSettingsModel.StoreCacheToIndexedDB ? this.ngxIndexedDBService.bulkAdd('<%- service.name %>', x).pipe(map(y => x)) : of(x);
+                            })
+                        );                    
+                }),
+                catchError(err => {
+                    return of([]);
+                })
+            );
+    }
+
+    getById(id: string | number): Observable<<%- service.dtoName %>> {
+        return this.obj<%- service.proxyServiceName %>.<%- service.getByIdMethodName %>(id);
+    }
+
+    getWithQuery(params: string | QueryParams): Observable<<%- service.dtoName %>[]> {
+        return super.getWithQuery(params);
+    }
+}
+
+
+@Injectable({ providedIn: 'root' })
+export class <%- service.name %>Service extends EntityCollectionServiceBase<<%- service.dtoName %>> {
+  constructor(elementsFactory: EntityCollectionServiceElementsFactory) {
+    super('<%- service.name %>', elementsFactory);
+  }
+ 
+  // ... your special sauce here
+}
+
+function sortByDescription(a: <%- service.dtoName %>, b: <%- service.dtoName %>): number {
+    return a.Description.localeCompare(b.Description);
+}
+
+
+export const <%- service.name %>EntityMetaData: EntityMetadata<<%- service.dtoName %>> =  {
+    entityName: '<%- service.name %>', 
+    selectId: (item: <%- service.dtoName %>) => item.Identifier,
+    sortComparer: sortByDescription,
+    entityDispatcherOptions:  {
+        optimisticUpdate: true,
+        optimisticDelete: false
+    }
+}
+
+export const <%- service.name %>Repository = '<%- service.name %>';

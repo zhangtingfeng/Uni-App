@@ -1,0 +1,173 @@
+image: ansible:centos
+
+variables:
+ MAVEN_CLI_OPTS: "-s /apps/pricing_portal/maven/apache-maven-3.6.0/conf/settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true -B"
+ EC2USER_JUMPBOX: "ec2-user@10.1.11.179"
+ VERSION: "${APP_RELEASE_VERSION}"
+ USRINT_ZIP: "${APP_UI_PROJECT_NAME}-${APP_RELEASE_VERSION}.zip"
+ USRINT_FOLDER: "${APP_UI_PROJECT_NAME}-${APP_RELEASE_VERSION}"
+ USRINT_RENAMED_FOLDER: "${APP_UI_HTML_DIR}"
+
+stages:
+ - build
+ - deploy
+ - updateenv
+
+
+build_ui:
+  stage: build
+  when: manual
+  script:
+    - "mvn $MAVEN_CLI_OPTS clean install -PTitanNexus,build-ui,build-bundle-git,AAD -DskipTests=true -DCI_JOB_IDENTIFIER=${CI_JOB_ID} -DCI_PIPELINE_IDENTIFIER=${CI_PIPELINE_ID}"
+
+
+build_manual_aad:
+ stage: build
+ when: manual
+ script:
+#  - "unzip /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_ZIP -d /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/"
+#  - "rm -rf /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_RENAMED_FOLDER"
+#  - "mv /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_FOLDER /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_RENAMED_FOLDER"
+#  - "mvn versions:set versions:update-child-modules -DnewVersion=${APP_RELEASE_VERSION}"
+#  - "mkdir -p /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}"
+  - "mvn $MAVEN_CLI_OPTS clean install -PTitanNexus,build-ui,build-deploy,build-bundle-git,AAD -DskipTests=true -DCI_JOB_IDENTIFIER=${CI_JOB_ID} -DCI_PIPELINE_IDENTIFIER=${CI_PIPELINE_ID}"
+
+build_manual_aadb2c:
+ stage: build
+ when: manual
+ script:
+  - "unzip /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_ZIP -d /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/"
+  - "rm -rf /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_RENAMED_FOLDER"
+  - "mv /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_FOLDER /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_RENAMED_FOLDER"
+  - "mvn versions:set versions:update-child-modules -DnewVersion=${APP_RELEASE_VERSION}"
+  - "mkdir -p /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}"
+  - "mvn $MAVEN_CLI_OPTS clean install -PTitanNexus,build-deploy,build-bundle-git,AADB2C -DskipTests=true -DCI_JOB_IDENTIFIER=${CI_JOB_ID} -DCI_PIPELINE_IDENTIFIER=${CI_PIPELINE_ID}"
+
+
+deploy_dev:
+ stage: deploy
+ when: manual
+ script:
+  - echo "Starting dev Deployment"
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; rm -rf $USRINT_FOLDER
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; rm -rf $USRINT_RENAMED_FOLDER
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; unzip ${APP_NAME}-${APP_ENV_NAME}-internal.zip
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; mv starterkit/assets/app.config-${APP_ENV_NAME}.json starterkit/assets/app.config.json
+  - rsync -avoz --progress /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/situ-query/situ-query-2022.9.0-spring-boot.jar ${DEV_USER}@${DEV_HOST}:${DEV_WORKING_FOLDER}/situinvoicetracker-query-2022.1.0-spring-boot.jar
+  - rsync -avoz --progress /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/situ-command/situ-command-2022.9.0-spring-boot.jar ${DEV_USER}@${DEV_HOST}:${DEV_WORKING_FOLDER}/situinvoicetracker-command-2022.1.0-spring-boot.jar
+  - rsync -avoz --progress /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/starterkit  ${DEV_USER}@${DEV_HOST}:/apps/fccsautomation/situ/
+
+
+deploy_internal:
+ stage: deploy
+ when: manual
+ image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+ script:
+  - echo "Starting AWS Deployment"
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; rm -rf $USRINT_FOLDER
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; rm -rf $USRINT_RENAMED_FOLDER
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; unzip /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_ZIP
+  - mv /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_FOLDER /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER
+  - rm -rf /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER/assets/app.config.json
+  - cp /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_RENAMED_FOLDER/assets/app.config-${APP_ENV_NAME}-int.json /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER/assets/app.config.json
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; zip -ur ${APP_NAME}-${APP_ENV_NAME}-internal.zip $USRINT_RENAMED_FOLDER
+  - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile ${USER_PROFILE}
+  - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile ${USER_PROFILE}
+  - aws configure set region ${AWS_DEFAULT_REGION} --profile ${USER_PROFILE}
+  - aws configure set output ${OUTPUT_FORMAT} --profile ${USER_PROFILE}
+  - export AWS_PROFILE=${USER_PROFILE}
+  - aws --profile ${USER_PROFILE} s3 cp /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/${APP_NAME}-${APP_ENV_NAME}-internal.zip s3://elasticbeanstalk-eu-west-2-434694667199/source/${APP_NAME_PFX}/${APP_NAME}-${APP_ENV_NAME}-internal.zip
+  - aws --profile ${USER_PROFILE} s3 cp /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/${APP_NAME}-${APP_ENV_NAME}-internal.zip s3://elasticbeanstalk-eu-west-2-434694667199/source/${APP_NAME_PFX}/${APP_NAME}-${APP_ENV_NAME}-internal-${CI_PIPELINE_ID}.zip
+
+
+
+deploy_external:
+ stage: deploy
+ when: manual
+ image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+ script:
+  - echo "Starting AWS Deployment"
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; rm -rf $USRINT_FOLDER
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; rm -rf $USRINT_RENAMED_FOLDER
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; unzip /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_ZIP
+  - mv /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_FOLDER /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER
+  - rm -rf /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER/assets/app.config.json
+  - cp /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_RENAMED_FOLDER/assets/app.config-${APP_ENV_NAME}-ext.json /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER/assets/app.config.json
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; zip -ur ${APP_NAME}-${APP_ENV_NAME}-external.zip $USRINT_RENAMED_FOLDER
+  - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile ${USER_PROFILE}
+  - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile ${USER_PROFILE}
+  - aws configure set region ${AWS_DEFAULT_REGION} --profile ${USER_PROFILE}
+  - aws configure set output ${OUTPUT_FORMAT} --profile ${USER_PROFILE}
+  - export AWS_PROFILE=${USER_PROFILE}
+  - aws --profile ${USER_PROFILE} s3 cp /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/${APP_NAME}-${APP_ENV_NAME}-external.zip s3://elasticbeanstalk-eu-west-2-434694667199/source/${APP_NAME_PFX}/${APP_NAME}-${APP_ENV_NAME}-external.zip
+  - aws --profile ${USER_PROFILE} s3 cp /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/${APP_NAME}-${APP_ENV_NAME}-external.zip s3://elasticbeanstalk-eu-west-2-434694667199/source/${APP_NAME_PFX}/${APP_NAME}-${APP_ENV_NAME}-external-${CI_PIPELINE_ID}.zip
+
+deploy_trafserv:
+ stage: deploy
+ when: manual
+ image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+ script:
+  - echo "Starting AWS Deployment"
+  - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile ${USER_PROFILE}
+  - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile ${USER_PROFILE}
+  - aws configure set region ${AWS_DEFAULT_REGION} --profile ${USER_PROFILE}
+  - aws configure set output ${OUTPUT_FORMAT} --profile ${USER_PROFILE}
+  - export AWS_PROFILE=${USER_PROFILE}
+  - aws --profile ${USER_PROFILE} s3 cp /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/${APP_NAME}-trafservice-${APP_ENV_NAME}-internal.zip s3://elasticbeanstalk-eu-west-2-434694667199/source/${APP_NAME_PFX}/${APP_NAME}-trafservice-${APP_ENV_NAME}-internal.zip
+  - aws --profile ${USER_PROFILE} s3 cp /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/${APP_NAME}-trafservice-${APP_ENV_NAME}-internal.zip s3://elasticbeanstalk-eu-west-2-434694667199/source/${APP_NAME_PFX}/${APP_NAME}-trafservice-${APP_ENV_NAME}-internal-${CI_PIPELINE_ID}.zip
+
+updateenv_internal:
+ stage: updateenv
+ when: manual
+ image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+ script:
+  - echo "Starting AWS Deployment"
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; rm -rf $USRINT_FOLDER
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; rm -rf $USRINT_RENAMED_FOLDER
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; unzip /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_ZIP
+  - mv /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_FOLDER /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER
+  - rm -rf /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER/assets/app.config.json
+  - cp /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_RENAMED_FOLDER/assets/app.config-${APP_ENV_NAME}-int.json /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER/assets/app.config.json
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; zip -ur ${APP_NAME}-${APP_ENV_NAME}-internal.zip $USRINT_RENAMED_FOLDER
+  - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile ${USER_PROFILE}
+  - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile ${USER_PROFILE}
+  - aws configure set region ${AWS_DEFAULT_REGION} --profile ${USER_PROFILE}
+  - aws configure set output ${OUTPUT_FORMAT} --profile ${USER_PROFILE}
+  - export AWS_PROFILE=${USER_PROFILE}
+  - aws --profile ${USER_PROFILE} elasticbeanstalk create-application-version --application-name ${APP_NAME_PFX}-${APP_ENV_PFX}-Internal-App --version-label ${CI_PIPELINE_ID} --description ${CI_PIPELINE_ID} --source-bundle S3Bucket="elasticbeanstalk-eu-west-2-434694667199",S3Key="source/${APP_NAME_PFX}/${APP_NAME}-${APP_ENV_NAME}-internal-${CI_PIPELINE_ID}.zip"
+  - aws --profile ${USER_PROFILE} elasticbeanstalk update-environment --version-label ${CI_PIPELINE_ID} --application-name ${APP_NAME_PFX}-${APP_ENV_PFX}-Internal-App --environment-name ${APP_NAME_PFX}-${APP_ENV_PFX}-Internal
+
+updateenv_external:
+ stage: updateenv
+ when: manual
+ image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+ script:
+  - echo "Starting AWS Deployment"
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; rm -rf $USRINT_FOLDER
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; rm -rf $USRINT_RENAMED_FOLDER
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; unzip /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_ZIP
+  - mv /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_FOLDER /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER
+  - rm -rf /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER/assets/app.config.json
+  - cp /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/ui/${APP_ENV_NAME}/$USRINT_RENAMED_FOLDER/assets/app.config-${APP_ENV_NAME}-ext.json /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}/$USRINT_RENAMED_FOLDER/assets/app.config.json
+  - cd /apps/pricing_portal/deploy/${APP_DEPLOY_DIR}/src-bundle/${CI_PIPELINE_ID}; zip -ur ${APP_NAME}-${APP_ENV_NAME}-external.zip $USRINT_RENAMED_FOLDER
+  - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile ${USER_PROFILE}
+  - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile ${USER_PROFILE}
+  - aws configure set region ${AWS_DEFAULT_REGION} --profile ${USER_PROFILE}
+  - aws configure set output ${OUTPUT_FORMAT} --profile ${USER_PROFILE}
+  - export AWS_PROFILE=${USER_PROFILE}
+  - aws --profile ${USER_PROFILE} elasticbeanstalk create-application-version --application-name ${APP_NAME_PFX}-${APP_ENV_PFX}-External-App --version-label ${CI_PIPELINE_ID} --description ${CI_PIPELINE_ID} --source-bundle S3Bucket="elasticbeanstalk-eu-west-2-434694667199",S3Key="source/${APP_NAME_PFX}/${APP_NAME}-${APP_ENV_NAME}-external-${CI_PIPELINE_ID}.zip"
+  - aws --profile ${USER_PROFILE} elasticbeanstalk update-environment --version-label ${CI_PIPELINE_ID} --application-name ${APP_NAME_PFX}-${APP_ENV_PFX}-External-App --environment-name ${APP_NAME_PFX}-${APP_ENV_PFX}-External
+
+updateenv_trafserv:
+ stage: updateenv
+ when: manual
+ image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+ script:
+  - echo "Starting AWS Deployment"
+  - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile ${USER_PROFILE}
+  - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY} --profile ${USER_PROFILE}
+  - aws configure set region ${AWS_DEFAULT_REGION} --profile ${USER_PROFILE}
+  - aws configure set output ${OUTPUT_FORMAT} --profile ${USER_PROFILE}
+  - export AWS_PROFILE=${USER_PROFILE}
+  - aws --profile ${USER_PROFILE} elasticbeanstalk create-application-version --application-name ${APP_NAME_PFX}-TrafSrv-${APP_ENV_PFX}-Internal-App --version-label ${CI_PIPELINE_ID} --description ${CI_PIPELINE_ID} --source-bundle S3Bucket="elasticbeanstalk-eu-west-2-434694667199",S3Key="source/${APP_NAME_PFX}/${APP_NAME}-trafservice-${APP_ENV_NAME}-internal-${CI_PIPELINE_ID}.zip"
+  - aws --profile ${USER_PROFILE} elasticbeanstalk update-environment --version-label ${CI_PIPELINE_ID} --application-name ${APP_NAME_PFX}-TrafSrv-${APP_ENV_PFX}-Internal-App --environment-name ${APP_NAME_PFX}-TrafSrv-${APP_ENV_PFX}-Internal

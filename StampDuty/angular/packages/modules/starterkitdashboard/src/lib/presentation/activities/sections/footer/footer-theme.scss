@@ -1,0 +1,38 @@
+@use 'sass:map';
+@use '~@angular/material'as mat;
+
+@mixin footer-theme($theme) {
+    $color-config: mat.get-color-config($theme);
+    $background: map.get($color-config, background);
+    $foreground: map.get($color-config, foreground);
+
+    starterkit-footer {
+        .dashboard-footer {
+            color: mat.get-color-from-palette($background, card);
+            background-color: mat.get-color-from-palette($foreground, secondary-text);
+            border-top: mat.get-color-from-palette($foreground, base);
+            cursor: default;
+        }
+
+        .footeritem {
+            color: mat.get-color-from-palette($background, card);
+            cursor: pointer;
+        }
+    }
+}
+
+@mixin footer-typography($config) {
+    starterkit-footer {
+        font: {
+            family: mat.font-family($config);
+            size: mat.font-size($config, button);
+        }
+
+        .dashboard-footer {
+            font: {
+                family: mat.font-family($config);
+                size: mat.font-size($config, button);
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+/**
+* Generated REST client by rest-client-generator
+*/
+
+/**
+* Request/response types and enumerations.
+*/
+export interface Sample {
+    sample: string;
+}
+
+<% types.forEach(function(type) { %>
+   <%- include('type-' + type.type, {type: type}) %>
+<% }); %>

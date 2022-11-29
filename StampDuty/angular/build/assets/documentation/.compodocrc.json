@@ -1,0 +1,13 @@
+{
+    "$schema": "./../../../node_modules/@compodoc/compodoc/src/config/schema.json",
+    "name": "Developer Guide",
+    "output": "./dist/developerguide/assets/documentation",
+    "tsconfig": "./packages/applications/developerguide/tsconfig.docs.json",
+    "disableLifeCycleHooks": true,
+    "disablePrivate": true,
+    "disableProtected": true,
+    "disableInternal": true,
+    "disableCoverage": true,
+    "hideGenerator": true,
+    "theme": "material"
+  }

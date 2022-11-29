@@ -1,0 +1,181 @@
+<div fxFlex="100" [ngStyle]="ViewPortHeightDefinition.OuterClassStyle" fxLayout="column">
+    <mat-drawer-container class="blotter-border" autosize>
+        <div fxFlex="100" fxLayout="row">
+            <div fxFlex="100" fxLayout="column" class="taskheader" *ngIf="gstVendorBlotter">
+                <div [fxFlex]="ViewModel.HeaderSpacing">&nbsp;</div>
+                <div fxFlex="" fxLayout="row" fxLayoutAlign="end center">
+                    <div fxFlex="1" fxFlex.lt-md="2">&nbsp;</div>
+                    <div fxFlex fxLayoutAlign=" start center" [ngClass]="ViewModel.BlotterHolderHeader">
+                        {{ViewModel.BlotterHolderHeading}}
+                    </div>
+                    <div fxFlex fxLayoutAlign="end center">
+                        <button mat-button [matTooltip]="ViewModel.Model.PageCodeDescription">
+                            {{ViewModel.Model.PageCode}}
+                        </button>
+                        <div fxFlex="10px">&nbsp;</div>
+                    </div>
+                    <mat-divider [ngClass]="SeparatorLine" [vertical]="true"></mat-divider>
+                    <div fxFlex="5px">&nbsp;</div>
+                    <div [fxFlex]="ViewModel.HeaderButtonWidth" fxLayoutAlign="center center">
+                        <button id="blotterholder_refresh" mat-button color="accent" (click)="RefreshClick()">
+                            <fa-icon [icon]="['fas', 'redo']" size="sm"></fa-icon> &nbsp;&nbsp;
+                            {{ViewModel.TranslationCollection.refresh}}
+                            <div fxFlex="10px">&nbsp;</div>
+                        </button>
+                    </div>
+                    <div fxFlex="5px">&nbsp;</div>
+                    <mat-divider [ngClass]="SeparatorLine" [vertical]="true"></mat-divider>
+                    <ng-container [ngTemplateOutlet]="openfilter" *ngIf="ViewModel.BlotterType=='report'">
+                    </ng-container>
+                    <div fxFlex="5px">&nbsp;</div>
+                    <div fxFlex="5px">&nbsp;</div>
+                </div>
+                <div [fxFlex]="ViewModel.HeaderSpacing">&nbsp;</div>
+            </div>
+        </div>
+
+        <mat-tab-group [selectedIndex]="ViewModel.selectedIndex" (selectedTabChange)="onTabChanged($event)"  *ngIf="ViewModel.BlotterType.indexOf('configuration')>-1">
+            <mat-tab label="印花税率">
+                <div fxFlex="100" fxLayout="column">
+                    <div fxFlex *ngIf="ViewModel.selectedIndex==0">
+                        <ng-container [ngTemplateOutlet]="blotter"></ng-container>
+                    </div>
+                </div>        
+            </mat-tab>
+            <mat-tab label="集团公司">
+                <div fxFlex="100" fxLayout="column">
+                    <div fxFle *ngIf="ViewModel.selectedIndex==1"x>
+                        <ng-container [ngTemplateOutlet]="blotter"></ng-container>
+                    </div>
+                </div>     
+            </mat-tab>
+        </mat-tab-group>
+
+        <div fxFlex="100" fxLayout="column" *ngIf="ViewModel.BlotterType.indexOf('configuration')<0">
+            <div fxFlex >
+                <ng-container [ngTemplateOutlet]="blotter"></ng-container>
+            </div>
+        </div> 
+
+       
+        <mat-drawer #drawer [mode]="DrawerMode" [position]="DrawerPosition" [opened]="IsOpen"
+            (openedChange)="OnOpenedChange($event)" [ngClass]="FilterPanelClass">
+            <div fxFlex="100" fxLayout="column">
+                <div fxFlex="7" fxLayout="row">
+                    <div fxFlex="1" fxFlex.lt-md="2" class="headerbackground">&nbsp;</div>
+                    <div fxFlex fxLayoutAlign="start center" [ngClass]="ViewModel.BlotterHolderHeader" class="filterpad"
+                        fxLayoutAlign.lt-md="center center">
+                        {{ViewModel.TranslationCollection.searchby}}
+                    </div>
+                    <div fxFlex="7" fxLayoutAlign="start center" (click)="ExpandAccordionToggle()"
+                        class="piniconstyling">
+                        <fa-icon [icon]="['fas', 'angle-double-down']" size="lg"></fa-icon>
+                    </div>
+                    <div fxFlex="7" fxHide.lt-md fxLayoutAlign="start center" (click)="PinToggle()"
+                        class="piniconstyling">
+                        <fa-icon [icon]="['fas', 'thumbtack']" size="lg"></fa-icon>
+                    </div>
+                    <div fxFlex="7" *ngIf="IsMobile" fxLayoutAlign="start center" (click)="ToggleClick()">
+                        <fa-icon class="closecircle" [icon]="['fas', 'times-circle']" size="2x"></fa-icon>
+                    </div>
+                </div>
+                <mat-divider></mat-divider>
+                <perfect-scrollbar>
+                    <div fxFill class="rightpadding defaultaccordion">
+                        <mat-expansion-panel [expanded]="ViewModel.ExpandAccordion"
+                            *ngIf="ViewModel.Model.FilterPanelItems.hide">
+                            <mat-expansion-panel-header [collapsedHeight]="'30px'" [expandedHeight]="'30px'"
+                                [class.expansionpanelheader]="true">
+                                <mat-panel-title>
+                                    <div fxFlex="100" fxLayout="row">
+                                        <div fxFlex="8">&nbsp;</div>
+                                        <div fxFlex [class.fullviewpadding]="false" fxLayoutAlign="start center"
+                                            [ngClass]="ViewModel.PanelTitle">
+                                            {{ViewModel.Model.FilterPanelItems.title}}
+                                        </div>
+                                    </div>
+                                </mat-panel-title>
+
+                            </mat-expansion-panel-header>
+                            <ng-container *ngIf="ViewModel.Model.FilterPanelItems.type">
+                                <ng-container>
+                                    <div fxFlex fxLayout="column">
+                                        <ng-container [ngTemplateOutlet]="formulasearch"></ng-container>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </mat-expansion-panel>
+                    </div>
+                </perfect-scrollbar>
+                <div fxFlex="9.4" class="filterbutton" fxLayout="row" fxLayoutGap="11px" fxLayoutAlign="start center"
+                    fxLayoutAlign.lt-md="center center">
+                    <div fxFlex="1">&nbsp;</div>
+                    <button mat-stroked-button color="primary" name="reset"
+                        (click)="ResetFilterHandler()">Close</button>
+                    <button mat-raised-button color="primary" name="search"
+                        (click)="ApplyFilterHandler()">{{ViewModel.TranslationCollection.apply}}</button>
+                </div>
+            </div>
+        </mat-drawer>
+    </mat-drawer-container>
+</div>
+<ng-template #openfilter>
+    <div [fxFlex]="FilterButtonFX" fxFlex.lt-md="40" fxLayoutGap="2%" fxLayoutAlign="center center"
+        fxLayoutAlign.lt-md="center end" (click)="ToggleClick()">
+        <button id="blotterholder_searchby" mat-button color="accent">
+            <fa-icon *ngIf="!IsOpen" [icon]="['fas', 'filter']"></fa-icon>
+            <fa-icon *ngIf="IsOpen" [icon]="['fas', 'sign-out-alt']"></fa-icon>
+            &nbsp;{{FilterIconContent}}
+        </button>
+    </div>
+</ng-template>
+<ng-template #formulasearch>
+
+    <div fxFlex="100">
+        <digital101-multiselectcombobox [Content]="ViewModel.TrafiguraEntity"></digital101-multiselectcombobox>
+    </div>
+    <div fxFlex="100">
+        <digital101-multiselectcombobox [Content]="ViewModel.StampdutyStartYear"></digital101-multiselectcombobox>
+    </div>
+    <div fxFlex="100">
+        <digital101-multiselectcombobox [Content]="ViewModel.StampdutyStartMonth"></digital101-multiselectcombobox>
+    </div>
+
+    <div fxFlex="100">
+        <digital101-multiselectcombobox [Content]="ViewModel.StampdutyEndYear"></digital101-multiselectcombobox>
+    </div>
+
+    <div fxFlex="100">
+        <digital101-multiselectcombobox [Content]="ViewModel.StampdutyEndMonth"></digital101-multiselectcombobox>
+    </div>
+
+    <div fxFlex="100">
+        <digital101-multiselectcombobox [Content]="ViewModel.IncludeInterCompanyTrade"></digital101-multiselectcombobox>
+    </div>
+</ng-template>
+
+<ng-template #blotter>
+    <blotter [ViewPortHeight]="BlotterViewPortHeightDefinition" [BlotterOptions]="BlotterOptionDefinition"
+        [ColumnDefinition]="ColumnDefinition" [RowData]="ViewModel?.Model?.BlotterRowData" [TotalTonnageValue]="0"
+        [ContainerViewModel]="ViewModel" [NavigationData]="NavigationData" [GridState]="GridState"
+        (ButtonAction)="buttonClick($event)" (ColumnStateChange)="OnColumnStateChanged($event)"
+        (FilterChange)="onFilterChanged($event)" (DataTableSelctedRows)='ChangeDataTableSelectedRows($event)'></blotter>
+</ng-template>
+
+
+<ng-template #blotterHeader>
+    <div fxFlex="100" class="taskheader" fxLayout="column">
+        <div fxFlex="40px" fxLayout="row">
+            <div fxFlex="10px"></div>
+            <div fxFlex fxLayoutAlign="start center" [ngClass]="ViewModel.BlotterHolderHeader">
+                {{ViewModel.BlotterHolderHeading}}
+            </div>
+            <div fxFlex fxLayoutAlign="end center">
+                <button mat-button [matTooltip]="ViewModel.Model.PageCodeDescription">
+                    {{ViewModel.Model.PageCode}}
+                </button>
+                <div fxFlex="10px">&nbsp;</div>
+            </div>
+        </div>
+    </div>
+</ng-template>

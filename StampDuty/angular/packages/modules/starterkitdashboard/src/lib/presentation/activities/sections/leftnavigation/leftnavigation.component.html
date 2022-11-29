@@ -1,0 +1,35 @@
+<div fxFill fxLayout="column">
+	<div fxFlex="64px" fxFlex.lt-md="56px" class="applyprimarycolor" fxLayout="row">
+		<div fxFlex>
+			<div fxFlex="100" fxLayoutAlign="center center">
+				<img src="{{ViewModel.TrafiguraLogo}}">
+			</div>
+		</div>
+	</div>
+	<div fxFlex="8px" *ngIf="ViewModel.IsEliteView">&nbsp;</div>
+	<perfect-scrollbar>
+		<div fxFlex>
+			<digital101-hamburgermenu [MenuItemList]="ViewModel.Model.MenuItemsObj" [IsSeparator]="false"
+				[ParentIconSize]="'lg'" [ChildIconSize]="'lg'" [ExpandedIcon]="ViewModel.ExpandedIcon"
+				[FlexWidth]="ViewModel.FlexWidth" [CollapseIcon]="ViewModel.CollapseIcon"
+				[IsMobileView]="ViewModel.IsIconView" [ItemHeight]="ViewModel.MenuItemHeight"
+				[EliteView]="ViewModel.IsEliteView" [FlexWidth]="100" (SelectedMenuItem)="SelectedMenuItem($event)">
+			</digital101-hamburgermenu>
+		</div>
+	</perfect-scrollbar>
+	<div fxFlex fxLayout="row" class="togglebuttonpadding" fxLayoutAlign="center end">
+		<mat-button-toggle-group [ngStyle]="ToggleButtonStyle" [value]="ValueHolder" (change)="ToggleViewText($event)">
+			<mat-button-toggle [value]="item.value"
+				*ngFor="let item of ViewModel.Model.ToggleButtonItem; let i = index">
+				<div fxFlex="100" [fxLayout]="ToggleLayoutType">
+					<div fxFlex fxLayoutAlign="center center">
+						<fa-icon class="toggleiconcolor" [size]="item.iconSize" [icon]="item.icon"></fa-icon>
+					</div>
+					<div fxFlex="50" *ngIf="!ViewModel.IsIconView" fxLayoutAlign="start center" class="applytoggletext">
+						{{item.name}}
+					</div>
+				</div>
+			</mat-button-toggle>
+		</mat-button-toggle-group>
+	</div>
+</div>

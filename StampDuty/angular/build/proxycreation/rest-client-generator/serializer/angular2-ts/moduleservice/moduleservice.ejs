@@ -1,0 +1,24 @@
+import { I<%- service.name %> } from './I<%- service.name %>';
+
+/**
+* Services stuff.
+*/
+
+@Injectable()
+export class <%- service.name %>  extends ProxyServiceBase<I<%- service.name %>> implements I<%- service.name %> {
+
+    constructor(public store$: Store<fromRoot.State>, public clientFactory: ClientFactory, public serviceClient: ServiceClient, public httpClient: HttpClient, @Inject(AppSettingConfig) public appSettingsConfig: AppSettingsModel) {
+        super(store$, clientFactory, serviceClient, httpClient, appSettingsConfig);
+    }
+
+    substituteUrl(url: string, values: Object): string {
+        Object.keys(values).map(key => {
+          url = url.replace('{' + encodeURIComponent(key) + '}', encodeURIComponent(values[key]));
+        });
+        return url;
+      }
+      
+<% service.methods.forEach(function(method) { %>
+    <%- include('moduleservice-method', {method: method, servicename: service.name, methodNamePrefix: methodNamePrefix}) %>
+<% }); %>
+}

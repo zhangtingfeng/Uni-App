@@ -1,0 +1,174 @@
+@use 'sass:map';
+@use '~@angular/material'as mat;
+@use "themes/green-light-theme.scss"as green-light;
+@use "themes/pink-dark-theme.scss"as pink-dark;
+@use "themes/blue-light-theme.scss"as blue-light;
+@use "themes/cyan-dark-theme.scss"as cyan-dark;
+@use "themes/custom-theme.scss"as custom;
+@use "./../../../../node_modules/adk-presentation/src/lib/theming/all-theme"as adk-presentation;
+@use "./../../../../node_modules/authentication/src/lib/theming/all-theme"as authentication;
+@use "./../../../../node_modules/aggrid-common/src/lib/theming/all-theme"as aggrid-common;
+@use './../../../../node_modules/ag-grid-community/src/styles/ag-grid.scss'as ag-grid-community;
+@use './../../../../node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin'as ag-theme-balham-mixin;
+@use './../../../modules/starterkitdashboard/src/lib/theming/_all-theme.scss'as starterkitdashboard;
+
+
+/* You can add global styles to this file, and also import other style files */
+//@import "../../../../node_modules/@angular/material/theming";
+@use "./themes/font.css";
+
+@include mat.core();
+
+/*  title is also set for input lable text
+    body-1 & body-2 for font size
+    subheading-2 for bottomsheet. so change carefully  */
+
+$custom-typography: mat.define-typography-config($font-family: '"OpenSans Regular", sans-serif',
+  $display-4: mat.define-typography-level(112px, 112px, 300),
+  /* Unused */
+  $display-3: mat.define-typography-level(56px, 56px, 300),
+  /* Unused */
+  $display-2: mat.define-typography-level(45px, 48px, 300),
+  /* Unused */
+  $display-1: mat.define-typography-level(20px, 24px, 500),
+  $headline: mat.define-typography-level(16px, 24px, 300),
+  $title: mat.define-typography-level(17px, 24px, 500),
+  $subheading-2: mat.define-typography-level(11px, 15px, 500),
+  $subheading-1: mat.define-typography-level(18px, 24px, 500),
+  $body-2: mat.define-typography-level(15px, 17px, 300),
+  $body-1: mat.define-typography-level(14px, 18px, 300),
+  $caption: mat.define-typography-level(12px, 20px, 300),
+  $button: mat.define-typography-level(14px, 14px, 500),
+  // Line-height must be unit-less fraction of the font-size. $input: mat.define-typography-level(14px, 1.125, 300)
+);
+
+
+@include mat.core($custom-typography);
+$messageboxwidth: 100vw;
+$messageboxheight: 225px;
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.5em 0;
+  border-top: 0.6em solid transparent;
+}
+
+$ag-icons-path: "./../../../../node_modules/ag-grid-community/src/styles/ag-theme-balham/icons/";
+$font-family: mat.font-family($custom-typography);
+
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-material.css";
+
+@mixin custom-components-theme($theme, $isDarkTheme: false) {
+  @include adk-presentation.digital101-uicontrols-theme($theme, $custom-typography);
+  @include authentication.digital101-authentication-components-theme($theme);
+  @include ag-theme-balham-mixin.ag-theme-balham();
+  @include aggrid-common.blotter-components-theme($theme);
+  @include starterkitdashboard.template-components-theme($theme);
+  @include custom-components-aggrid-theme($theme);
+}
+
+@mixin custom-components-typography($typography) {
+  @include authentication.digital101-authentication-components-typography($typography);
+  @include starterkitdashboard.template-components-typography($typography);
+  @include aggrid-common.blotter-components-typography($typography);
+}
+
+html,
+body {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+
+  .ag-body-viewport::-webkit-scrollbar,
+  ::-webkit-scrollbar {
+    min-height: 8px;
+    width: 8px;
+  }
+
+  .ag-body-horizontal-scroll-viewport::-webkit-scrollbar,
+  ::-webkit-scrollbar {
+    min-height: 8px;
+    height: 8px;
+  }
+
+  .ag-body-horizontal-scroll-viewport::-webkit-scrollbar-track,
+  .ag-body-viewport::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(26, 17, 17, 0.1);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  .ag-body-horizontal-scroll-viewport::-webkit-scrollbar-thumb,
+  .ag-body-viewport::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-thumb {
+    background-color: #bebebe;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  .ag-body-horizontal-scroll-viewport {
+    overflow-x: hidden
+  }
+  .ag-body-viewport.ag-layout-normal {
+    overflow-y: hidden; 
+  }
+  
+  .ag-body-viewport.ag-layout-normal:hover {
+    overflow-y: scroll;
+  }
+  
+  .ag-body-horizontal-scroll-viewport:hover {
+    overflow-x: scroll;
+  }
+}
+
+fa-icon {
+  cursor: pointer;
+}
+
+@mixin custom-components-aggrid-theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  $warn: map.get($color-config, warn);
+  $background: map.get($color-config, background);
+  $foreground: map.get($color-config, foreground);
+  $is-dark-theme: map.get($color-config, is-dark);
+
+  $ag-mat-primary: mat.get-color-from-palette($primary);
+  $ag-mat-accent: mat.get-color-from-palette($accent);
+}
+
+.green-light-theme {
+  @include mat.all-component-colors(green-light.$anms-green-theme);
+  @include custom-components-theme(green-light.$anms-green-theme);
+  @include custom-components-typography($custom-typography);
+}
+
+.pink-dark-theme {
+  @include mat.all-component-colors(pink-dark.$anms-pink-theme);
+  @include custom-components-theme(pink-dark.$anms-pink-theme, true);
+  @include custom-components-typography($custom-typography);
+}
+
+.blue-light-theme {
+  @include mat.all-component-colors(blue-light.$anms-blue-theme);
+  @include custom-components-theme(blue-light.$anms-blue-theme);
+  @include custom-components-typography($custom-typography);
+}
+
+.cyan-dark-theme {
+  @include mat.all-component-colors(cyan-dark.$anms-cyan-theme);
+  @include custom-components-theme(cyan-dark.$anms-cyan-theme, true);
+  @include custom-components-typography($custom-typography);
+}
+
+.custom-theme {
+  @include mat.all-component-colors(custom.$custom-theme);
+  @include custom-components-theme(custom.$custom-theme, true);
+  @include custom-components-typography($custom-typography);
+}

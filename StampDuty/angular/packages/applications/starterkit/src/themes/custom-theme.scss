@@ -1,0 +1,47 @@
+@use '@angular/material' as mat;
+@use "@angular/material/core/theming/palette" as matpalette;
+
+$my-primary: (
+    50 : #e0eaf9,
+    100 : #b3cbf1,
+    200 : #80a9e7,
+    300 : #4d87dd,
+    400 : #266dd6,
+    500 : #0053cf,
+    600 : #004cca,
+    700 : #0042c3,
+    800 : #0039bd,
+    900 : #0029b2,
+    A100 : #dbe1ff,
+    A200 : #a8b6ff,
+    A400 : #758bff,
+    A700 : #5c76ff,
+    contrast: (
+      50: matpalette.$dark-primary-text,
+      100: matpalette.$dark-primary-text,
+      200: matpalette.$dark-primary-text,
+      300: matpalette.$light-primary-text,
+      400: matpalette.$light-primary-text,
+      500: matpalette.$light-primary-text,
+      600: matpalette.$light-primary-text,
+      700: matpalette.$light-primary-text,
+      800: matpalette.$light-primary-text,
+      900: matpalette.$light-primary-text,
+      A100: matpalette.$dark-primary-text,
+      A200: matpalette.$light-primary-text,
+      A400: matpalette.$light-primary-text,
+      A700: matpalette.$light-primary-text,
+    )
+  );
+  
+$custom-theme-primary: mat.define-palette($my-primary);
+$custom-theme-accent: mat.define-palette(mat.$blue-palette, 900, 900, 900);
+$custom-theme-warn: mat.define-palette(mat.$red-palette, 500);
+$custom-theme: mat.define-light-theme((
+  color: (
+    primary: $custom-theme-primary,
+    accent: $custom-theme-accent,
+    warn: $custom-theme-warn,
+  )
+ ));
+

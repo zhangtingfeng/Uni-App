@@ -1,0 +1,88 @@
+@use 'sass:map';
+@use '~@angular/material' as mat;
+@use "./../presentation/activities/dashboard/dashboard-theme.scss" as dashboard;
+@use "./../presentation/activities/blotterclient/blotterclient-theme.scss" as blotterclient;
+@use "./../presentation/activities/sections/header/header-theme.scss" as header;
+@use "./../presentation/activities/sections/footer/footer-theme.scss" as footer;
+@use "./../presentation/activities/sections/leftnavigation/leftnavigation-theme.scss" as leftnav;
+@use "./../presentation/activities/dashboardholder/dashboardholder-theme.scss" as holder;
+
+@mixin template-components-theme($theme) {
+    @include dashboard.dashboard-theme($theme);
+    @include header.header-theme($theme);
+    @include footer.footer-theme($theme);
+    @include leftnav.leftnavigation-theme($theme);
+    @include blotterclient.blotterclient-theme($theme);
+    @include holder.dashboardholder-theme($theme);
+
+    $primary: map.get($theme, primary);
+    $accent: map.get($theme, accent);
+    $background: map.get($theme, background);
+    $foreground: map.get($theme, foreground);
+
+    .mat-stroked-button.mat-primary {
+        color: mat.get-color-from-palette($primary);
+
+        &:not(:disabled) {
+            border-color: mat.get-color-from-palette($primary);
+        }
+    }
+
+    .content-holder {
+        background-color: mat.get-color-from-palette($background, card);
+        color: mat.get-color-from-palette($foreground, base);
+    }
+
+    .content-position {
+        background-color: mat.get-color-from-palette($background, app-bar);
+    }
+
+    .digital101-dialog-title {
+        font-weight: bold;
+        border-bottom: 1px solid mat.get-color-from-palette($foreground, dividers);
+    }
+
+    .mat-calendar-table-header {
+        color: mat.get-color-from-palette($accent, darker) !important;
+    }
+
+    .mat-calendar-next-button,
+    .mat-calendar-previous-button {
+        color: mat.get-color-from-palette($primary) !important;
+    }
+
+    .mat-button-toggle-checked {
+        background-color: mat.get-color-from-palette($accent) !important;
+        color: mat.get-color-from-palette($background, card) !important;
+    }
+
+    .mat-form-field {
+        line-height: 1 !important;
+    }
+
+    .mat-form-field-infix {
+        line-height: 1.2;
+    }
+	
+	.digital101-hamburgermenu,
+    .applyelitestyle {
+        white-space: normal !important;
+        text-align: center;
+    }
+}
+
+@mixin template-components-typography($typography) {
+    @include dashboard.dashboard-typography($typography);
+    @include header.header-typography($typography);
+    @include footer.footer-typography($typography);
+    @include leftnav.leftnavigation-typography($typography);
+    @include blotterclient.blotterclient-typography($typography);
+    @include holder.dashboardholder-typography($typography);
+
+    .mat-option {
+        font: {
+            family: mat.font-family($typography);
+            size: mat.font-size($typography, body-1);
+        }
+    }
+}

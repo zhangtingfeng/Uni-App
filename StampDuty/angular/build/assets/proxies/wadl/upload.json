@@ -1,0 +1,615 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "OneDeskPortalApp",
+		"description": "API Reference for OneDesk Portal Application",
+		"contact": {
+			"name": "PricingPortal@trafigura.com",
+			"url": "https://www.trafigura.com/",
+			"email": "PricingPortal@trafigura.com"
+		},
+		"license": {
+			"name": "Trafigura License",
+			"url": "https://www.trafigura.com/"
+		},
+		"version": "1.0"
+	},
+	"servers": [
+		{
+			"url": "http://10.193.77.234:8002/situcommand",
+			"description": "Generated server url"
+		}
+	],
+	"paths": {
+		"/api/Situ/rateconfiguration/saverate": {
+			"post": {
+				"tags": [
+					"situ-cmd-controller"
+				],
+				"operationId": "saveRateUsingPOST",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RateConfigurationVO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseRateConfigurationVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/Situ/gcconfiguration/savegc": {
+			"post": {
+				"tags": [
+					"situ-cmd-controller"
+				],
+				"operationId": "saveGCUsingPOST",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/GroupCompanyVO"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseGroupCompanyVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/Situ/accountingupload/journaldump": {
+			"post": {
+				"tags": [
+					"situ-cmd-controller"
+				],
+				"operationId": "journaldumpUsingPOST",
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"required": [
+									"documentHeadDTO",
+									"file"
+								],
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									},
+									"documentHeadDTO": {
+										"$ref": "#/components/schemas/DocumentHeadDTO"
+									}
+								}
+							}
+						},
+						"application/json": {
+							"schema": {
+								"required": [
+									"documentHeadDTO",
+									"file"
+								],
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									},
+									"documentHeadDTO": {
+										"$ref": "#/components/schemas/DocumentHeadDTO"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseDocumentInfoVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/Situ/accountingupload/LegalEntityDetails": {
+			"post": {
+				"tags": [
+					"situ-cmd-controller"
+				],
+				"operationId": "LegalEntityDetailsUsingPOST",
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"required": [
+									"documentHeadDTO",
+									"file"
+								],
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									},
+									"documentHeadDTO": {
+										"$ref": "#/components/schemas/DocumentHeadDTO"
+									}
+								}
+							}
+						},
+						"application/json": {
+							"schema": {
+								"required": [
+									"documentHeadDTO",
+									"file"
+								],
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									},
+									"documentHeadDTO": {
+										"$ref": "#/components/schemas/DocumentHeadDTO"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseDocumentInfoVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/Situ/accountingupload/ARAPToTraderMapping": {
+			"post": {
+				"tags": [
+					"situ-cmd-controller"
+				],
+				"operationId": "ARAPToTraderMappingUsingPOST",
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"required": [
+									"documentHeadDTO",
+									"file"
+								],
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									},
+									"documentHeadDTO": {
+										"$ref": "#/components/schemas/DocumentHeadDTO"
+									}
+								}
+							}
+						},
+						"application/json": {
+							"schema": {
+								"required": [
+									"documentHeadDTO",
+									"file"
+								],
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									},
+									"documentHeadDTO": {
+										"$ref": "#/components/schemas/DocumentHeadDTO"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseDocumentInfoVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/Situ/accountingupload/ARAPToCPMapping": {
+			"post": {
+				"tags": [
+					"situ-cmd-controller"
+				],
+				"operationId": "ARAPToCPMappingUsingPOST",
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"required": [
+									"documentHeadDTO",
+									"file"
+								],
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									},
+									"documentHeadDTO": {
+										"$ref": "#/components/schemas/DocumentHeadDTO"
+									}
+								}
+							}
+						},
+						"application/json": {
+							"schema": {
+								"required": [
+									"documentHeadDTO",
+									"file"
+								],
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									},
+									"documentHeadDTO": {
+										"$ref": "#/components/schemas/DocumentHeadDTO"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseDocumentInfoVO"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/Situ/rateconfiguration/deleterate/{rateID}": {
+			"get": {
+				"tags": [
+					"situ-cmd-controller"
+				],
+				"operationId": "deleteRateUsingGET",
+				"parameters": [
+					{
+						"name": "rateID",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseBoolean"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/api/Situ/gcconfiguration/deletegc/{gcID}": {
+			"get": {
+				"tags": [
+					"situ-cmd-controller"
+				],
+				"operationId": "deleteGCUsingGET",
+				"parameters": [
+					{
+						"name": "gcID",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/SituResponseBoolean"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"RateConfigurationVO": {
+				"type": "object",
+				"properties": {
+					"createdBy": {
+						"type": "string"
+					},
+					"createdTimestamp": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"ID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"TaxableItem": {
+						"type": "string"
+					},
+					"Rate": {
+						"type": "number"
+					},
+					"DisplayCNText": {
+						"type": "string"
+					},
+					"ValidFrom": {
+						"type": "string",
+						"format": "date"
+					},
+					"ValidTo": {
+						"type": "string",
+						"format": "date"
+					}
+				}
+			},
+			"ErrorMessage": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					}
+				}
+			},
+			"MetaMessage": {
+				"type": "object",
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				}
+			},
+			"SituResponseRateConfigurationVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/RateConfigurationVO"
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"GroupCompanyVO": {
+				"type": "object",
+				"properties": {
+					"groupCompanyID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"groupCompanyCode": {
+						"type": "string"
+					},
+					"groupCompanyCNName": {
+						"type": "string"
+					},
+					"groupCompanyENName": {
+						"type": "string"
+					},
+					"gcStampDutyTemplateID": {
+						"type": "integer",
+						"format": "int64"
+					}
+				}
+			},
+			"SituResponseGroupCompanyVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/GroupCompanyVO"
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"DocumentHeadDTO": {
+				"type": "object",
+				"properties": {
+					"docType": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					},
+					"snapshotYear": {
+						"type": "string"
+					},
+					"snapshotMonth": {
+						"type": "string"
+					},
+					"GroupCompanyCode": {
+						"type": "string"
+					},
+					"GroupCompanyCNName": {
+						"type": "string"
+					}
+				}
+			},
+			"DocumentInfoVO": {
+				"type": "object",
+				"properties": {
+					"docID": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"docType": {
+						"type": "string"
+					},
+					"snapshotYear": {
+						"type": "string"
+					},
+					"snapshotMonth": {
+						"type": "string"
+					},
+					"groupCompanyCode": {
+						"type": "string"
+					},
+					"groupCompanyCNName": {
+						"type": "string"
+					},
+					"fileName": {
+						"type": "string"
+					},
+					"active": {
+						"type": "string"
+					},
+					"uploadStatus": {
+						"type": "string"
+					},
+					"systemMessage": {
+						"type": "string"
+					},
+					"messageCount": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"createdBy": {
+						"type": "string"
+					},
+					"createdTimestamp": {
+						"type": "string",
+						"format": "date-time"
+					}
+				}
+			},
+			"SituResponseDocumentInfoVO": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"$ref": "#/components/schemas/DocumentInfoVO"
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			},
+			"SituResponseBoolean": {
+				"type": "object",
+				"properties": {
+					"data": {
+						"type": "boolean"
+					},
+					"meta": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MetaMessage"
+						}
+					},
+					"errors": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/ErrorMessage"
+						}
+					}
+				}
+			}
+		}
+	}
+}

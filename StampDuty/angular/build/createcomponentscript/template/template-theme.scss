@@ -1,0 +1,8 @@
+@mixin template-typography($config) {
+    $foregroundcolor: rgba(255,255,255, 0.8);
+    $logintextcolor:#001871;
+
+  .loginpage{
+    background-color: $foregroundcolor;
+}
+}

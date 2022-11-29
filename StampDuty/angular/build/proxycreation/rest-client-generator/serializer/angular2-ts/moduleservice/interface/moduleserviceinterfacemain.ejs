@@ -1,0 +1,14 @@
+/**
+* Generated REST client by rest-client-generator
+*/
+
+import { Observable } from 'rxjs';
+import * as ServiceTypes from './ServiceTypes';
+
+/**
+* Services stuff.
+*/
+<% services.forEach(function(service) {%>
+<%- include('moduleserviceinterface', {service: service, rootUrl: rootUrl, varPfx: varPfx, methodNamePrefix: methodNamePrefix}) %>
+<% }); %>
+

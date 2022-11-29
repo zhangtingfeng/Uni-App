@@ -1,0 +1,268 @@
+@use "sass:map";
+@use "~@angular/material" as mat;
+
+@mixin dashboard-theme($theme) {
+  $color-config: mat.get-color-config($theme);
+  $primary: map.get($color-config, primary);
+  $accent: map.get($color-config, accent);
+  $warn: map.get($color-config, warn);
+  $background: map.get($color-config, background);
+  $foreground: map.get($color-config, foreground);
+
+  starterkitdashboard  {
+    .bannerbox {
+      position: relative;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .bannerbox:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    .banner-title {
+      color: mat.get-color-from-palette($background, card);
+    }
+
+    .banner-description {
+      color: mat.get-color-from-palette($background, status-bar);
+    }
+
+
+    .instructor {
+      background-color: mat.get-color-from-palette($background, card);
+      border-color: mat.get-color-from-palette($background, card);
+    }
+
+    .bannersubsection {
+      background-color: mat.get-color-from-palette($background, card);
+      box-shadow: 0px 1px 4px mat.get-color-from-palette($background, status-bar);
+    }
+
+    .radius {
+      background-color: mat.get-color-from-palette($warn, lighter);
+      color: mat.get-color-from-palette($warn, darker);
+    }
+
+    .card {
+      box-shadow: 0px 1px 4px mat.get-color-from-palette($background, status-bar);
+      background-color: mat.get-color-from-palette($background, card);
+
+      .headsection {
+        color: mat.get-color-from-palette($background, card);
+      }
+
+      .card-body {
+        .title {
+          color: mat.get-color-from-palette($accent);
+        }
+      }
+
+      .card-footer {
+        border-top: 1px solid mat.get-color-from-palette($background, status-bar);
+      }
+    }
+
+    .card:hover {
+      box-shadow: 3px 3px 4px mat.get-color-from-palette($background, status-bar);
+      background-color: mat.get-color-from-palette($background, card);
+    }
+
+    .dashboard-header {
+      border-bottom: 1px solid mat.get-color-from-palette($background, status-bar);
+
+      .title {
+        color: mat.get-color-from-palette($accent);
+      }
+    }
+
+    .list-icon {
+      color: goldenrod;
+    }
+
+    .grid-icon {
+      color: mat.get-color-from-palette($warn);
+    }
+
+    .bgActive {
+      padding: 8px;
+      background-color: mat.get-color-from-palette($primary);
+
+      fa-icon {
+        color: mat.get-color-from-palette($background, card) !important;
+      }
+    }
+
+    .visit .mat-button-wrapper {
+      margin-left: 0px;
+      transition: all 0.35s;
+    }
+
+    .card:hover .visit .mat-button-wrapper {
+      margin-left: 20px;
+    }
+
+    .applyellipse {
+      color: mat.get-color-from-palette($primary);
+    }
+
+    .description {
+      color: mat.get-color-from-palette($foreground, secondary-text);
+    }
+
+    .listcard {
+      border: 0.1px solid mat.get-color-from-palette($background, status-bar);
+      cursor: pointer;
+      color: mat.get-color-from-palette($background, card);
+
+      .description_desktop,
+      .description_laptop {
+        color: mat.get-color-from-palette($accent);
+      }
+    }
+
+    .tilecontent {
+      border-top: 3px solid mat.get-color-from-palette($warn, lighter);
+    }
+
+    .contentbox {
+
+      .tile_desktop,
+      .tile_laptop {
+        color: mat.get-color-from-palette($background, card);
+      }
+    }
+
+    .title_desktop,
+    .title_laptop {
+      color: mat.get-color-from-palette($accent);
+    }
+
+    .content-position {
+      background-color: mat.get-color-from-palette($primary, 50);
+    }
+  }
+}
+
+@mixin dashboard-typography($config) {
+  starterkitdashboard  {
+    font: {
+      family: mat.font-family($config);
+      size: mat.font-size($config, display-1);
+    }
+
+    .banner-title {
+      font: {
+        family: mat.font-family($config);
+        size: mat.font-size($config, display-3);
+      }
+
+      font-weight: bold;
+    }
+
+    .banner-description {
+      font: {
+        family: mat.font-family($config);
+        size: mat.font-size($config, display-1);
+      }
+    }
+    
+
+    .bannersubsection {
+      .heading {
+        font: {
+          family: mat.font-family($config);
+          size: mat.font-size($config, subheading-1);
+        }
+
+        font-weight: bold;
+      }
+
+      .subheading {
+        font: {
+          family: mat.font-family($config);
+          size: mat.font-size($config, body-2);
+        }
+      }
+    }
+
+    .slider {
+      .heading {
+        font: {
+          family: mat.font-family($config);
+          size: mat.font-size($config, display-2);
+        }
+
+        font-weight: bold;
+      }
+    }
+
+    .card-body {
+      .title {
+        font: {
+          family: mat.font-family($config);
+          size: mat.font-size($config, display-1);
+        }
+
+        font-weight: bold;
+      }
+
+      .description {
+        font: {
+          family: mat.font-family($config);
+          size: mat.font-size($config, body-2);
+        }
+      }
+    }
+
+    .dashboard-header {
+      .title {
+        font: {
+          family: mat.font-family($config);
+          size: mat.font-size($config, display-1);
+        }
+
+        font-weight: bold;
+      }
+    }
+
+    .title_desktop {
+      font: {
+        family: mat.font-family($config);
+        size: mat.font-size($config, title);
+      }
+
+      font-weight: bold;
+    }
+
+    .title_laptop {
+      font: {
+        family: mat.font-family($config);
+        size: mat.font-size($config, body-2);
+      }
+
+      font-weight: bold;
+    }
+
+    .description_desktop {
+      font: {
+        family: mat.font-family($config);
+        size: mat.font-size($config, body-2);
+      }
+
+      line-height: 1.4;
+    }
+
+    .description_laptop {
+      font: {
+        family: mat.font-family($config);
+        size: mat.font-size($config, button);
+      }
+    }
+  }
+}

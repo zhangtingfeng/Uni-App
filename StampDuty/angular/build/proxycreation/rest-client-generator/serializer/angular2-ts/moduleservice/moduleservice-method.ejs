@@ -1,0 +1,113 @@
+<%
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
+  var responseType = 'void';
+  if (method.responseMediaType) {
+    switch (method.responseMediaType) {
+      case 'text/plain':
+        responseType = 'string';
+        break;
+      case 'application/json':
+        if(method.responseType === undefined || method.responseType === 'any') {
+          responseType = 'any';
+        } else {
+          responseType = 'ServiceTypes.' + method.responseType;
+        }
+        
+        break;
+      case 'application/octet-stream':
+        responseType = 'File';
+        break;
+      default:
+        responseType = 'ArrayBuffer';
+    }
+  }
+
+
+
+  var requestType = null;
+  if (method.requestMediaType) {
+    if (method.requestMediaType === 'application/json') {
+      requestType = method.requestType;
+    }
+  }
+
+  var params = (method.pathParams || []).concat(method.queryParams || []).concat(method.formParams || []);
+
+
+  var argsVars = params.map(function(pathParam) {
+    return pathParam.name + ': ' + pathParam.type;
+  });
+
+  var inputParams = params.map(function(pathParam) {
+    return pathParam.name + ': ' + pathParam.name;
+  });
+
+  if (requestType) {
+    var reqType = requestType;
+    if(reqType !== 'string' && reqType !== 'Date' && reqType !== 'number' && reqType !== 'boolean' && reqType !== 'any'){
+      reqType = 'ServiceTypes.' + reqType;
+    }
+    argsVars.push( varPfx + 'request: ' + reqType);
+  }
+%>
+
+    public <%- method.name %>(<%- argsVars.join(', ') %>): Observable<<%- responseType %>> {
+
+        let <%- varPfx %>urlpath = this.substituteUrl('<%- method.path %>', { <%- inputParams.join(', ') %> } );
+
+        <% if (params) { %>
+              <% if (requestType) { %>
+                let <%- varPfx %>requestInput = <%- varPfx %>request;
+              <% } else { %>
+                let <%- varPfx %>requestInput = null;
+              <% } %>
+              
+        <% } else { %>
+              <% if (argsVars.join(', ')  == '') { %>
+              let <%- varPfx %>requestInput = null;
+              <% } else { %>
+              let <%- varPfx %>requestInput = <%- varPfx %>request;
+              <% } %>
+
+              let <%- varPfx %>queryParams = undefined;
+        <% } %>
+
+        let <%- varPfx %>requestType = HttpRequestType.<%- method.method %>;
+
+
+        <% if (method.queryParams) { %>
+          const <%- varPfx %>params = new HttpParams({
+              fromObject: {
+                  <% method.queryParams.forEach(function (param, index) { %>
+                  '<%- param.name %>': <%- param.name %>.toString()<%- index !== method.queryParams.length - 1 ? ',' : '' %>
+                  <% }); %>
+              }
+          });
+        <% } else { %>    
+            const <%- varPfx %>params = null;
+        <% } %>
+
+        <% if (method.formParams) { %>
+          const <%- varPfx %>body = new HttpParams({
+              fromObject: {
+                  <% method.formParams.forEach(function (param, index) { %>
+                  '<%- param.name %>': <%- param.name %>.toString()<%- index !== method.formParams.length - 1 ? ',' : '' %>
+                  <% }); %>
+              }
+          });
+        <% } else { %>    
+            const <%- varPfx %>body = null;
+        <% } %>      
+
+
+        return this.ExecuteRequestAsync('<%- methodNamePrefix %>I<%- servicename %>', '<%- method.name %>', <%- varPfx %>requestInput, <%- varPfx %>requestType, <%- varPfx %>params,  <%- varPfx %>urlpath)
+        .pipe(
+        map(response => {
+            return response;
+        }));
+
+
+    }

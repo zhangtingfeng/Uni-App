@@ -1,0 +1,109 @@
+{
+	"AWSEBDockerrunVersion": "2",
+	"volumes": [
+		{
+			"name": "situ-query",
+			"host": {
+				"sourcePath": "/var/app/current/situ-query"
+			}
+		},
+		{
+			"name": "situ-command",
+			"host": {
+				"sourcePath": "/var/app/current/situ-command"
+			}
+		},
+		{
+			"name": "situssl",
+			"host": {
+				"sourcePath": "/var/app/current/situssl"
+			}
+		},
+		{
+			"name": "nginx-ui-conf",
+			"host": {
+				"sourcePath": "/var/app/current/ui/conf.d"
+			}
+		}
+	],
+	"containerDefinitions": [
+		{
+			"name": "situ-query",
+			"image": "434694667199.dkr.ecr.eu-west-2.amazonaws.com/amazoncorretto:11.0.11",
+			"essential": true,
+			"memory": 2048,
+			"mountPoints": [
+				{
+					"sourceVolume": "situ-query",
+					"containerPath": "/var/app/situ-query"
+				}
+			],
+			"portMappings": [
+				{
+					"hostPort": 5001,
+					"containerPort": 5001
+				}
+			],
+			"command": [
+				"java",
+				"-Xmx3g",
+				"-Xms3g",
+				"-XX:MaxMetaspaceSize=256m",
+				"-jar",
+				"/var/app/situ-query/situ-query-2021.1.0-spring-boot.jar"
+			]
+		},
+		{
+			"name": "situ-command",
+			"image": "434694667199.dkr.ecr.eu-west-2.amazonaws.com/amazoncorretto:11.0.11",
+			"essential": true,
+			"memory": 2048,
+			"mountPoints": [
+				{
+					"sourceVolume": "situ-command",
+					"containerPath": "/var/app/situ-command"
+				}
+			],
+			"portMappings": [
+				{
+					"hostPort": 5002,
+					"containerPort": 5002
+				}
+			],
+			"command": [
+				"java",
+				"-Xmx3g",
+				"-Xms3g",
+				"-XX:MaxMetaspaceSize=256m",
+				"-jar",
+				"/var/app/situ-command/situ-command-2021.1.0-spring-boot.jar"
+			]
+		},
+		{
+			"name": "nginx-ui",
+			"image": "434694667199.dkr.ecr.eu-west-2.amazonaws.com/nginx:1.21.0",
+			"essential": true,
+			"memory": 1024,
+			"portMappings": [
+				{
+					"hostPort": 80,
+					"containerPort": 80
+				}
+			],
+			"mountPoints": [
+				{
+					"sourceVolume": "situssl",
+					"containerPath": "/var/www/html/situssl"
+				},
+				{
+					"sourceVolume": "nginx-ui-conf",
+					"containerPath": "/etc/nginx/conf.d"
+				},
+				{
+					"sourceVolume": "awseb-logs-nginx-ui",
+					"containerPath": "/var/log/nginx"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,177 @@
+@use 'sass:map';
+@use '~@angular/material'as mat;
+
+@mixin blotterclient-theme($theme) {
+    $color-config: mat.get-color-config($theme);
+    $primary: map.get($color-config, primary);
+    $accent: map.get($color-config, accent);
+    $warn: map.get($color-config, warn);
+    $background: map.get($color-config, background);
+    $foreground: map.get($color-config, foreground);
+
+
+    blotterclient {
+        .taskheader {
+            border-bottom: 1px solid mat.get-color-from-palette($foreground, dividers);
+            background-color: mat.get-color-from-palette($background, app-bar);
+        }
+
+        .filterbutton {
+            border-top: 1px solid mat.get-color-from-palette($foreground, dividers);
+            border-bottom: 1px solid mat.get-color-from-palette($foreground, dividers);
+        }
+
+        mat.expansion-panel {
+            margin-bottom: -11px;
+        }
+
+        .mat.tab-label-active {
+            background-color: mat.get-color-from-palette($primary) !important;
+            color: mat.get-color-from-palette($background, card);
+            opacity: 1;
+        }
+
+        mat-expansion-panel-header {
+            background-color: mat.get-color-from-palette($background, app-bar) !important;
+        }
+
+        .mat.expansion-indicator::after {
+            color: mat.get-color-from-palette($accent) !important;
+        }
+
+        .mat.drawer-content {
+            overflow: hidden;
+        }
+
+        .mat.menu-item {
+            color: mat.get-color-from-palette($background, card) !important;
+        }
+
+        .rowstyle {
+            background-color: mat.get-color-from-palette($background, app-bar);
+        }
+
+        .mat-dividers {
+            width: 100%;
+        }
+
+        ag-grid-digital101-button .mat-button {
+            line-height: 12px;
+            left: -50%;
+            bottom: 10%;
+            position: absolute;
+        }
+
+        .ng-fa-icon {
+            color: mat.get-color-from-palette($accent);
+        }
+
+        .blotterBackground {
+            background: mat.get-color-from-palette($background, card)
+        }
+
+        .downloadbutton{
+            cursor:grab;
+            
+            display: inline;
+            border-radius: 2px;
+            font-family: "Arial";
+            border: 0;
+           
+            background: rgb(124, 113, 113);
+            
+            line-height: 15px;
+            color: white;
+            width: auto;
+            height: auto;
+            box-sizing: content-box;
+        }
+
+        .myclassbuttonvisblenone{
+            display: none;
+        }
+        .iconcolors   .ng-fa-icon{
+            color: red !important;
+        }
+
+        .messageError{
+            background-color: #f44336; /* Green */
+            border: none;
+            color: white;
+            margin-top: 2px;
+            padding: 1px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 1px 2px;
+            cursor: pointer;
+            width: 80px !important;
+            height: 25px;
+
+            //color: red !important;
+        }
+    }
+}
+
+@mixin blotterclient-typography($config) {
+    blotterclient {
+        font: {
+            family: mat.font-family($config);
+            size: mat.font-size($config, caption);
+        }
+
+        .headertext {
+            font: {
+                family: mat.font-family($config);
+                size: mat.font-size($config, display-1);
+            }
+
+            font-weight: bold;
+        }
+
+        .fa-minus-circle,
+        .fa-download {
+            font: {
+                family: mat.font-family($config);
+                size: mat.font-size($config, body-2) !important;
+            }
+        }
+
+        .blotterholder-header-desktop {
+            font: {
+                family: mat.font-family($config);
+                size: mat.font-size($config, display-1);
+            }
+
+            font-weight: bold;
+            padding-left: 5px;
+        }
+
+        .blotterholder-header-laptop {
+            font: {
+                family: mat.font-family($config);
+                size: mat.font-size($config, body-2);
+            }
+
+            font-weight: bold;
+            padding-left: 5px;
+        }
+
+        .paneltitle-desktop {
+            font: {
+                family: mat.font-family($config);
+                size: mat.font-size($config, headline);
+            }
+        }
+
+        .paneltitle-laptop {
+            font: {
+                family: mat.font-family($config);
+                size: mat.font-size($config, button);
+            }
+        }
+
+        
+    }
+}

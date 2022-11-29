@@ -34,8 +34,11 @@ public class TeamPlayerController extends BaseController {
 
     @GetMapping(value = "/list")
     public List<TeamPlayer> querylist() {
-
-        return teamPlayerService.getAllList();
+        List<TeamPlayer> ddddd= teamPlayerService.getQDSLAllListOR_AND();
+        List<Map> dddd=  teamPlayerService.getTupleQDSLAllList();
+        teamPlayerService.getQDSLAllList();
+        teamPlayerService.getAllList();
+        return ddddd;
 
     }
 

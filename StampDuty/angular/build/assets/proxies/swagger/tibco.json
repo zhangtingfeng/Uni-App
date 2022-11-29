@@ -1,0 +1,590 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Swagger - VESTA Web API",
+        "version": "v1"
+    },
+    "paths": {
+        "/api/PriceFormula": {
+            "get": {
+                "tags": [
+                    "PriceFormula"
+                ],
+                "operationId": "priceFormulaUsingGET",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PriceFormulaData"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PriceFormulaData"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PriceFormulaData"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PriceFormula"
+                ],
+                "operationId": "priceFormulaUsingPOST",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PriceFormulaData"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PriceFormulaData"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PriceFormulaData"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/PriceFormula/{id}": {
+            "get": {
+                "tags": [
+                    "PriceFormula"
+                ],
+                "operationId": "priceFormulaUsingGETById",
+                "produces": [
+                    "application/json"
+                ],
+                
+                "parameters": [
+                    {
+                        "name": "ID",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PriceFormulaData"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PriceFormulaData"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PriceFormulaData"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PriceFormula"
+                ],
+                "operationId": "priceFormulaUsingPUT",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PriceFormulaViewModel"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PriceFormulaViewModel"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PriceFormulaViewModel"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/StaticReference": {
+            "get": {
+                "tags": [
+                    "StaticReference"
+                ],
+                "operationId": "staticReferenceUsingGET",
+                "produces": [
+                    "application/json"
+                ],
+                
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StaticReferenceData"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StaticReferenceData"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StaticReferenceData"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CounterpartyViewModel": {
+                "type": "object",
+                "properties": {
+                    "counterpartyShortCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "counterpartyName": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "CityViewModel": {
+                "type": "object",
+                "properties": {
+                    "cityShortCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "cityName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "stateShortCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "StateViewModel": {
+                "type": "object",
+                "properties": {
+                    "stateShortCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "stateName": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "ProductViewModel": {
+                "type": "object",
+                "properties": {
+                    "productShortCode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "productName": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "TerminalViewModel": {
+                "type": "object",
+                "properties": {
+                    "terminalId": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true
+                    },
+                    "terminalName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "cityShortCode": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            },
+            "PriceFormulaRowData": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "priceformulaid": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "rowcode": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true
+                    },
+                    "pricecode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "percentage": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true
+                    },
+                    "initialdateoffset": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "notinuse": {
+                        "type": "boolean",
+                        "nullable": true
+                    },
+                    "direction": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "updateddate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedby": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "pricediff": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true
+                    },
+                    "lastPrice": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true
+                    }
+                }
+            },
+            "PriceFormulaData": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "counterparty": {
+                        "$ref": "#/components/schemas/CounterpartyViewModel"
+                    },
+                    "city": {
+                        "$ref": "#/components/schemas/CityViewModel"
+                    },
+                    "state": {
+                        "$ref": "#/components/schemas/StateViewModel"
+                    },
+                    "product": {
+                        "$ref": "#/components/schemas/ProductViewModel"
+                    },
+                    "effectivefrom": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "effectiveto": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedby": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "updateddate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "active": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "terminal": {
+                        "$ref": "#/components/schemas/TerminalViewModel"
+                    },
+                    "dtn": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "dtnupload": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "pricemode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "confirm": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "priceFormulaRowData": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PriceFormulaRowData"
+                        },
+                        "nullable": true
+                    }
+                }
+            },
+            "PriceFormulaRowViewModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "priceformulaid": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "rowcode": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true
+                    },
+                    "pricecode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "percentage": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true
+                    },
+                    "initialdateoffset": {
+                        "type": "integer",
+                        "format": "int32",
+                        "nullable": true
+                    },
+                    "notinuse": {
+                        "type": "boolean",
+                        "nullable": true
+                    },
+                    "direction": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "updateddate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedby": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "pricediff": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true
+                    }
+                }
+            },
+            "PriceFormulaViewModel": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "cpcode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "citycode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "productcode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "effectivefrom": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "effectiveto": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "updatedby": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "updateddate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "active": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "terminalid": {
+                        "type": "number",
+                        "format": "double",
+                        "nullable": true
+                    },
+                    "dtn": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "dtnupload": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "pricemode": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "confirm": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "priceFormulaRows": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PriceFormulaRowViewModel"
+                        },
+                        "nullable": true
+                    }
+                }
+            },
+            "StaticReferenceData": {
+                "type": "object",
+                "properties": {
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProductViewModel"
+                        },
+                        "nullable": true
+                    },
+                    "counterparties": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CounterpartyViewModel"
+                        },
+                        "nullable": true
+                    },
+                    "cities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CityViewModel"
+                        },
+                        "nullable": true
+                    },
+                    "states": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/StateViewModel"
+                        },
+                        "nullable": true
+                    },
+                    "terminals": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TerminalViewModel"
+                        },
+                        "nullable": true
+                    }
+                }
+            }
+        }
+    }
+}

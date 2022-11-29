@@ -1,0 +1,212 @@
+{
+    "Global": {
+        "StaticText": {
+            "Information": "Information",
+            "Warning": "Warning",
+            "YES": "YES",
+            "NO": "NO",
+            "CANCEL": "CANCEL",
+            "OK": "OK",
+            "Errors": "Errors",
+            "CommentBoxError": "Enter valid comments"
+        }
+    },
+    "Dashboard": {
+        "StaticText": {
+            "invoicedashboard": "My Invoices",
+            "invoicedetails": "Configuration",
+            "uploadstatus": "Upload Status1",
+            "uploadStampDuty": "Upload",
+            "uploadStampDutyDesc": "Accounting Sales/Cost Journal Dump   Accounting AR/AP - CP Mapping  Accounting AR/AP - Trade Mapping  Legal Entity Details",
+            "scanreport": "Report",
+            "admin": "Other Reports",
+            "invoicedashboardDesc": "Provides list of invoices updated with their current or prior status & option to filter on your specific criteria.",
+            "invoicedetailsDesc": "Stamp Duty Tax Rate.",
+            "uploadstatusDesc": "View status of all the manual bulk upload , rejected or submitted successfully.",
+            "scanreportDesc": "Generate",
+            "adminDesc": "Accounting Sales Purchase Report.",
+            "view": "View",
+            "bannertitle": "Welcome to Trafigura Accounts Payable Portal",
+            "bannerDescVendor": "Submit invoices and view invoice remittance data",
+            "bannerDescGst": "Receive vendor Invoices and publish payment data.",
+            "menutitle": "Invoice Menu",
+            "pagecodeDesc": "Landing page - Post Login - 001"
+        }
+    },
+    "InvoiceEditor": {
+        "StaticText": {
+            "VendorCompanyName": "Vendor Company Name",
+            "TrafiguraEntity": "Trafigura Entity",
+            "Region": "Region",
+            "Category": "Category",
+            "Type": "Type",
+            "TransportMethod": "Transport Method",
+            "VendorCompanyNameValid": "Select valid Vendor Company Name",
+            "TrafiguraEntityValid": "Enter valid Trafigura Entity",
+            "RegionValid": "Enter valid Region",
+            "TransportMethodValid": "Enter valid Transport Method",
+            "TypeValid": "Enter valid Type",
+            "InvoiceDetails": "Invoice Details",
+            "ReceiptDate": "Receipt Date",
+            "InvoiceTask": "Invoice Task",
+            "DetailsPage": "Details Page",
+            "Status": "Status",
+            "TaskId": "Task ID",
+            "EditorCancelMsg": "Please click on 'Submit' button to ensure unsaved information is saved before your proceed to AP Invoice Dashboard. Your unsaved data will not be saved.",
+            "pagecodeDesc": "AP Invoice - Add Invoice - 001",
+            "SettledAmount": "Settled Amount",
+            "RemainingAmount": "Remaining Amount",
+            "RevisedDueDate": "Revised Due Date",
+            "ExpectedPaymentDate": "Expected Payment Date",
+            "EffectivePaymentDate": "Effective Payment Date",
+            "TitanInvoiceID": "Titan Invoice ID",
+            "NGWIID": "NG WI ID",
+            "SavedSuccessful": "generated and information saved successfully",
+            "SubmitSuccessful": "generated and information submitted successfully",
+            "UploadLimitMsg": "Upload: Select at least 1 document for upload",
+            "Saving": "Saving...",
+            "Submitting": "Submitting...",
+            "Loading": "Loading..."
+        }
+    },
+    "InvoiceDetails": {
+        "StaticText": {
+            "InvoiceNumber": "Invoice Number",
+            "InvoiceDate": "Invoice Date",
+            "InvoiceCurrency": "Invoice Currency",
+            "InvoiceAmount": "Invoice Amount",
+            "InvoiceDueDate": "Invoice Due Date",
+            "InvoiceNumberValid": "Enter valid Invoice Number",
+            "InvoiceAmountMaxError": "Invoice Amount: Value should be Maximum 10 digit",
+            "InvoiceAmountDecimalError": "InvoiceAmount: Value cannot be more than 2 decimals",
+            "InvoiceNumberMaxlenError": "Invoice Number: Maximum length should be 20",
+            "InvoiceDueDateCompareError": "Invoice Due Date: Invoice Due date cannot be prior to Invoice date",
+            "InvoiceDateCompareError": "Invoice Date: Cannot be greater than current date",
+            "InvoiceAmountNumbericError": "Invoice Amount: Should be a valid numeric value.",
+            "InvoiceDocFileTypeCriteria": "File type allowed: .pdf,.xlsx,.docx,.doc",
+            "InvoiceDocFileSizeCriteria": "Each file size not greater than 3 mb. Max file allowed 1 file",
+            "SupportingDocFileTypeCriteria": "File type allowed: .pdf,.xlsx,.docx,.doc",
+            "SupportingDocFileSizeCriteria": "Each file size not greater than 3 mb. Max file allowed 7 files",
+            "MaximumFile": "Maximum number of files allowed",
+            "MaximumFileInvoice": "Maximum number of file allowed",
+            "Filetype": "File Type",
+            "NotAllowed": "not allowed",
+            "Fileexceed": "File exceeds",
+            "FileUnit": "mb",
+            "SimilarFiles": "Same file uploaded more than once"
+        }
+    },
+    "BlotterClient": {
+        "Blotter": {
+            "taskId": "Task ID",
+            "ngWiId": "NG WI ID",
+            "titanInvoiceId": "Traf Invoice ID",
+            "invoiceNumber": "Invoice Number",
+            "invoiceStatus": "Invoice Status",
+            "invoiceDate": "Invoice Date",
+            "invoiceDueDate": "Invoice Due Date",
+            "invoiceAmount": "Invoice Amount",
+            "vendorCompany": "Vendor Company",
+            "trafiguraEntity": "Trafigura Entity",
+            "settledAmount": "Settled Amount",
+            "remainingAmount": "Remaining Amount",
+            "revisedDueDate": "Revised Due Date",
+            "expectedPaymentDate": "Expected Payment Date",
+            "effectivePaymentDate": "Effective Payment Date",
+            "uploadStatus": "Upload Status",
+            "validationMessage": "Validation Message",
+            "createdBy": "Created by",
+            "createdTimestamp": "Created",
+            "productCategory": "Product Category",
+            "productType": "Product Type",
+            "transportMethod": "Transport Method",
+            "region": "Region",
+            "source": "Source",
+            "receiptDate": "Receipt Date",
+            "currency": "Currency"
+        },
+        "StaticText": {
+            "New": "New",
+            "Edit": "Edit",
+            "View": "View",
+            "Upload": "Upload Template",
+            "DownloadTemplate": "Download Template",
+            "Back": "Back",
+            "pagecodeDescUploadstatus": "AP Invoice - Upload Blotter - 001",
+            "pagecodeDescApinvoicesblotter": "AP Invoice - Dashboard - 001",
+            "Searchby": "Search By",
+            "CloseFilter": "Close Filter",
+            "Refresh": "Refresh",
+            "RESET": "Reset",
+            "APPLY": "Apply",
+            "InvoiceDateEndError": "Enter valid invoice end date range",
+            "InvoiceDateStartError": "Enter valid invoice start date range",
+            "InvoiceDateInvalidError": "Invalid invoice date range",
+            "InvoiceDueDateEndError": "Enter valid invoice due end date range",
+            "InvoiceDueDateStartError": "Enter valid invoice due start date range",
+            "InvoiceDueDateInvalidError": "Invalid due date range",
+            "InvoiceDate": "Invoice Date",
+            "InvoiceDueDate": "Invoice Due Date",
+            "InvoiceStatus": "Invoice Status",
+            "Currency": "Currency",
+            "VendorName": "Nombre del vendedor",
+            "SearchCriteria": "Search Criteria"
+        }
+    },
+    "Aggrid": {
+        "Page": "Page",
+        "to": "to",
+        "of": "of",
+        "Contains": "Contains",
+        "Filter...": "Filter",
+        "No Rows To Show": "No Rows To Show",
+        "Hide Columns": "Hide Columns"
+    },
+    "UploadDocument": {
+        "StaticText": {
+            "UploadDocumentHeader": "Upload Document",
+            "UploadSuccessMessage": "File uploaded successfully.",
+            "UploadTips": "File type should be .xlsx and file limit should not exceed 40 mb.",
+            "pagecodeDesc": "AP Invoice - Bulk Uplaod - 001",
+            "FileSizeLimit": "File size exceeds 4 MB limit",
+            "TrafiguraEntity":"Group Company"
+        }
+    },
+    "AuditLog": {
+        "StaticText": {
+            "auditDateRange": "Date Range",
+            "type": "Type",
+            "invoiceId": "Invoice Id",
+            "taskId": "Task Id",
+            "invoiceStatus": "Invoice Status",
+            "vendorCompanyName": "Vendor Company name",
+            "invalidfromdate": "Please enter valid from Date",
+            "invalidTodate": "Please enter valid to Date",
+            "invalidDateRange": "Invalid Date range",
+            "invalidTodateprior": "To Date: To date cannot be prior to From date",
+            "invalidInvoiceId": "Please enter valid to Invoice Id",
+            "invalidType": "Please select valid type",
+            "invalidTaskId": "Please enter valid to Task Id",
+            "invalidInvoiceStatus": "Please select valid Invoice status",
+            "invalidVendorCompany": "Please select valid Vendor Company",
+            "pagecodeDesc": "AP Invoice - View Audit Log- 001",
+            "submit": "Submit",
+            "auditlog": "Audit Log"
+        }
+    },
+    "InvoiceDetailsDocumentRow": {
+        "StaticText": {
+            "InvalidDescription": "Please enter description not greater than 25 alpha-numeric characters",
+            "EnterDescription": "Enter Description",
+            "SelectFileType": "Select File Type",
+            "DocumentType": "Document Type",
+            "Description": "Description",
+            "fileError": "Unable to download File"
+        }
+    },
+    "Header": {
+        "StaticText": {
+            "PortalName": "AP Invoice"
+        }
+    }
+}

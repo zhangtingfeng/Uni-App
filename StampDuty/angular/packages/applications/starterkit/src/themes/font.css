@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'OpenSans Regular';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src:url('./../assets/font/OpenSans-Regular.woff') format('woff');
+}

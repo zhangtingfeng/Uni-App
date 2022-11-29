@@ -1,0 +1,144 @@
+<div class="content-position">
+  <perfect-scrollbar>
+    <div fxFlex fxLayout="column">
+      <div fxFlex class="bannerbox"
+        [ngStyle]="{'background-image': 'url(' + ViewModel.Model.BannerContent.bannerImage + ')'}">
+        <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+          <div fxFlex="100" fxLayout="column" class="bannerContent" fxLayoutAlign="center center">
+            <div fxFlex="100px">&nbsp;</div>
+            <div fxFlex fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+              <div>&nbsp;</div>
+              <div class="banner-title">{{ViewModel.Model.BannerContent.bannerTitle}}</div>
+              <div class="banner-description">{{ViewModel.Model.BannerContent.bannerDescription}}</div>
+              <div>&nbsp;</div>
+            </div>
+            <div fxFlex="100px">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+
+      <!--<div fxFlex="60px" fxLayout="row" fxLayoutAlign="start center" class="dashboard-header">
+        <div fxFlex="20px"></div>
+        <div fxFlex="50" class="title">{{ViewModel.TranslationCollection.menutitle}}</div>
+        <div fxFlex="50" fxLayoutAlign="end center" fxLayoutGap="10px">
+          <div fxFlex fxLayoutAlign="end center">
+            <button mat-button [matTooltip]="ViewModel.TranslationCollection.pagecodeDesc">
+              ViewModel.Model.PageCode
+            </button>
+            <div fxFlex="10px">&nbsp;</div>
+          </div>
+          <div (click)="changeGridState(true)" [ngClass]="{'bgActive': GridState}">
+            <fa-icon [icon]="['fas', 'th-large']" size="lg" class="grid-icon"></fa-icon>
+          </div>
+          <div (click)="changeGridState(false)" [ngClass]="{'bgActive': !GridState}">
+            <fa-icon [icon]="['fas', 'th-list']" size="lg" class="list-icon"></fa-icon>
+          </div>
+        </div>
+        <div fxFlex="20px"></div>
+      </div>-->
+
+      <div fxFlex fxLayout="row" *ngIf="GridState">
+        <div fxFlex="100" fxFlex.gt-md="100" class="containerWidth" fxLayout="row wrap" fxLayoutGap="15px"
+          fxLayoutAlign="center center">
+          <div fxFlex="300px" fxLayout="column" *ngFor="let item of ViewModel.Model.CarouselItemSource; let i=index"
+            class="carouselsection">
+            <ng-container [ngTemplateOutlet]="carouselTemplate" [ngTemplateOutletContext]="{ data: item }">
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div fxFlex fxlayout="column" *ngIf="!GridState">
+        <ng-container [ngTemplateOutlet]="listTemplate"></ng-container>
+      </div>
+
+    </div>
+  </perfect-scrollbar>
+</div>
+
+
+<ng-template #carouselTemplate let-data="data" let-index="index">
+  <div fxFlex fxLayout="row">
+    <div fxFlex fxLayout="column" class="slider">
+      <div fxFlex="25px">&nbsp;</div>
+    </div>
+  </div>
+  <div fxFlex="100" fxLayout="row wrap" fxLayoutGap="15px">
+    <ng-container [ngTemplateOutlet]="cardTemplate" [ngTemplateOutletContext]="{ data: data }">
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #cardTemplate let-data="data" let-index="index">
+  <div fxFlex fxLayout="column" (click)="NavigateTo(data.name)">
+    <div fxLayout="column" class="card">
+      <div fxFlex="100px" fxLayout="row" fxLayoutAlign="space-between start" class="card-header">
+        <fa-icon [icon]="data.icon" size="3x" class="tile-icon" [ngStyle]="{'color': data.bgColor}"></fa-icon>
+        <div>
+          <fa-icon class="applyellipse" [icon]="['fas', 'angle-double-right']">
+          </fa-icon>
+        </div>
+      </div>
+      <div fxFlex fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center strecth" class="card-body">
+        <div class="card-title title">{{data.title}}</div>
+
+        <div class="descriptionHeight">
+          <perfect-scrollbar>
+            <div class="description">{{data.description}}</div>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div fxFlex="60px" fxLayout="column" class="card-footer">
+        <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+          <div>
+            <button mat-raised-button color="accent" class="visit" (click)="NavigateTo(data.name)">
+              <fa-icon [icon]="['fas', 'arrow-right']"></fa-icon> {{data.btnname}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="15px">&nbsp;</div>
+  </div>
+</ng-template>
+
+<ng-template #listTemplate>
+  <div fxFlex fxLayout="column">
+    <div fxFlex fxLayout="row" class="contentbox">
+      <div fxFlex="10">&nbsp;</div>
+      <div fxFlex>
+        <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+          <div fxFlex fxLayout="column">
+            <div fxFlex="8px"></div>
+            <div fxFlex fxLayout="row wrap" fxLayoutGap="0px grid">
+              <div fxFlex="100" fxFlex.gt-sm="50" fxLayout="column"
+                *ngFor="let row of ViewModel.Model.CarouselItemSource; let i=index" class="listcard"
+                (click)="NavigateTo(row.name)">
+                <div fxFlex="10px">&nbsp;</div>
+                <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+                  <div fxLayoutAlign="center center" [ngClass]="TileClass">
+                    <fa-icon [icon]="row.icon" size="2x" class="tile-icon" [ngStyle]="{'color': row.bgColor}"></fa-icon>
+                  </div>
+                  <div fxFlex fxLayoutAlign="start center" [ngClass]="TileTitleClass">
+                    {{row.title}}
+                  </div>
+                  <div fxFlex fxLayoutAlign="end center">
+                    <fa-icon class="applyellipse" [icon]="['fas', 'angle-double-right']">
+                    </fa-icon>
+                  </div>
+                  <div fxFlex="10px">&nbsp;</div>
+                </div>
+                <div fxFlex="10px">&nbsp;</div>
+                <div [ngClass]="TileDescriptionClass">
+                  {{row.description}}
+                </div>
+                <div fxFlex="8px">&nbsp;</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div fxFlex="10">&nbsp;</div>
+    </div>
+    <div fxFlex="7px">&nbsp;</div>
+  </div>
+</ng-template>

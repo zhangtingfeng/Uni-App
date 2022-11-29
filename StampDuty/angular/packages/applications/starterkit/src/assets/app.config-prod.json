@@ -1,0 +1,85 @@
+{
+    "ConfigDetails": {
+        "configUrl": "",
+        "items": [
+
+
+
+            { "key": "service.situquery.query", "value": "https://cla.trafigura.systems/situquery" },
+            { "key": "service.upload.query", "value": "https://cla.trafigura.systems/situcommand" }
+
+        ]
+    },
+    "Version": "1.0.0",
+    "ApplicationId": "Starterkit",
+    "ProductionMode": true,
+    "IsFakeMode": false,
+    "EnableLogging": false,
+    "LogCount": 20,
+    "LoginMode": "azure",
+    "StoreCacheToIndexedDB": false,
+    "OpenIdDetails": {
+        "azure": {
+            "msalInstanceConfig": {
+                "auth": {
+                    "clientId": "4d08e71f-76f8-4c33-b179-1308480a2802",
+                    "authority": "https://login.microsoftonline.com/98e0fe99-0239-47f6-8a08-2da6a29e6af3/",
+                    "validateAuthority": true,
+                    "redirectUri": "https://cla.trafigura.systems",
+                    "postLogoutRedirectUri": "https://cla.trafigura.systems",
+                    "navigateToLoginRequestUrl": true
+                },
+                "cache": {
+                    "cacheLocation": "localStorage",
+                    "storeAuthStateInCookie": false
+                },
+                "system": {
+                    "enableLogging": true
+                }
+            },
+            "msalGuardConfig": {
+                "interactionType": "redirect",
+                "authRequest": {
+                    "scopes": [
+                        "email",
+                        "openid",
+                        "profile"
+                    ]
+                }
+            },
+            "msalInterceptorConfig": {
+                "interactionType": "redirect",
+                "protectedResourceMap": [
+                    ["https://graph.microsoft.com/v1.0/users", ["profile"]],
+                    ["https://cla.trafigura.systems/situquery/*", ["https://trafiguragroup.onmicrosoft.com/4d08e71f-76f8-4c33-b179-1308480a2802/Situ.All"]],
+                    ["https://cla.trafigura.systems/situcommand/*", ["https://trafiguragroup.onmicrosoft.com/4d08e71f-76f8-4c33-b179-1308480a2802/Situ.All"]]
+                ],
+                "authRequest": {
+                    "scopes": [
+                        "email",
+                        "openid",
+                        "profile"
+                    ]
+                }
+            }
+        },
+        "loginpage": {}
+    },
+    "url": [
+        {
+            "url": "/downloadsourcefile",
+            "type": "blob"
+        },
+        {
+            "url": "/downloadreport",
+            "type": "blob"
+        },
+        {
+            "url": "/downloaddefaultreport",
+            "type": "blob"
+        }
+
+
+
+    ]
+}

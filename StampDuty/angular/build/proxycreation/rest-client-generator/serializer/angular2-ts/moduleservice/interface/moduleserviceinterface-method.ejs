@@ -1,0 +1,51 @@
+<%
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
+  var responseType = 'void';
+  if (method.responseMediaType) {
+    switch (method.responseMediaType) {
+      case 'text/plain':
+        responseType = 'string';
+        break;
+      case 'application/json':
+        if(method.responseType === undefined|| method.responseType === 'any') {
+          responseType = 'any';
+        } else {
+          responseType = 'ServiceTypes.' + method.responseType;
+        }
+        break;
+      case 'application/octet-stream':
+        responseType = 'File';
+        break;
+      default:
+        responseType = 'ArrayBuffer';
+    }
+  }
+
+
+
+  var requestType = null;
+  if (method.requestMediaType) {
+    if (method.requestMediaType === 'application/json') {
+      requestType = method.requestType;
+    }
+  }
+
+  var params = (method.pathParams || []).concat(method.queryParams || []).concat(method.formParams || []);
+
+  var argsVars = params.map(function(pathParam) {
+    return pathParam.name + ': ' + pathParam.type;
+  });
+
+  if (requestType) {
+    var reqType = requestType;
+    if(reqType !== 'string' && reqType !== 'Date' && reqType !== 'number' && reqType !== 'boolean' && reqType !== 'any'){
+      reqType = 'ServiceTypes.' + reqType;
+    }
+    argsVars.push( varPfx + 'request: ' + reqType);
+  }
+%>
+
+abstract <%- method.name %>(<%- argsVars.join(', ') %>): Observable<<%- responseType %>>;

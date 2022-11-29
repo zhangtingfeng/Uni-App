@@ -1,0 +1,54 @@
+<div fxFlex="100" fxFlexFill [ngStyle]="ViewPortHeightDefinition.OuterClassStyle" fxLayout="column" fxLayoutGap="10px">
+
+
+
+
+    <div fxFlex="40" fxLayout="row" class="uploadheadingholder">
+       
+        <div fxFlex="10px">&nbsp;</div>
+        <div fxFlex fxLayoutAlign="start center">
+            {{ViewModel.TranslationCollection.uploadDocumentHeader}}
+        </div> 
+        
+        <div fxFlex="5" fxFlex.lt-md="10" fxLayoutAlign="center center" (click)="ClosePopup()">
+            <fa-icon class="closeiconcolor" [icon]="['fas', 'times']" [size]="UploadCloseIconSize"></fa-icon>
+        </div>
+        <div fxFlex="10px">&nbsp;</div>
+    </div>
+
+
+
+    <div fxFlex="100" fxLayout="row">
+        <div fxFlex="100" fxLayout="column" class="taskheader" *ngIf="gstVendorBlotter">
+            <div [fxFlex]="ViewModel.HeaderSpacing">&nbsp;</div>
+            <div fxFlex="" fxLayout="row" fxLayoutAlign="end center">
+
+                <div fxFlex fxLayoutAlign="end center">
+                    <button mat-button [matTooltip]="ViewModel.Model.PageCodeDescription">
+                        {{ViewModel.Model.PageCode}}
+                    </button>
+                    <div fxFlex="10px">&nbsp;</div>
+                </div>
+ 
+            </div>
+            <div [fxFlex]="ViewModel.HeaderSpacing">&nbsp;</div>
+        </div>
+    </div>
+    <div fxFlex fxLayout="column">
+        <ng-container [ngTemplateOutlet]="blotterBoard"></ng-container>
+    </div>
+
+
+   
+</div>
+
+ 
+<ng-template #blotterBoard>
+    <blotter [ViewPortHeight]="BlotterViewPortHeightDefinition" [BlotterOptions]="BlotterOptionDefinition"
+    [ColumnDefinition]="ColumnDefinition" [RowData]="ViewModel?.Model?.BlotterRowData" [TotalTonnageValue]="0"
+    [ContainerViewModel]="ViewModel" [NavigationData]="NavigationData" [GridState]="GridState"
+   (ColumnStateChange)="OnColumnStateChanged($event)"
+   ></blotter>
+</ng-template>
+
+

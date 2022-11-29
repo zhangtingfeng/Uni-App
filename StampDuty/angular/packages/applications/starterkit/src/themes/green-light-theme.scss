@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+
+$anms-green-primary: mat.define-palette(mat.$green-palette, 800, 300, 900);
+$anms-green-accent: mat.define-palette(mat.$blue-palette);
+// The "warn" palette is optional and defaults to red if not specified.
+$anms-green-warn: mat.define-palette(mat.$red-palette, 600);
+
+$anms-green-theme: mat.define-light-theme((
+ color: (
+   primary: $anms-green-primary,
+   accent: $anms-green-accent,
+   warn: $anms-green-warn,
+ )
+));
+

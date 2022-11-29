@@ -1,0 +1,25 @@
+.upload-tip {
+    padding-left: 10px;
+}
+
+.inputfilepdf {
+    display: none;
+}
+
+.invoicesection {
+    padding: 12px 10px 10px 10px;
+}
+
+
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 49%;
+    z-index: 9999999999;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }

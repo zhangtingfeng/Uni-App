@@ -1,0 +1,89 @@
+<div fxFlex="100" fxFlexFill [ngStyle]="ViewPortHeightDefinition.OuterClassStyle" fxLayout="column" fxLayoutGap="10px">
+
+
+
+
+    <div fxFlex="20" fxLayout="row" class="uploadheadingholder">
+       
+        <div fxFlex="10px">&nbsp;</div>
+        <div fxFlex fxLayoutAlign="start center" [ngClass]="ViewModel.UploadTextHeader">
+            {{ViewModel.TranslationCollection.uploadDocumentHeader}}
+        </div>
+        <div fxFlex fxLayoutAlign="end center">
+            <button mat-button [matTooltip]="ViewModel.TranslationCollection.pagecodeDesc">
+                {{ViewModel.Model.PageCode}}
+            </button>
+        </div>
+        <div fxFlex="5" fxFlex.lt-md="10" fxLayoutAlign="center center" (click)="ClosePopup()">
+            <fa-icon class="closeiconcolor" [icon]="['fas', 'times']" [size]="UploadCloseIconSize"></fa-icon>
+        </div>
+        <div fxFlex="10px">&nbsp;</div>
+    </div>
+    <div fxFlex fxLayout="row" fxFlex="50">
+        <ng-container [ngTemplateOutlet]="uploadheader"></ng-container>
+    </div>
+
+
+    <div fxFlex fxLayout="column">
+        <ng-container [ngTemplateOutlet]="upload"></ng-container>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxFlex="25" class="upload-tip">
+        <span class="mandatory">*</span>{{ViewModel.TranslationCollection.uploadTips}}
+    </div>
+</div>
+
+ 
+<ng-template #uploadheader>
+    <div fxFlex class="invoicesection" fxLayout="column">
+        <div class="loading" *ngIf="ViewModel.InProgressData && ViewModel.InProgressData !== ''">
+            <mat-progress-spinner matSuffix diameter="30" strokeWidth="3" mode="indeterminate"></mat-progress-spinner>
+        </div>
+        <div fxFlex fxLayout="row wrap" fxLayoutGap="5%">
+            <div fxFlex="25" *ngIf="_dialogRef.componentInstance.data.ActionId=='accountingsales_costjournaldump'">
+                <digital101-multiselectcombobox [Content]="ViewModel.StapmeYearEntity"
+                    [IsDirty]="ViewModel.StapmeYearEntity.IsDirty">
+                </digital101-multiselectcombobox>
+            </div>
+            <div fxFlex="25" *ngIf="_dialogRef.componentInstance.data.ActionId=='accountingsales_costjournaldump'">
+                <digital101-multiselectcombobox [Content]="ViewModel.StapmeMonthEntity"
+                    [IsDirty]="ViewModel.StapmeMonthEntity.IsDirty">
+                </digital101-multiselectcombobox>
+            </div>
+            <div fxFlex="25" *ngIf="_dialogRef.componentInstance.data.ActionId!='legalentitydetails'">
+                <digital101-multiselectcombobox [Content]="ViewModel.TrafiguraEntity"
+                    [IsDirty]="ViewModel.TrafiguraEntity.IsDirty">
+                </digital101-multiselectcombobox>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #upload>
+    <div fxFlex fxLayout="row wrap" fxLayoutGap="8%" class="fieldpad">
+        <div fxFlex fxlayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
+            <div fxFlex="20px">&nbsp;</div>
+            <div fxFlex.lt-md="100" fxFlex="60">
+                <digital101-textbox [Content]="ViewModel.FileName" [IsDirty]="ViewModel.FileName.IsDirty"
+                    class="mat-blackandwhite">
+                </digital101-textbox>
+            </div>
+            <div fxFlex="10">
+                <button mat-button color="accent" (click)="uploadFormFileInput.click()">
+                    <fa-icon size="2x" [icon]="['fas', 'paperclip']"> </fa-icon>
+                    <input class="inputfilepdf" type="file" name="file" (click)="uploadFormFileInput.value = null"
+                        (change)="UploadFormFileInputHandler($event)" #uploadFormFileInput
+                        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                </button>
+            </div>
+            <div fxFlex="10">
+                <button mat-button color="accent" [disabled]="!ViewModel.getClickButttonDisable()  "
+                    (click)="Uploadclick()">
+                    <fa-icon size="2x" [icon]="['fas', 'file-upload']">
+                    </fa-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>

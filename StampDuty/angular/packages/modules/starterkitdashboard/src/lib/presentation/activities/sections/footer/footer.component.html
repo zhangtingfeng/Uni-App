@@ -1,0 +1,17 @@
+<div fxFlex="100" fxLayout="row" class="dashboard-footer">
+    <div fxFlex="40" fxLayoutAlign="start end">
+       {{CopyRight}}&nbsp;{{CopyrightYear}}
+    </div>
+    <div fxFlex fxLayoutGap="10px" fxLayoutAlign="end end">
+        <div class="footeritem" (click)="NavigateHandler('termsconditions')" id="TermsConditions">{{TC}}</div>
+        <!--<div class="footeritem" id="TermsConditions"><a
+						style="text-decoration: none;" target="_blank"
+						href="/assets/TnC/Terms&Conditions.pdf">{{TandC}}</a></div>-->
+        <div> | </div>
+        <div class="footeritem" id="ContactUs" (click)="NavigateHandler('contactus')">
+            {{Contact}}</div>
+        <div> | </div>
+        <div class="footeritem" (click)="NavigateHandler('faq')">{{FAQ}}</div>
+    </div>
+    <div fxFlex="15px">&nbsp;</div>
+</div>

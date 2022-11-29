@@ -1,0 +1,46 @@
+@use 'sass:map';
+@use '~@angular/material'as mat;
+
+@mixin dashboardholder-theme($theme) {
+    $color-config: mat.get-color-config($theme);
+    $primary: map.get($color-config, primary);
+    $background: map.get($color-config, background);
+
+    starterkit-dashboardholder {
+        .starterkit-dashboard-body {
+            .iconview .fullview {
+                border-right: 0.1px solid mat.get-color-from-palette($background, status-bar);
+            }
+
+            .loading {
+                border-color: mat.get-color-from-palette($primary);
+            }
+        }
+    }
+}
+
+@mixin dashboardholder-typography($config) {
+    starterkit-dashboardholder {
+        font: {
+            family: mat.font-family($config);
+            size: mat.font-size($config, body-1);
+        }
+
+        .starterkit-dashboard-body {
+            font: {
+                family: mat.font-family($config);
+                size: mat.font-size($config, body-1);
+            }
+
+            line-height: 1;
+        }
+
+        .starterkit-dashboard-subheading {
+            font: {
+                family: mat.font-family($config);
+                size: mat.font-size($config, subheading-2);
+            }
+        }
+    }
+
+}

@@ -1,0 +1,73 @@
+{
+  "AWSEBDockerrunVersion": "2",
+  "volumes": [
+    {
+      "name": "situssl",
+      "host": {
+        "sourcePath": "/var/app/current/situssl"
+      }
+    },
+    {
+      "name": "nginx-ui-conf",
+      "host": {
+        "sourcePath": "/var/app/current/ui/conf.d"
+      }
+    },
+    {
+      "name": "nginx-proxy-conf",
+      "host": {
+        "sourcePath": "/var/app/current/proxy/conf.d"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "nginx-ui",
+      "image": "434694667199.dkr.ecr.eu-west-2.amazonaws.com/nginx:1.21.0",
+      "essential": true,
+      "memory": 1024,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "mountPoints": [
+		{
+          "sourceVolume": "situssl",
+          "containerPath": "/var/www/html/situssl"
+        },
+        {
+          "sourceVolume": "nginx-ui-conf",
+          "containerPath": "/etc/nginx/conf.d"
+        },
+        {
+          "sourceVolume": "awseb-logs-nginx-ui",
+          "containerPath": "/var/log/nginx"
+        }
+      ]
+    },
+    {
+      "name": "nginx-proxy",
+      "image": "434694667199.dkr.ecr.eu-west-2.amazonaws.com/nginx:1.21.0",
+      "essential": true,
+      "memory": 1024,
+      "portMappings": [
+        {
+          "hostPort": 5001,
+          "containerPort": 5001
+        }
+      ],
+      "mountPoints": [
+		{
+          "sourceVolume": "nginx-proxy-conf",
+          "containerPath": "/etc/nginx/conf.d"
+        },
+        {
+          "sourceVolume": "awseb-logs-nginx-proxy",
+          "containerPath": "/var/log/nginx"
+        }
+      ]
+    }
+  ]
+}

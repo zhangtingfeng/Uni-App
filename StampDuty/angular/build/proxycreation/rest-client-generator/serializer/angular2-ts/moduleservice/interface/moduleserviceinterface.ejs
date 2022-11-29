@@ -1,0 +1,6 @@
+export abstract class I<%- service.name %> {
+
+<% service.methods.forEach(function(method) { %>
+    <%- include('moduleserviceinterface-method', {method: method, servicename: service.name, methodNamePrefix: methodNamePrefix}) %>
+<% }); %>
+}

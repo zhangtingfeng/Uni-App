@@ -1,0 +1,50 @@
+.content-position {
+  margin: 64px 0 25px 0;
+  overflow: hidden auto;
+  position: relative;
+  padding-left: 15px;
+  padding-right: 7px;
+}
+
+.paddingtop_desktop {
+  padding-top: 18px;
+}
+
+.paddingtop_mobile {
+  padding-top: 7px;
+}
+
+.listview {
+  width: 250px;
+}
+
+.iconicview_withchild {
+  width: 75px;
+}
+
+.iconicview_withoutchild {
+  width: 50px;
+}
+
+.eliteview {
+  width: 115px;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 44%;
+  z-index: 9999999999;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+
+.twitter-like{
+  .mat-progress-spinner{
+      display: inline;
+  }
+}
